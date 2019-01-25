@@ -44,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBt-mn-pvP">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBt-mn-pvP" customClass="SearchRecipesView" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlateAndSpoon" translatesAutoresizingMaskIntoConstraints="NO" id="2lz-E6-t9j">
@@ -134,6 +134,9 @@
                                     <constraint firstItem="2lz-E6-t9j" firstAttribute="top" secondItem="LqP-dx-lLk" secondAttribute="bottom" constant="20" id="qk8-PI-LKf"/>
                                     <constraint firstItem="5ak-Oe-XhM" firstAttribute="width" secondItem="dBt-mn-pvP" secondAttribute="width" multiplier="0.55" id="uRo-ZF-h2S"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="banner" destination="eVG-Jo-TNo" id="U2H-9o-PaG"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -150,6 +153,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="TaD-cW-sj2"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchRecipesView" destination="dBt-mn-pvP" id="3e1-03-Ylq"/>
                         <segue destination="fAM-sM-eU9" kind="show" identifier="toRecipesTableView" id="Yi3-Jr-tZf"/>
                     </connections>
                 </viewController>

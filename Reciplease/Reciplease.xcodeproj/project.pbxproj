@@ -13,7 +13,6 @@
 		3A41DDFA21F9FD7D00501748 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDF821F9FD7D00501748 /* Main.storyboard */; };
 		3A41DDFC21F9FD7E00501748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDFB21F9FD7E00501748 /* Assets.xcassets */; };
 		3A41DDFF21F9FD7E00501748 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDFD21F9FD7E00501748 /* LaunchScreen.storyboard */; };
-		3A41DE0A21F9FD7E00501748 /* RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DE0921F9FD7E00501748 /* RecipleaseTests.swift */; };
 		3A41DE1521FA017000501748 /* RecipesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DE1421FA017000501748 /* RecipesTableViewController.swift */; };
 		3A41DE1721FA024400501748 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DE1621FA024400501748 /* RecipeViewController.swift */; };
 		3A41DE1921FA03A500501748 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DE1821FA03A500501748 /* FavoritesTableViewController.swift */; };
@@ -40,7 +39,6 @@
 		3A41DDFE21F9FD7E00501748 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A41DE0021F9FD7E00501748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A41DE0521F9FD7E00501748 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A41DE0921F9FD7E00501748 /* RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseTests.swift; sourceTree = "<group>"; };
 		3A41DE0B21F9FD7E00501748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A41DE1421FA017000501748 /* RecipesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTableViewController.swift; sourceTree = "<group>"; };
 		3A41DE1621FA024400501748 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -69,11 +67,11 @@
 		3A3F99C121FA0A2300C466BA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A0A324921FA20D900D8CC32 /* SearchViewController.swift */,
 				3A41DE1421FA017000501748 /* RecipesTableViewController.swift */,
 				3A41DE1621FA024400501748 /* RecipeViewController.swift */,
 				3A41DE1821FA03A500501748 /* FavoritesTableViewController.swift */,
 				3A3F99BF21FA09E800C466BA /* TodaysRecipeViewController.swift */,
-				3A0A324921FA20D900D8CC32 /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -137,7 +135,6 @@
 		3A41DE0821F9FD7E00501748 /* RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A41DE0921F9FD7E00501748 /* RecipleaseTests.swift */,
 				3A41DE0B21F9FD7E00501748 /* Info.plist */,
 			);
 			path = RecipleaseTests;
@@ -258,7 +255,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A41DE0A21F9FD7E00501748 /* RecipleaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
