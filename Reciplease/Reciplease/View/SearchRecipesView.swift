@@ -17,8 +17,8 @@ class SearchRecipesView: UIView {
     @IBOutlet weak var introductoryLabel: UILabel!
     
     private let imageArray = [UIImage(named: "pizza"), UIImage(named: "couscous"),
-                                                   UIImage(named: "sushis"), UIImage(named: "pates"),
-                                                   UIImage(named: "poivrons"), UIImage(named: "fruits")]
+                              UIImage(named: "sushis"), UIImage(named: "pates"),
+                              UIImage(named: "poivrons"), UIImage(named: "fruits")]
     private var index = 0
     private var introIsActive = true
     

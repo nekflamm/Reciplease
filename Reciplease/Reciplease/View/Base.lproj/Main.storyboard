@@ -59,6 +59,9 @@
                                             <constraint firstAttribute="width" secondItem="2rK-mR-dUN" secondAttribute="height" multiplier="337:59" id="hYZ-YP-UKV"/>
                                         </constraints>
                                         <state key="normal" image="searchButton"/>
+                                        <connections>
+                                            <action selector="searchRecipesButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="3HL-BH-iUZ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0HZ-ag-dpH">
                                         <rect key="frame" x="291.33333333333331" y="511" width="65" height="31"/>
@@ -171,7 +174,7 @@ Tell me and i will find recipes for you!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="134" id="Pww-8g-2L9">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeCell" rowHeight="134" id="Pww-8g-2L9" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="134"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pww-8g-2L9" id="Lwf-iO-7Vl">
@@ -181,17 +184,11 @@ Tell me and i will find recipes for you!</string>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="62v-Ba-jJW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="62v-Ba-jJW" secondAttribute="height" multiplier="25:8" id="Rab-cI-cOt"/>
-                                            </constraints>
-                                        </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="grS-zf-rLw">
-                                            <rect key="frame" x="0.0" y="120" width="375" height="14"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="grS-zf-rLw" secondAttribute="height" multiplier="375:14" id="sKZ-5u-hm4"/>
+                                                <constraint firstAttribute="width" secondItem="62v-Ba-jJW" secondAttribute="height" multiplier="25:8" id="rTb-cB-N8A"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uU-i8-elS">
-                                            <rect key="frame" x="11" y="7" width="300" height="26"/>
+                                            <rect key="frame" x="11" y="6.9999999999999982" width="364" height="31.333333333333329"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="4uU-i8-elS" secondAttribute="height" multiplier="290:25" id="nfT-md-JnI"/>
                                             </constraints>
@@ -202,30 +199,44 @@ Tell me and i will find recipes for you!</string>
                                             <size key="shadowOffset" width="2" height="2"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fromage, Tomates, Viandes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67p-Xs-y5G">
-                                            <rect key="frame" x="11" y="90.666666666666671" width="300" height="21.333333333333329"/>
+                                            <rect key="frame" x="11" y="93" width="364" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="67p-Xs-y5G" secondAttribute="height" multiplier="52:3" id="2gh-Er-lOq"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="shadowOffset" width="1" height="2"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-yy-bh5">
+                                            <rect key="frame" x="0.0" y="120" width="375" height="14"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="9Jt-yy-bh5" secondAttribute="height" multiplier="375:14" id="YlV-aZ-In9"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="67p-Xs-y5G" firstAttribute="trailing" secondItem="4uU-i8-elS" secondAttribute="trailing" id="0CO-td-Vb1"/>
+                                        <constraint firstAttribute="trailing" secondItem="9Jt-yy-bh5" secondAttribute="trailing" id="3uq-jq-kEv"/>
                                         <constraint firstItem="4uU-i8-elS" firstAttribute="top" secondItem="Lwf-iO-7Vl" secondAttribute="top" constant="7" id="5J9-zg-1Fe"/>
+                                        <constraint firstAttribute="trailing" secondItem="4uU-i8-elS" secondAttribute="trailing" id="5jt-Ef-Fre"/>
+                                        <constraint firstItem="9Jt-yy-bh5" firstAttribute="leading" secondItem="Lwf-iO-7Vl" secondAttribute="leading" id="6Yw-FN-t53"/>
+                                        <constraint firstAttribute="bottom" secondItem="9Jt-yy-bh5" secondAttribute="bottom" id="Bqt-v3-80k"/>
                                         <constraint firstItem="4uU-i8-elS" firstAttribute="leading" secondItem="Lwf-iO-7Vl" secondAttribute="leading" constant="11" id="JI8-xX-fXC"/>
                                         <constraint firstItem="67p-Xs-y5G" firstAttribute="leading" secondItem="4uU-i8-elS" secondAttribute="leading" id="MTW-rX-IoW"/>
-                                        <constraint firstItem="4uU-i8-elS" firstAttribute="width" secondItem="Lwf-iO-7Vl" secondAttribute="width" multiplier="0.8" id="QcI-he-BvF"/>
-                                        <constraint firstItem="67p-Xs-y5G" firstAttribute="width" secondItem="Lwf-iO-7Vl" secondAttribute="width" multiplier="0.8" id="fya-pQ-UPf"/>
+                                        <constraint firstAttribute="trailing" secondItem="67p-Xs-y5G" secondAttribute="trailing" id="aMk-R5-Fxs"/>
                                         <constraint firstAttribute="trailing" secondItem="62v-Ba-jJW" secondAttribute="trailing" id="gdx-SZ-yFK"/>
-                                        <constraint firstAttribute="bottom" secondItem="grS-zf-rLw" secondAttribute="bottom" id="hxX-Se-Dbt"/>
-                                        <constraint firstItem="grS-zf-rLw" firstAttribute="leading" secondItem="Lwf-iO-7Vl" secondAttribute="leading" id="j8u-4c-In5"/>
-                                        <constraint firstAttribute="trailing" secondItem="grS-zf-rLw" secondAttribute="trailing" id="kQs-sg-C2S"/>
+                                        <constraint firstItem="9Jt-yy-bh5" firstAttribute="top" secondItem="67p-Xs-y5G" secondAttribute="bottom" constant="6" id="kvT-Pl-auB"/>
                                         <constraint firstItem="62v-Ba-jJW" firstAttribute="top" secondItem="Lwf-iO-7Vl" secondAttribute="top" id="o6e-hX-q1n"/>
+                                        <constraint firstAttribute="bottom" secondItem="62v-Ba-jJW" secondAttribute="bottom" constant="14" id="rrx-Ya-LjN"/>
                                         <constraint firstItem="62v-Ba-jJW" firstAttribute="leading" secondItem="Lwf-iO-7Vl" secondAttribute="leading" id="w3A-bl-QSb"/>
-                                        <constraint firstItem="grS-zf-rLw" firstAttribute="top" secondItem="67p-Xs-y5G" secondAttribute="bottom" constant="8" id="wmT-4k-JL2"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="cellImageView" destination="62v-Ba-jJW" id="ZYp-VZ-TNl"/>
+                                    <outlet property="ingredientsLabel" destination="67p-Xs-y5G" id="cSt-Ib-u9D"/>
+                                    <outlet property="recipeNameLabel" destination="4uU-i8-elS" id="8mz-lE-iIU"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

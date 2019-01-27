@@ -10,4 +10,13 @@ import Foundation
 
 struct IngredientsList {
     static var all = [String]()
+    
+    static func array() -> [String] {
+        var array = [String]()
+        
+        for ingredient in all {
+            array.append("allowedIngredient[]=\(ingredient)&")
+        }
+        return array
+    }
 }
