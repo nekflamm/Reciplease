@@ -31,22 +31,26 @@ class SearchRecipesView: UIView {
             introductoryLabel.isHidden = true
         }
         ingredientsList.text += "• \(ingredient)\n"
-        cleanTextField()
+        clearTextField()
+    }
+    
+    func clearTextView() {
+        introductoryLabel.isHidden = false
+        ingredientsList.text = nil
+    }
+    
+    func resignResponder() {
+        ingredientsTextField.resignFirstResponder()
+    }
+   
+    private func clearTextField() {
+        ingredientsTextField.text = nil
     }
     
     @objc private func animImage() {
         UIView.transition(with: banner, duration: 1.5, options: .transitionCrossDissolve, animations: {
             self.banner.image = self.imageArray[self.checkIndex()]
         }, completion: nil)
-    }
-    
-    private func cleanTextField() {
-        ingredientsTextField.text = nil
-    }
-    
-    func cleanTextView() {
-        introductoryLabel.isHidden = false
-        ingredientsList.text = nil
     }
     
     private func checkIndex() -> Int {

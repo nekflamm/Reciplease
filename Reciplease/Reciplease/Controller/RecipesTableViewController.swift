@@ -10,7 +10,7 @@ import UIKit
 
 class RecipesTableViewController: UITableViewController {
 
-    let recipeList = RecipesList()
+    var recipesList = RecipesList()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -24,24 +24,23 @@ extension RecipesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 40
+        return recipesList.recipes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath)  as? RecipeTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(recipeName: recipeList.recipe.recipeName.randomElement() ?? "Pizzas 4 fromages", ingredients: recipeList.recipe.ingredientsList, image: recipeList.recipe.image[recipeList.recipe.index.randomElement()!]!)
+        cell.configure(recipeName: recipesList.recipes[indexPath.row].recipeName, ingredients: recipesList.recipes[indexPath.row].ingredientsList, image: recipesList.recipes[indexPath.row].image)
         
         return cell
     }
-}
-
-extension RecipesTableViewController {
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .right)
-        }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = recipesList.recipes[indexPath.row]
+        RecipesList.selectedRecipe = recipe
+        
+        performSegue(withIdentifier: "toRecipeDetails", sender: self)
     }
 }
 

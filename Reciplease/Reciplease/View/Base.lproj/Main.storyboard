@@ -83,7 +83,10 @@
                                         <rect key="frame" x="18.666666666666657" y="82.666666666666657" width="337.66666666666674" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="9pv-A4-QxB" id="sj8-ZC-3Xi"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS7-0z-u50">
                                         <rect key="frame" x="309" y="84.666666666666657" width="44.333333333333314" height="26"/>
@@ -144,6 +147,7 @@ Tell me and i will find recipes for you!</string>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="dBt-mn-pvP" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="0Kn-aj-neM"/>
                             <constraint firstItem="dBt-mn-pvP" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="9Pa-nT-rlc"/>
@@ -151,10 +155,15 @@ Tell me and i will find recipes for you!</string>
                             <constraint firstItem="dBt-mn-pvP" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="oSk-Yf-3qc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="fYy-tz-HY3" appends="YES" id="1i8-HB-aM8"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" title="Reciplease" id="wKI-k1-XLD">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="TaD-cW-sj2"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" style="done" id="TaD-cW-sj2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchRecipesView" destination="dBt-mn-pvP" id="3e1-03-Ylq"/>
@@ -162,6 +171,11 @@ Tell me and i will find recipes for you!</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="fYy-tz-HY3">
+                    <connections>
+                        <action selector="hideKeyboard:" destination="9pv-A4-QxB" id="feH-h8-TK3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1781.5999999999999" y="-298.52216748768473"/>
         </scene>
@@ -181,10 +195,16 @@ Tell me and i will find recipes for you!</string>
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-yy-bh5">
+                                            <rect key="frame" x="0.0" y="120" width="375" height="14"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="9Jt-yy-bh5" secondAttribute="height" multiplier="375:14" id="YlV-aZ-In9"/>
+                                            </constraints>
+                                        </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="62v-Ba-jJW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="62v-Ba-jJW" secondAttribute="height" multiplier="25:8" id="rTb-cB-N8A"/>
+                                                <constraint firstAttribute="width" secondItem="62v-Ba-jJW" secondAttribute="height" multiplier="25:8" id="61s-Ko-vSN"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uU-i8-elS">
@@ -199,22 +219,16 @@ Tell me and i will find recipes for you!</string>
                                             <size key="shadowOffset" width="2" height="2"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fromage, Tomates, Viandes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67p-Xs-y5G">
-                                            <rect key="frame" x="11" y="93" width="364" height="21"/>
+                                            <rect key="frame" x="11" y="94" width="364" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="67p-Xs-y5G" secondAttribute="height" multiplier="52:3" id="2gh-Er-lOq"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <size key="shadowOffset" width="1" height="2"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-yy-bh5">
-                                            <rect key="frame" x="0.0" y="120" width="375" height="14"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="9Jt-yy-bh5" secondAttribute="height" multiplier="375:14" id="YlV-aZ-In9"/>
-                                            </constraints>
-                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="9Jt-yy-bh5" secondAttribute="trailing" id="3uq-jq-kEv"/>
@@ -226,7 +240,7 @@ Tell me and i will find recipes for you!</string>
                                         <constraint firstItem="67p-Xs-y5G" firstAttribute="leading" secondItem="4uU-i8-elS" secondAttribute="leading" id="MTW-rX-IoW"/>
                                         <constraint firstAttribute="trailing" secondItem="67p-Xs-y5G" secondAttribute="trailing" id="aMk-R5-Fxs"/>
                                         <constraint firstAttribute="trailing" secondItem="62v-Ba-jJW" secondAttribute="trailing" id="gdx-SZ-yFK"/>
-                                        <constraint firstItem="9Jt-yy-bh5" firstAttribute="top" secondItem="67p-Xs-y5G" secondAttribute="bottom" constant="6" id="kvT-Pl-auB"/>
+                                        <constraint firstItem="9Jt-yy-bh5" firstAttribute="top" secondItem="67p-Xs-y5G" secondAttribute="bottom" constant="5" id="kvT-Pl-auB"/>
                                         <constraint firstItem="62v-Ba-jJW" firstAttribute="top" secondItem="Lwf-iO-7Vl" secondAttribute="top" id="o6e-hX-q1n"/>
                                         <constraint firstAttribute="bottom" secondItem="62v-Ba-jJW" secondAttribute="bottom" constant="14" id="rrx-Ya-LjN"/>
                                         <constraint firstItem="62v-Ba-jJW" firstAttribute="leading" secondItem="Lwf-iO-7Vl" secondAttribute="leading" id="w3A-bl-QSb"/>
@@ -252,20 +266,84 @@ Tell me and i will find recipes for you!</string>
             </objects>
             <point key="canvasLocation" x="2632.8000000000002" y="-298.52216748768473"/>
         </scene>
-        <!--Recipe View Controller-->
+        <!--Recipe Details View Controller-->
         <scene sceneID="Ufy-CU-rFv">
             <objects>
-                <viewController id="ZSk-A6-Ogg" customClass="RecipeViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kfJ-Mj-CWN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                <viewController id="ZSk-A6-Ogg" customClass="RecipeDetailsViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kfJ-Mj-CWN" customClass="RecipeDetailsView" customModule="Reciplease" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="x3e-nG-Bjh">
+                                <rect key="frame" x="0.0" y="250.33333333333331" width="375" height="527.66666666666674"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="gFf-lj-sA0">
+                                <rect key="frame" x="0.0" y="44" width="375" height="284.33333333333331"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8q-99-BPz">
+                                <rect key="frame" x="18.666666666666657" y="709" width="337.66666666666674" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="n8q-99-BPz" secondAttribute="height" multiplier="337:59" id="a69-qO-Fhh"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="getDirections"/>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jSA-Ml-zyW">
+                                <rect key="frame" x="18.666666666666657" y="343.33333333333326" width="337.66666666666674" height="350.66666666666674"/>
+                                <string key="text">• PineApple
+• Curry
+• Parmesan
+• boneless skinless chicken breasts </string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICO-Gl-10m">
+                                <rect key="frame" x="18.666666666666657" y="54" width="337.66666666666674" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ICO-Gl-10m" secondAttribute="height" multiplier="337:27" id="iXY-9V-x6S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="shadowOffset" width="2" height="2"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="x3e-nG-Bjh" firstAttribute="leading" secondItem="kfJ-Mj-CWN" secondAttribute="leading" id="5Qs-0e-HDQ"/>
+                            <constraint firstItem="x3e-nG-Bjh" firstAttribute="bottom" secondItem="ut0-wP-qHD" secondAttribute="bottom" id="5mX-1G-ah4"/>
+                            <constraint firstItem="gFf-lj-sA0" firstAttribute="leading" secondItem="ut0-wP-qHD" secondAttribute="leading" id="AJV-7U-aKd"/>
+                            <constraint firstItem="jSA-Ml-zyW" firstAttribute="leading" secondItem="ICO-Gl-10m" secondAttribute="leading" id="B63-hn-uo6"/>
+                            <constraint firstItem="x3e-nG-Bjh" firstAttribute="height" secondItem="kfJ-Mj-CWN" secondAttribute="height" multiplier="0.65" id="ECo-1X-5uM"/>
+                            <constraint firstItem="ut0-wP-qHD" firstAttribute="bottom" secondItem="n8q-99-BPz" secondAttribute="bottom" constant="10" id="HZR-8m-RGk"/>
+                            <constraint firstItem="x3e-nG-Bjh" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" id="I1H-Jy-b6g"/>
+                            <constraint firstItem="n8q-99-BPz" firstAttribute="leading" secondItem="jSA-Ml-zyW" secondAttribute="leading" id="KCt-7S-thg"/>
+                            <constraint firstItem="n8q-99-BPz" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" multiplier="0.9" id="OUC-GU-W8m"/>
+                            <constraint firstItem="gFf-lj-sA0" firstAttribute="top" secondItem="ut0-wP-qHD" secondAttribute="top" id="QpW-0L-oCa"/>
+                            <constraint firstItem="n8q-99-BPz" firstAttribute="centerX" secondItem="kfJ-Mj-CWN" secondAttribute="centerX" id="XbG-9Q-hEx"/>
+                            <constraint firstItem="jSA-Ml-zyW" firstAttribute="trailing" secondItem="ICO-Gl-10m" secondAttribute="trailing" id="Xgg-Wi-Miw"/>
+                            <constraint firstItem="jSA-Ml-zyW" firstAttribute="top" secondItem="gFf-lj-sA0" secondAttribute="bottom" constant="15" id="bYH-BC-TCB"/>
+                            <constraint firstItem="n8q-99-BPz" firstAttribute="top" secondItem="jSA-Ml-zyW" secondAttribute="bottom" constant="15" id="bf3-AZ-MK4"/>
+                            <constraint firstItem="jSA-Ml-zyW" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" multiplier="0.9" id="dVf-9s-NWq"/>
+                            <constraint firstItem="ICO-Gl-10m" firstAttribute="top" secondItem="ut0-wP-qHD" secondAttribute="top" constant="10" id="fng-Ek-V2w"/>
+                            <constraint firstItem="gFf-lj-sA0" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" id="mcK-pU-4SB"/>
+                            <constraint firstItem="gFf-lj-sA0" firstAttribute="height" secondItem="kfJ-Mj-CWN" secondAttribute="height" multiplier="0.35" id="s22-rD-1qt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ut0-wP-qHD"/>
+                        <connections>
+                            <outlet property="imageView" destination="gFf-lj-sA0" id="zjF-Wp-vNv"/>
+                            <outlet property="ingredientsTextView" destination="jSA-Ml-zyW" id="SU9-Eo-czC"/>
+                            <outlet property="titleLabel" destination="ICO-Gl-10m" id="w0q-53-QHy"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="recipeDetailsView" destination="kfJ-Mj-CWN" id="Z7G-kZ-ebI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tsu-b9-A27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2633" y="413"/>
+            <point key="canvasLocation" x="2632.8000000000002" y="412.3152709359606"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -342,10 +420,11 @@ Tell me and i will find recipes for you!</string>
         <image name="addButton" width="44" height="26"/>
         <image name="clearButton" width="64" height="31"/>
         <image name="fruits" width="3456" height="4608"/>
+        <image name="getDirections" width="278" height="49"/>
         <image name="pizza" width="5184" height="3456"/>
         <image name="searchButton" width="339" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zsw-L9-zvs"/>
+        <segue reference="sFn-qD-8t4"/>
     </inferredMetricsTieBreakers>
 </document>

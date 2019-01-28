@@ -47,7 +47,19 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func clearButton(_ sender: UIButton) {
-        searchRecipesView.cleanTextView()
+        searchRecipesView.clearTextView()
         IngredientsList.all.removeAll()
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    @IBAction func hideKeyboard(_ sender: UITapGestureRecognizer) {
+        searchRecipesView.resignResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchRecipesView.resignResponder()
+        
+        return true
     }
 }

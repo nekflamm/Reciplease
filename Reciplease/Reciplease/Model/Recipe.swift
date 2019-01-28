@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 struct Recipe {
-    var recipeName = ["Recette de Meryl", "Lardons chèvre", "Tomates", "Recette de grand mère", "Pizzas", "Couscous"]
-    var ingredients: [String] = ["Tomato", "Lemon", "Brocoli", "Meat", "Sausages"]
+    var recipeName: String
+    var ingredients: [String]
     var ingredientsList: String {
         var string = ""
         for ingredient in ingredients {
@@ -19,15 +19,27 @@ struct Recipe {
         }
         return string
     }
-    var note: Int = 4
-    var timeInSeconds: Int = 2000
-    var image = [UIImage(named: "pizza"), UIImage(named: "couscous"),
-                          UIImage(named: "sushis"), UIImage(named: "pates"),
-                          UIImage(named: "poivrons"), UIImage(named: "fruits")]
-    var index = [0, 1, 2, 3, 4, 5]
+    var image: UIImage
+//    var note: Int
+//    var timeInSeconds: Int
 }
 
 struct RecipesList {
-    let recipe = Recipe()
+    var recipes: [Recipe] {
+        let recipe1 = Recipe(recipeName: "Recette de Meryl", ingredients: ["jambon", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "pizza")!)
+        let recipe2 = Recipe(recipeName: "Recette de Adrien", ingredients: ["fromages", "tomates", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "sushis")!)
+        let recipe3 = Recipe(recipeName: "Recette de Thomas", ingredients: ["cheddar", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "couscous")!)
+        let recipe4 = Recipe(recipeName: "Recette de Paul", ingredients: ["saussisses", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "fruits")!)
+        let recipe5 = Recipe(recipeName: "Recette de Michel", ingredients: ["creme", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "poivrons")!)
+        let recipe6 = Recipe(recipeName: "Recette de Meryl", ingredients: ["jambon", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "pizza")!)
+        let recipe7 = Recipe(recipeName: "Recette de Adrien", ingredients: ["fromages", "tomates", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "sushis")!)
+        let recipe8 = Recipe(recipeName: "Recette de Thomas", ingredients: ["cheddar", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "couscous")!)
+        let recipe9 = Recipe(recipeName: "Recette de Paul", ingredients: ["saussisses", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "fruits")!)
+        let recipe10 = Recipe(recipeName: "Recette de Michel", ingredients: ["creme", "fromages", "chevres", "bolognaise", "sel", "poivre", "basilic", "ratatouilles"], image: UIImage(named: "poivrons")!)
+        
+        return [recipe1, recipe2, recipe3, recipe4, recipe5, recipe6, recipe7, recipe8, recipe9, recipe10]
+    }
+    
+    static var selectedRecipe: Recipe?
 }
 
