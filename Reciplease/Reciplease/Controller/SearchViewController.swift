@@ -30,7 +30,7 @@ class SearchViewController: UIViewController {
             guard let recipe = recipe, success else {
                 return
             }
-            self.searchRecipesView.banner.image = UIImage(data: recipe.image)
+            //TODO: 
         }
     }
     

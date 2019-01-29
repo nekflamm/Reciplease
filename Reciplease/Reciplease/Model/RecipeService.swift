@@ -21,29 +21,28 @@ class RecipeService {
                     callback(false, nil)
                     return
             }
-            do {
-                self.getImage { (imageData) in
-                    guard let imageData = imageData else {
-                        callback(false, nil)
-                        return
-                    }
-                    do {
-                        let recipeData = try JSONDecoder().decode(RecipeResponse.self, from: data)
-                        let recipeName = recipeData.matches[0].recipeName
-                        let ingredients = recipeData.matches[0].ingredients
-                        
-                        let recipe = Recipe(recipeName: recipeName, ingredients: ingredients, image: imageData)
-                        callback(true, recipe)
-                    } catch {
-                        print("error")
-                    }
+            guard let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
+                callback(false, nil)
+                return
+            }
+            let recipeName = recipeData.matches[0].recipeName
+            let ingredients = recipeData.matches[0].ingredients
+            let imageUrl = self.modifyUrl(recipeData.matches[0].smallImageUrls[0])
+            
+            self.getImage(for: imageUrl) { (data) in
+                guard let imageData = data else {
+                    callback(false, nil)
+                    return
                 }
+                //TODO: for in for stock all recipes
+                let recipe = Recipe(recipeName: recipeName, ingredients: ingredients, image: imageData)
+                callback(true, recipe)
             }
         }
     }
     
-    private func getImage(completionHandler: @escaping ((Data?) -> Void)) {
-        let url = URL(string: "https://lh3.googleusercontent.com/3dbNmfS4BI-7CUsm2WYE8l7-90CNi3rQPUkO5EMc0gts_MBUAVZlTngm-9VHshp9toXl73RKwiUs9JQCpx6RoQ=s400")!
+    private func getImage(for url: URL, completionHandler: @escaping ((Data?) -> Void)) {
+        let url = url
         Alamofire.request(url).responseData { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
@@ -52,6 +51,17 @@ class RecipeService {
             }
             completionHandler(data)
         }
+    }
+    
+    private func modifyUrl(_ imageUrl: String) -> URL {
+        var stringUrl = imageUrl
+        stringUrl.removeLast(2)
+        stringUrl.append("300")
+        
+        guard let url = URL(string: stringUrl) else {
+            return URL(string: "Error")!
+        }
+        return url
     }
 }
 
@@ -64,12 +74,14 @@ fileprivate struct Matches: Decodable {
     let ingredients: [String]
     let totalTimeInSeconds: Int
     let rating: Int
+    let smallImageUrls: [String]
     
-    init(recipeName: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int) {
+    init(recipeName: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String]) {
         self.recipeName = recipeName
         self.ingredients = ingredients
         self.totalTimeInSeconds = totalTimeInSeconds
         self.rating = rating
+        self.smallImageUrls = smallImageUrls
     }
         
     enum MyStructKeys: String, CodingKey {
@@ -77,6 +89,7 @@ fileprivate struct Matches: Decodable {
         case ingredients = "ingredients"
         case totalTimeInSeconds = "totalTimeInSeconds"
         case rating = "rating"
+        case smallImageUrls = "smallImageUrls"
     }
     
     init(from decoder: Decoder) throws {
@@ -85,7 +98,9 @@ fileprivate struct Matches: Decodable {
         let ingredients: [String] = try container.decode([String].self, forKey: .ingredients)
         let totalTimeInSeconds: Int = try container.decode(Int.self, forKey: .totalTimeInSeconds)
         let rating: Int = try container.decode(Int.self, forKey: .rating)
+        let smallImageUrls: [String] = try container.decode([String].self, forKey: .smallImageUrls)
         
-        self.init(recipeName: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds, rating: rating)
+        self.init(recipeName: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds,
+                  rating: rating, smallImageUrls: smallImageUrls)
     }
 }

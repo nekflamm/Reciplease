@@ -23,7 +23,7 @@ class SearchRecipesView: UIView {
     private var introIsActive = true
     
     func scheduledTimerWithTimeInterval() {
-        _ = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(animImage), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: (5), target: self, selector: #selector(animImage), userInfo: nil, repeats: true)
     }
     
     func addIngredient(_ ingredient: String) {
