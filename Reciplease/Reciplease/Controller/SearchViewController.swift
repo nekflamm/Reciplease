@@ -9,14 +9,11 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-
-    let recipeService = RecipeService()
-    
     @IBOutlet weak var searchRecipesView: SearchRecipesView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getRecipe()
         searchRecipesView.scheduledTimerWithTimeInterval()
     }
     
@@ -28,15 +25,14 @@ class SearchViewController: UIViewController {
         addIngredientsToList()
     }
     
-//    private func getRecipe() {
-//        recipeService.getRecipes { (success, recipe) in
-//            guard let recipe = recipe, success else {
-//                print("fail")
-//                return
-//            }
-//            print(recipe.recipeName)
-//        }
-//    }
+    private func getRecipe() {
+        RecipeService.shared.getRecipes { (success, recipe) in
+            guard let recipe = recipe, success else {
+                return
+            }
+            self.searchRecipesView.banner.image = UIImage(data: recipe.image)
+        }
+    }
     
     private func addIngredientsToList() {
         guard let ingredient = searchRecipesView.ingredientsTextField.text  else {
@@ -49,6 +45,7 @@ class SearchViewController: UIViewController {
     @IBAction func clearButton(_ sender: UIButton) {
         searchRecipesView.clearTextView()
         IngredientsList.all.removeAll()
+        getRecipe()
     }
 }
 
