@@ -30,7 +30,7 @@ class SearchRecipesView: UIView {
         if introIsActive {
             introductoryLabel.isHidden = true
         }
-        ingredientsList.text += "• \(ingredient)\n"
+        ingredientsList.text += "• \(ingredient)\n\n"
         clearTextField()
     }
     

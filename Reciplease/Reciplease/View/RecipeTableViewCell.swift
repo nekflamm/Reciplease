@@ -15,7 +15,6 @@ class RecipeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func configure(recipeName: String, ingredients: String, image: UIImage) {

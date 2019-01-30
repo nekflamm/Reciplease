@@ -11,11 +11,11 @@ import Foundation
 struct IngredientsList {
     static var all = [String]()
     
-    static func convertArrayToParameters() -> String {
+    static func getAllowedIngredients() -> String {
         var allowedIngredients = String()
         
         for ingredient in all {
-            allowedIngredients += "allowedIngredient[]=\(ingredient)&"
+            allowedIngredients += "&allowedIngredient[]=\(ingredient)"
         }
         return allowedIngredients
     }

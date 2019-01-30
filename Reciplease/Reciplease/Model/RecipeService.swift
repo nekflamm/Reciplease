@@ -8,48 +8,67 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 
 class RecipeService {
     static let shared = RecipeService()
     
-    func getRecipes(callback: @escaping(Bool, Recipe?) -> Void) {
-        let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true&allowedIngredient[]=tomato")!
-
+    func getRecipes(callback: @escaping(Bool) -> Void) {
+        let allowedIngredients = IngredientsList.getAllowedIngredients()
+        let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30")!
+        
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
-                    callback(false, nil)
+                    callback(false)
                     return
             }
             guard let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
-                callback(false, nil)
+                callback(false)
                 return
             }
-            let recipeName = recipeData.matches[0].recipeName
-            let ingredients = recipeData.matches[0].ingredients
-            let imageUrl = self.modifyUrl(recipeData.matches[0].smallImageUrls[0])
-            
-            self.getImage(for: imageUrl) { (data) in
-                guard let imageData = data else {
-                    callback(false, nil)
-                    return
-                }
-                //TODO: for in for stock all recipes
-                let recipe = Recipe(recipeName: recipeName, ingredients: ingredients, image: imageData)
-                callback(true, recipe)
-            }
+            self.storeRecipes(for: recipeData)
+            callback(true)
         }
     }
     
-    private func getImage(for url: URL, completionHandler: @escaping ((Data?) -> Void)) {
+    private func storeRecipes(for recipeData: RecipeResponse) {
+        for recipe in recipeData.matches {
+            let imageUrl = self.modifyUrl(recipe.smallImageUrls[0])
+
+            self.getImage(for: imageUrl) { (image) in
+                guard let imageData = image else {
+                    return
+                }
+            }
+            let recipeInfos = Recipe(name: recipe.recipeName, ingredients: recipe.ingredients, image: UIImage(named: "pizza")!)
+            RecipesList.recipes.append(recipeInfos)
+        }
+    }
+    
+//    private func getImageee(for url: URL, completionHandler: @escaping ((Data?) -> Void)) {
+//        let url = url
+//
+//        Alamofire.request(url).responseData { (response) in
+//            guard response.result.isSuccess,
+//                let data = response.data else {
+//                    completionHandler(nil)
+//                    return
+//            }
+//            completionHandler(data)
+//        }
+//    }
+    
+    private func getImage(for url: URL, completionHandler: @escaping ((UIImage?) -> Void)) {
         let url = url
-        Alamofire.request(url).responseData { (response) in
+        
+        Alamofire.request(url).responseImage { (response) in
             guard response.result.isSuccess,
-                let data = response.data else {
+                let image = response.result.value else {
                     completionHandler(nil)
                     return
             }
-            completionHandler(data)
+            completionHandler(image)
         }
     }
     

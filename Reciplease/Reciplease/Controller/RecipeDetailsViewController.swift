@@ -13,21 +13,28 @@ class RecipeDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        passDataToSetup()
+        setupView()
     }
     
     @IBAction func addToFavoritesButton(_ sender: UIBarButtonItem) {
-        print("Add recipe to favorites")
-    }
-    
-    private func passDataToSetup() {
         guard let recipe = RecipesList.selectedRecipe else {
             return
         }
-//        recipeDetailsView.setup(title: recipe.recipeName, ingredients: convertToString(recipe.ingredients), image: recipe.image)
+        Favorite.recipes.append(recipe)
+        for recipe in Favorite.recipes {
+            print(recipe.name)
+        }
     }
     
-    private func convertToString(_ ingredients: [String]) -> String {
+    private func setupView() {
+        guard let recipe = RecipesList.selectedRecipe else {
+            return
+        }
+        let ingredients = convertToList(recipe.ingredients)
+        recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image)
+    }
+    
+    private func convertToList(_ ingredients: [String]) -> String {
         var ingredientsList = ""
         
         for ingredient in ingredients {

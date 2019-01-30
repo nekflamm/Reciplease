@@ -13,24 +13,32 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRecipe()
         searchRecipesView.scheduledTimerWithTimeInterval()
     }
     
     @IBAction func searchRecipesButton(_ sender: UIButton) {
-        performSegue(withIdentifier: "toRecipesTableView", sender: self)
+        RecipesList.recipes.removeAll()
+        getRecipes()
+        IngredientsList.all.removeAll()
     }
     
     @IBAction func addButton(_ sender: UIButton) {
         addIngredientsToList()
     }
     
-    private func getRecipe() {
-        RecipeService.shared.getRecipes { (success, recipe) in
-            guard let recipe = recipe, success else {
-                return
+    @IBAction func clearButton(_ sender: UIButton) {
+        searchRecipesView.clearTextView()
+        IngredientsList.all.removeAll()
+    }
+    
+    private func getRecipes() {
+        RecipeService.shared.getRecipes { (success) in
+            if success {
+                self.searchRecipesView.clearTextView()
+                self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
+            } else {
+                self.presentAlert()
             }
-            //TODO: 
         }
     }
     
@@ -42,10 +50,10 @@ class SearchViewController: UIViewController {
         IngredientsList.all.append(ingredient)
     }
     
-    @IBAction func clearButton(_ sender: UIButton) {
-        searchRecipesView.clearTextView()
-        IngredientsList.all.removeAll()
-        getRecipe()
+    private func presentAlert() {
+        let errorAlert = UIAlertController(title: "Ingredients missing!", message: "Please enter ingredients.", preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(errorAlert, animated: true, completion: nil)
     }
 }
 

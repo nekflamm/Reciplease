@@ -19,7 +19,9 @@
 		3A42DB2C21FA2F0D007F6D3C /* SearchRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A42DB2B21FA2F0D007F6D3C /* SearchRecipesView.swift */; };
 		3A42DB2E21FB35C7007F6D3C /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A42DB2D21FB35C7007F6D3C /* Recipe.swift */; };
 		3A42DB3021FB3675007F6D3C /* IngredientsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A42DB2F21FB3675007F6D3C /* IngredientsList.swift */; };
+		3A58465322020BD100138015 /* RecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A58465222020BD100138015 /* RecipeCell.xib */; };
 		3A6E22C721FF52B600C3A248 /* RecipeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E22C621FF52B600C3A248 /* RecipeDetailsView.swift */; };
+		3A6E22C92201FF7A00C3A248 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E22C82201FF7A00C3A248 /* Favorite.swift */; };
 		3AB17D6021FB58CE00730C6F /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB17D5F21FB58CE00730C6F /* RecipeService.swift */; };
 		3AB6DBDB21FE461500F02C4E /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */; };
 		76DA3B9CAAB4C5D6262F635D /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820038537A31C6A264C1D8EB /* Pods_Reciplease.framework */; };
@@ -40,7 +42,9 @@
 		3A42DB2B21FA2F0D007F6D3C /* SearchRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesView.swift; sourceTree = "<group>"; };
 		3A42DB2D21FB35C7007F6D3C /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		3A42DB2F21FB3675007F6D3C /* IngredientsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsList.swift; sourceTree = "<group>"; };
+		3A58465222020BD100138015 /* RecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCell.xib; sourceTree = "<group>"; };
 		3A6E22C621FF52B600C3A248 /* RecipeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsView.swift; sourceTree = "<group>"; };
+		3A6E22C82201FF7A00C3A248 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		3AB17D5F21FB58CE00730C6F /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		50841EF5759CE96FBAE8E0FD /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				3A41DDF821F9FD7D00501748 /* Main.storyboard */,
+				3A58465222020BD100138015 /* RecipeCell.xib */,
 				3A42DB2B21FA2F0D007F6D3C /* SearchRecipesView.swift */,
 				3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */,
 				3A6E22C621FF52B600C3A248 /* RecipeDetailsView.swift */,
@@ -89,6 +94,7 @@
 				3A42DB2D21FB35C7007F6D3C /* Recipe.swift */,
 				3A42DB2F21FB3675007F6D3C /* IngredientsList.swift */,
 				3AB17D5F21FB58CE00730C6F /* RecipeService.swift */,
+				3A6E22C82201FF7A00C3A248 /* Favorite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 			files = (
 				3A41DDFF21F9FD7E00501748 /* LaunchScreen.storyboard in Resources */,
 				3A41DDFC21F9FD7E00501748 /* Assets.xcassets in Resources */,
+				3A58465322020BD100138015 /* RecipeCell.xib in Resources */,
 				3A41DDFA21F9FD7D00501748 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,12 +258,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -272,6 +281,7 @@
 			files = (
 				3A0A324A21FA20D900D8CC32 /* SearchViewController.swift in Sources */,
 				3A41DDF321F9FD7D00501748 /* AppDelegate.swift in Sources */,
+				3A6E22C92201FF7A00C3A248 /* Favorite.swift in Sources */,
 				3A42DB2C21FA2F0D007F6D3C /* SearchRecipesView.swift in Sources */,
 				3AB6DBDB21FE461500F02C4E /* RecipeTableViewCell.swift in Sources */,
 				3A41DE1521FA017000501748 /* RecipesTableViewController.swift in Sources */,

@@ -9,9 +9,6 @@
 import UIKit
 
 class RecipesTableViewController: UITableViewController {
-
-    var recipesList = RecipesList()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
@@ -24,24 +21,33 @@ extension RecipesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return recipesList.recipes.count
-        return 1
+        return RecipesList.recipes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath)  as? RecipeTableViewCell else {
+        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell else {
             return UITableViewCell()
         }
-//        cell.configure(recipeName: recipesList.recipes[indexPath.row].recipeName, ingredients: recipesList.recipes[indexPath.row].ingredientsList, image: recipesList.recipes[indexPath.row].image)
+        let name = RecipesList.recipes[indexPath.row].name
+        let ingredients = RecipesList.recipes[indexPath.row].ingredientsList
+        let image = RecipesList.recipes[indexPath.row].image
+        
+        cell.configure(recipeName: name, ingredients: ingredients, image: image)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let recipe = recipesList.recipes[indexPath.row]
-//        RecipesList.selectedRecipe = recipe
+        let recipe = RecipesList.recipes[indexPath.row]
+        RecipesList.selectedRecipe = recipe
         
         performSegue(withIdentifier: "toRecipeDetails", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 134
     }
 }
 
