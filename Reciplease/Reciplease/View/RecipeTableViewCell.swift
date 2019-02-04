@@ -19,8 +19,8 @@ class RecipeTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(recipeName: String, ingredients: String, image: UIImage, rating: String, time: String) {
-        recipeNameLabel.text = recipeName
+    func configure(name: String, ingredients: String, image: UIImage, rating: String, time: String) {
+        recipeNameLabel.text = name
         ingredientsLabel.text = ingredients
         cellImageView.image = image
         ratingLabel.text = rating

@@ -30,10 +30,6 @@ struct Recipe {
         let timeInMinute = (timeInSeconds / 60)
         return "\(String(timeInMinute))m"
     }
-}
-
-struct RecipesList: List {
-    static var recipes = [Recipe]()
-    static var selectedRecipe: Recipe?
+    var isFavorite = false
 }
 

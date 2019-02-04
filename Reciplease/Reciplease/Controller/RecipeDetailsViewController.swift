@@ -10,6 +10,7 @@ import UIKit
 
 class RecipeDetailsViewController: UIViewController {
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
+    @IBOutlet weak var favoriteButtonOutlet: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,12 +18,12 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @IBAction func addToFavoritesButton(_ sender: UIBarButtonItem) {
-        guard let recipe = RecipesList.selectedRecipe else {
-            return
-        }
-        Favorite.recipes.append(recipe)
-        for recipe in Favorite.recipes {
-            print(recipe.name)
+        if RecipesList.recipes[RecipesList.index].isFavorite {
+            RecipesList.recipes[RecipesList.index].isFavorite = false
+            changeNavigationItemColorFor(UIColor.white)
+        } else {
+            RecipesList.recipes[RecipesList.index].isFavorite = true
+            changeNavigationItemColorFor(UIColor.orange)
         }
     }
     
@@ -41,5 +42,17 @@ class RecipeDetailsViewController: UIViewController {
             ingredientsList += "• \(ingredient)\n\n"
         }
         return ingredientsList
+    }
+    
+    private func changeNavigationItemColorFor(_ color: UIColor) {
+        favoriteButtonOutlet.tintColor = color
+    }
+    
+    private func addRecipe(_ recipe: Recipe) {
+        changeNavigationItemColorFor(UIColor.orange)
+    }
+    
+    private func removeRecipe(_ recipe: Recipe) {
+        changeNavigationItemColorFor(UIColor.white)
     }
 }

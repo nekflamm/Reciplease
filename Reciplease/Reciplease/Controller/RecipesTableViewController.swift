@@ -36,14 +36,16 @@ extension RecipesTableViewController {
         let rating = RecipesList.recipes[indexPath.row].ratingToString
         let time = RecipesList.recipes[indexPath.row].timeToString
         
-        cell.configure(recipeName: name, ingredients: ingredients, image: image, rating: rating, time: time)
+        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = RecipesList.recipes[indexPath.row]
-        RecipesList.selectedRecipe = recipe
+        RecipesList.selectedRecipe = RecipesList.recipes[indexPath.row]
+        RecipesList.index = indexPath.row
+//        let recipe = RecipesList.recipes[indexPath.row]
+//        RecipesList.selectedRecipe = recipe
         
         performSegue(withIdentifier: "toRecipeDetails", sender: self)
     }

@@ -11,10 +11,8 @@ import UIKit
 
 protocol List {
     static var recipes: [Recipe] { get set }
-    static var selectedRecipe: Recipe? { get set }
 }
 
 struct Favorite: List {
     static var recipes =  [Recipe]()
-    static var selectedRecipe: Recipe?
 }

@@ -42,7 +42,8 @@ class RecipeService {
                 guard let image = image else {
                     return
                 }
-                let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating, timeInSeconds: recipe.totalTimeInSeconds)
+                let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
+                                    timeInSeconds: recipe.totalTimeInSeconds, isFavorite: false)
                 RecipesList.recipes.append(recipe)
             }
         }
