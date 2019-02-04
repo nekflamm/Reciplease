@@ -33,8 +33,10 @@ extension RecipesTableViewController {
         let name = RecipesList.recipes[indexPath.row].name
         let ingredients = RecipesList.recipes[indexPath.row].ingredientsList
         let image = RecipesList.recipes[indexPath.row].image
+        let rating = RecipesList.recipes[indexPath.row].ratingToString
+        let time = RecipesList.recipes[indexPath.row].timeToString
         
-        cell.configure(recipeName: name, ingredients: ingredients, image: image)
+        cell.configure(recipeName: name, ingredients: ingredients, image: image, rating: rating, time: time)
         
         return cell
     }

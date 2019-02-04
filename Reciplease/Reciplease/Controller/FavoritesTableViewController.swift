@@ -34,7 +34,7 @@ class FavoritesTableViewController: UITableViewController {
         let ingredients = Favorite.recipes[indexPath.row].ingredientsList
         let image = Favorite.recipes[indexPath.row].image
         
-        cell.configure(recipeName: name, ingredients: ingredients, image: image)
+        cell.configure(recipeName: name, ingredients: ingredients, image: image, rating: "5", time: "60")
         
         return cell
     }

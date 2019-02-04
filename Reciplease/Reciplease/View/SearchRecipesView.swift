@@ -42,7 +42,7 @@ class SearchRecipesView: UIView {
     func resignResponder() {
         ingredientsTextField.resignFirstResponder()
     }
-   
+    
     private func clearTextField() {
         ingredientsTextField.text = nil
     }

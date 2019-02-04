@@ -21,13 +21,15 @@ struct Recipe {
         return "\(string)."
     }
     var image: UIImage
-//    var note: Int
-//    var timeInSeconds: Int
-}
-
-protocol List {
-    static var recipes: [Recipe] { get set }
-    static var selectedRecipe: Recipe? { get set }
+    var rating: Int
+    var ratingToString: String {
+        return String(rating)
+    }
+    var timeInSeconds: Int
+    var timeToString: String {
+        let timeInMinute = (timeInSeconds / 60)
+        return "\(String(timeInMinute))m"
+    }
 }
 
 struct RecipesList: List {

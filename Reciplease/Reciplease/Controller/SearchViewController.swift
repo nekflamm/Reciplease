@@ -9,7 +9,15 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    // -----------------------------------------------------------------
+    //             MARK: - Properties / @IBOutlets
+    // -----------------------------------------------------------------
+    
     @IBOutlet weak var searchRecipesView: SearchRecipesView!
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods / @IBActions
+    // -----------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +40,19 @@ class SearchViewController: UIViewController {
     }
     
     private func getRecipes() {
-        RecipeService.shared.getRecipes { (success) in
-            if success {
-                self.searchRecipesView.clearTextView()
-                self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
-            } else {
-                self.presentAlert()
+        if !IngredientsList.all.isEmpty {
+            RecipeService.shared.getRecipes { (success) in
+                if success {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.searchRecipesView.clearTextView()
+                        self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
+                    }
+                } else {
+                    self.presentNoRecipesAlert()
+                }
             }
+        } else {
+            presentMissingIngredientsAlert()
         }
     }
     
@@ -50,12 +64,22 @@ class SearchViewController: UIViewController {
         IngredientsList.all.append(ingredient)
     }
     
-    private func presentAlert() {
+    private func presentMissingIngredientsAlert() {
         let errorAlert = UIAlertController(title: "Ingredients missing!", message: "Please enter ingredients.", preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(errorAlert, animated: true, completion: nil)
     }
+    
+    private func presentNoRecipesAlert() {
+        let errorAlert = UIAlertController(title: "No recipes found!", message: "Verify your ingredients.", preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(errorAlert, animated: true, completion: nil)
+    }
 }
+
+// -----------------------------------------------------------------
+//              MARK: - Extensions
+// -----------------------------------------------------------------
 
 extension SearchViewController: UITextFieldDelegate {
     @IBAction func hideKeyboard(_ sender: UITapGestureRecognizer) {

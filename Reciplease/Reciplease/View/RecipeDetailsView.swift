@@ -13,10 +13,14 @@ class RecipeDetailsView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var rateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
-    func setup(title: String, ingredients: String, image: UIImage) {
+    func setup(title: String, ingredients: String, image: UIImage, rate: String, time: String) {
         titleLabel.text = title
         ingredientsTextView.text = ingredients
         imageView.image = image
+        rateLabel.text = rate
+        timeLabel.text = time
     }
 }

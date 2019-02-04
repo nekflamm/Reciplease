@@ -31,7 +31,7 @@ class RecipeDetailsViewController: UIViewController {
             return
         }
         let ingredients = convertToList(recipe.ingredients)
-        recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image)
+        recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image, rate: recipe.ratingToString, time: recipe.timeToString)
     }
     
     private func convertToList(_ ingredients: [String]) -> String {

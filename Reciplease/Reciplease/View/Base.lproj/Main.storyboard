@@ -292,17 +292,56 @@ Tell me and i will find recipes for you!</string>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICO-Gl-10m">
-                                <rect key="frame" x="18.666666666666657" y="54" width="337.66666666666674" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICO-Gl-10m">
+                                <rect key="frame" x="18.666666666666657" y="44" width="337.66666666666674" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ICO-Gl-10m" secondAttribute="height" multiplier="337:27" id="iXY-9V-x6S"/>
+                                    <constraint firstAttribute="width" secondItem="ICO-Gl-10m" secondAttribute="height" multiplier="337:55" id="iXY-9V-x6S"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <size key="shadowOffset" width="2" height="2"/>
+                                <size key="shadowOffset" width="2" height="1"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szW-rr-ivR">
+                                <rect key="frame" x="275" y="228.33333333333337" width="80" height="80"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infos" translatesAutoresizingMaskIntoConstraints="NO" id="lcM-3z-gvZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr0-77-DbM">
+                                        <rect key="frame" x="27" y="6" width="16" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="hr0-77-DbM" secondAttribute="height" multiplier="2:3" id="2jF-gW-jjU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQR-oC-IIG">
+                                        <rect key="frame" x="3.6666666666666856" y="39.999999999999972" width="47" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="hQR-oC-IIG" secondAttribute="height" multiplier="47:20" id="A8W-rF-nfT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="lcM-3z-gvZ" secondAttribute="bottom" id="H1j-DL-Bvt"/>
+                                    <constraint firstItem="hQR-oC-IIG" firstAttribute="centerX" secondItem="lcM-3z-gvZ" secondAttribute="centerX" constant="-13" id="Ntv-rC-DPt"/>
+                                    <constraint firstAttribute="bottom" secondItem="hQR-oC-IIG" secondAttribute="bottom" constant="20" id="Och-Ry-Omi"/>
+                                    <constraint firstItem="lcM-3z-gvZ" firstAttribute="leading" secondItem="szW-rr-ivR" secondAttribute="leading" id="QbM-oM-9HI"/>
+                                    <constraint firstItem="hr0-77-DbM" firstAttribute="centerX" secondItem="lcM-3z-gvZ" secondAttribute="centerX" constant="-5" id="WLw-eQ-eLF"/>
+                                    <constraint firstItem="hQR-oC-IIG" firstAttribute="height" secondItem="lcM-3z-gvZ" secondAttribute="height" multiplier="0.25" id="cXS-kd-RBj"/>
+                                    <constraint firstItem="hr0-77-DbM" firstAttribute="width" secondItem="lcM-3z-gvZ" secondAttribute="width" multiplier="0.2" id="eC5-uU-erI"/>
+                                    <constraint firstAttribute="trailing" secondItem="lcM-3z-gvZ" secondAttribute="trailing" id="ima-RE-uTJ"/>
+                                    <constraint firstItem="hr0-77-DbM" firstAttribute="top" secondItem="szW-rr-ivR" secondAttribute="top" constant="6" id="nBa-Mg-DYm"/>
+                                    <constraint firstAttribute="width" secondItem="szW-rr-ivR" secondAttribute="height" multiplier="1:1" id="u4a-9U-RAT"/>
+                                    <constraint firstItem="lcM-3z-gvZ" firstAttribute="top" secondItem="szW-rr-ivR" secondAttribute="top" id="wh8-QA-YND"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.050980392156862744" green="0.050980392156862744" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -311,9 +350,12 @@ Tell me and i will find recipes for you!</string>
                             <constraint firstItem="gFf-lj-sA0" firstAttribute="leading" secondItem="ut0-wP-qHD" secondAttribute="leading" id="AJV-7U-aKd"/>
                             <constraint firstItem="jSA-Ml-zyW" firstAttribute="leading" secondItem="ICO-Gl-10m" secondAttribute="leading" id="B63-hn-uo6"/>
                             <constraint firstItem="x3e-nG-Bjh" firstAttribute="height" secondItem="kfJ-Mj-CWN" secondAttribute="height" multiplier="0.65" id="ECo-1X-5uM"/>
+                            <constraint firstItem="gFf-lj-sA0" firstAttribute="bottom" secondItem="szW-rr-ivR" secondAttribute="bottom" constant="20" id="Gqj-n2-1qD"/>
+                            <constraint firstItem="ut0-wP-qHD" firstAttribute="trailing" secondItem="szW-rr-ivR" secondAttribute="trailing" constant="20" id="Gu0-O1-ihY"/>
                             <constraint firstItem="ut0-wP-qHD" firstAttribute="bottom" secondItem="n8q-99-BPz" secondAttribute="bottom" constant="10" id="HZR-8m-RGk"/>
                             <constraint firstItem="x3e-nG-Bjh" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" id="I1H-Jy-b6g"/>
                             <constraint firstItem="n8q-99-BPz" firstAttribute="leading" secondItem="jSA-Ml-zyW" secondAttribute="leading" id="KCt-7S-thg"/>
+                            <constraint firstItem="szW-rr-ivR" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" multiplier="0.213" id="Miw-3t-pZI"/>
                             <constraint firstItem="n8q-99-BPz" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" multiplier="0.9" id="OUC-GU-W8m"/>
                             <constraint firstItem="gFf-lj-sA0" firstAttribute="top" secondItem="ut0-wP-qHD" secondAttribute="top" id="QpW-0L-oCa"/>
                             <constraint firstItem="n8q-99-BPz" firstAttribute="centerX" secondItem="kfJ-Mj-CWN" secondAttribute="centerX" id="XbG-9Q-hEx"/>
@@ -321,7 +363,7 @@ Tell me and i will find recipes for you!</string>
                             <constraint firstItem="jSA-Ml-zyW" firstAttribute="top" secondItem="gFf-lj-sA0" secondAttribute="bottom" constant="15" id="bYH-BC-TCB"/>
                             <constraint firstItem="n8q-99-BPz" firstAttribute="top" secondItem="jSA-Ml-zyW" secondAttribute="bottom" constant="15" id="bf3-AZ-MK4"/>
                             <constraint firstItem="jSA-Ml-zyW" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" multiplier="0.9" id="dVf-9s-NWq"/>
-                            <constraint firstItem="ICO-Gl-10m" firstAttribute="top" secondItem="ut0-wP-qHD" secondAttribute="top" constant="10" id="fng-Ek-V2w"/>
+                            <constraint firstItem="ICO-Gl-10m" firstAttribute="top" secondItem="ut0-wP-qHD" secondAttribute="top" id="fng-Ek-V2w"/>
                             <constraint firstItem="gFf-lj-sA0" firstAttribute="width" secondItem="kfJ-Mj-CWN" secondAttribute="width" id="mcK-pU-4SB"/>
                             <constraint firstItem="gFf-lj-sA0" firstAttribute="height" secondItem="kfJ-Mj-CWN" secondAttribute="height" multiplier="0.35" id="s22-rD-1qt"/>
                         </constraints>
@@ -329,6 +371,8 @@ Tell me and i will find recipes for you!</string>
                         <connections>
                             <outlet property="imageView" destination="gFf-lj-sA0" id="zjF-Wp-vNv"/>
                             <outlet property="ingredientsTextView" destination="jSA-Ml-zyW" id="SU9-Eo-czC"/>
+                            <outlet property="rateLabel" destination="hr0-77-DbM" id="6zZ-4q-UVn"/>
+                            <outlet property="timeLabel" destination="hQR-oC-IIG" id="QqB-Rx-6ga"/>
                             <outlet property="titleLabel" destination="ICO-Gl-10m" id="w0q-53-QHy"/>
                         </connections>
                     </view>
@@ -359,8 +403,8 @@ Tell me and i will find recipes for you!</string>
                         <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="8hU-wi-9vu" kind="relationship" relationship="viewControllers" id="SjC-s8-y2M"/>
                         <segue destination="qBS-Vg-9bq" kind="relationship" relationship="viewControllers" id="vVq-2Z-q3f"/>
+                        <segue destination="8hU-wi-9vu" kind="relationship" relationship="viewControllers" id="SjC-s8-y2M"/>
                         <segue destination="VDK-sO-zbV" kind="relationship" relationship="viewControllers" id="f2g-7v-KVZ"/>
                     </connections>
                 </tabBarController>
@@ -424,6 +468,7 @@ Tell me and i will find recipes for you!</string>
         <image name="clearButton" width="64" height="31"/>
         <image name="fruits" width="3456" height="4608"/>
         <image name="getDirections" width="278" height="49"/>
+        <image name="infos" width="218" height="217"/>
         <image name="pizza" width="5184" height="3456"/>
         <image name="searchButton" width="339" height="59"/>
         <image name="star" width="24" height="24"/>

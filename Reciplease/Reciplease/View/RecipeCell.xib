@@ -30,8 +30,19 @@
                             <constraint firstAttribute="height" constant="120" id="3Vl-S8-hy9"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCC-BN-eJq">
+                        <rect key="frame" x="11" y="7" width="279" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="rCC-BN-eJq" secondAttribute="height" multiplier="52:6" id="Dly-PY-yBT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="24"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <size key="shadowOffset" width="2" height="2"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fromage, Tomates, Viandes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwb-tp-nxm">
-                        <rect key="frame" x="11" y="90" width="364" height="22"/>
+                        <rect key="frame" x="11" y="95" width="279" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="dwb-tp-nxm" secondAttribute="height" multiplier="182:11" id="b6v-st-rhZ"/>
                         </constraints>
@@ -41,16 +52,32 @@
                         <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <size key="shadowOffset" width="1" height="2"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCC-BN-eJq">
-                        <rect key="frame" x="11" y="7" width="364" height="35"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infos" translatesAutoresizingMaskIntoConstraints="NO" id="Uxh-Or-huM">
+                        <rect key="frame" x="309" y="37" width="50" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="rCC-BN-eJq" secondAttribute="height" multiplier="52:5" id="Dly-PY-yBT"/>
+                            <constraint firstAttribute="width" constant="50" id="6Kp-gz-M9Q"/>
+                            <constraint firstAttribute="width" secondItem="Uxh-Or-huM" secondAttribute="height" multiplier="1:1" id="bkT-Wt-ofL"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="24"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rK5-sj-A1g">
+                        <rect key="frame" x="326" y="42" width="14" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="rK5-sj-A1g" secondAttribute="height" multiplier="2:2" id="7yW-rS-Plt"/>
+                            <constraint firstAttribute="width" constant="14" id="IEa-GP-wBb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
-                        <color key="shadowColor" red="0.02857312817" green="0.02857312817" blue="0.02857312817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <size key="shadowOffset" width="2" height="2"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyN-58-RA0">
+                        <rect key="frame" x="312" y="61" width="30" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="AqD-aQ-IFW"/>
+                            <constraint firstAttribute="width" secondItem="oyN-58-RA0" secondAttribute="height" multiplier="2:1" id="brd-9b-Y2y"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
@@ -60,24 +87,33 @@
                     <constraint firstItem="LII-H8-7Vv" firstAttribute="leading" secondItem="qR9-Q9-Jkj" secondAttribute="leading" id="SxY-Sb-cMZ"/>
                     <constraint firstAttribute="trailing" secondItem="LII-H8-7Vv" secondAttribute="trailing" id="f3O-AV-9c9"/>
                     <constraint firstItem="79a-Y6-NEA" firstAttribute="leading" secondItem="qR9-Q9-Jkj" secondAttribute="leading" id="fLM-pZ-ULb"/>
-                    <constraint firstAttribute="trailing" secondItem="rCC-BN-eJq" secondAttribute="trailing" id="hDO-mx-X6v"/>
+                    <constraint firstItem="Uxh-Or-huM" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="topMargin" constant="26" id="gbi-pV-plE"/>
+                    <constraint firstAttribute="trailing" secondItem="rCC-BN-eJq" secondAttribute="trailing" constant="85" id="hDO-mx-X6v"/>
+                    <constraint firstItem="Uxh-Or-huM" firstAttribute="trailing" secondItem="qR9-Q9-Jkj" secondAttribute="trailingMargin" id="iuI-dn-1ek"/>
                     <constraint firstAttribute="trailing" secondItem="79a-Y6-NEA" secondAttribute="trailing" id="kV8-KF-gJ8"/>
                     <constraint firstItem="79a-Y6-NEA" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="top" id="qp8-nG-SeP"/>
                     <constraint firstItem="rCC-BN-eJq" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="top" constant="7" id="qsg-tx-k2n"/>
                     <constraint firstItem="rCC-BN-eJq" firstAttribute="leading" secondItem="qR9-Q9-Jkj" secondAttribute="leading" constant="11" id="rkB-1N-wSM"/>
-                    <constraint firstAttribute="trailing" secondItem="dwb-tp-nxm" secondAttribute="trailing" id="v96-8G-ii2"/>
+                    <constraint firstAttribute="trailing" secondItem="dwb-tp-nxm" secondAttribute="trailing" constant="85" id="v96-8G-ii2"/>
+                    <constraint firstItem="oyN-58-RA0" firstAttribute="top" secondItem="rK5-sj-A1g" secondAttribute="bottom" constant="5" id="vBM-jN-oXP"/>
+                    <constraint firstItem="rK5-sj-A1g" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="topMargin" constant="31" id="x2b-zc-m04"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rK5-sj-A1g" secondAttribute="trailing" constant="19" id="xH0-yD-N7K"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="oyN-58-RA0" secondAttribute="trailing" constant="17" id="xxU-hJ-a2A"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellImageView" destination="79a-Y6-NEA" id="uYG-C4-Xhj"/>
                 <outlet property="ingredientsLabel" destination="dwb-tp-nxm" id="4ck-QQ-Ho1"/>
+                <outlet property="ratingLabel" destination="rK5-sj-A1g" id="uME-g1-maW"/>
                 <outlet property="recipeNameLabel" destination="rCC-BN-eJq" id="V0x-BY-SEC"/>
+                <outlet property="timeLabel" destination="oyN-58-RA0" id="UeI-MA-v7B"/>
             </connections>
             <point key="canvasLocation" x="52" y="-16.191904047976013"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Slate" width="875.52001953125" height="1313.280029296875"/>
+        <image name="infos" width="218" height="217"/>
         <image name="pizza" width="5184" height="3456"/>
     </resources>
 </document>

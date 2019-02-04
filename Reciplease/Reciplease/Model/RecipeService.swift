@@ -15,8 +15,10 @@ class RecipeService {
     
     func getRecipes(callback: @escaping(Bool) -> Void) {
         let allowedIngredients = IngredientsList.getAllowedIngredients()
-        let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30")!
-        
+        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30") else {
+            callback(false)
+            return
+        }
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
@@ -37,27 +39,14 @@ class RecipeService {
             let imageUrl = self.modifyUrl(recipe.smallImageUrls[0])
 
             self.getImage(for: imageUrl) { (image) in
-                guard let imageData = image else {
+                guard let image = image else {
                     return
                 }
+                let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating, timeInSeconds: recipe.totalTimeInSeconds)
+                RecipesList.recipes.append(recipe)
             }
-            let recipeInfos = Recipe(name: recipe.recipeName, ingredients: recipe.ingredients, image: UIImage(named: "pizza")!)
-            RecipesList.recipes.append(recipeInfos)
         }
     }
-    
-//    private func getImageee(for url: URL, completionHandler: @escaping ((Data?) -> Void)) {
-//        let url = url
-//
-//        Alamofire.request(url).responseData { (response) in
-//            guard response.result.isSuccess,
-//                let data = response.data else {
-//                    completionHandler(nil)
-//                    return
-//            }
-//            completionHandler(data)
-//        }
-//    }
     
     private func getImage(for url: URL, completionHandler: @escaping ((UIImage?) -> Void)) {
         let url = url
@@ -89,14 +78,14 @@ fileprivate struct RecipeResponse: Decodable {
 }
 
 fileprivate struct Matches: Decodable {
-    let recipeName: String
+    let name: String
     let ingredients: [String]
     let totalTimeInSeconds: Int
     let rating: Int
     let smallImageUrls: [String]
     
-    init(recipeName: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String]) {
-        self.recipeName = recipeName
+    init(name: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String]) {
+        self.name = name
         self.ingredients = ingredients
         self.totalTimeInSeconds = totalTimeInSeconds
         self.rating = rating
@@ -119,7 +108,7 @@ fileprivate struct Matches: Decodable {
         let rating: Int = try container.decode(Int.self, forKey: .rating)
         let smallImageUrls: [String] = try container.decode([String].self, forKey: .smallImageUrls)
         
-        self.init(recipeName: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds,
+        self.init(name: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds,
                   rating: rating, smallImageUrls: smallImageUrls)
     }
 }
