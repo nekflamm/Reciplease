@@ -9,6 +9,13 @@
 import UIKit
 
 class RecipeDetailsViewController: UIViewController {
+    
+    var recipe: Recipe {
+        get {
+            return getRecipe()
+        } set {}
+    }
+    
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
     @IBOutlet weak var favoriteButtonOutlet: UIBarButtonItem!
     
@@ -17,22 +24,44 @@ class RecipeDetailsViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+    }
+    
     @IBAction func addToFavoritesButton(_ sender: UIBarButtonItem) {
-        if RecipesList.recipes[RecipesList.index].isFavorite {
-            RecipesList.recipes[RecipesList.index].isFavorite = false
-            changeNavigationItemColorFor(UIColor.white)
-        } else {
-            RecipesList.recipes[RecipesList.index].isFavorite = true
-            changeNavigationItemColorFor(UIColor.orange)
+        setOrRemoveFavorite()
+    }
+    
+    private func getRecipe() -> Recipe {
+        guard let recipe = RecipesList.selectedRecipe else {
+            return Recipe(name: "", ingredients: [""], image: UIImage(),
+                          rating: 0, timeInSeconds: 0, isFavorite: false)
         }
+        return recipe
     }
     
     private func setupView() {
-        guard let recipe = RecipesList.selectedRecipe else {
-            return
-        }
         let ingredients = convertToList(recipe.ingredients)
         recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image, rate: recipe.ratingToString, time: recipe.timeToString)
+        checkIfFavorite()
+    }
+    
+    private func checkIfFavorite() {
+        if recipe.isFavorite {
+            addRecipeToFavorites()
+        } else {
+            removeRecipeFromFavorites()
+        }
+    }
+    
+    private func setOrRemoveFavorite() {
+        if RecipesList.recipes[RecipesList.index].isFavorite {
+            RecipesList.recipes[RecipesList.index].isFavorite = false
+            removeRecipeFromFavorites()
+        } else {
+            RecipesList.recipes[RecipesList.index].isFavorite = true
+            addRecipeToFavorites()
+        }
     }
     
     private func convertToList(_ ingredients: [String]) -> String {
@@ -44,15 +73,15 @@ class RecipeDetailsViewController: UIViewController {
         return ingredientsList
     }
     
-    private func changeNavigationItemColorFor(_ color: UIColor) {
-        favoriteButtonOutlet.tintColor = color
-    }
-    
-    private func addRecipe(_ recipe: Recipe) {
+    private func addRecipeToFavorites() {
         changeNavigationItemColorFor(UIColor.orange)
     }
     
-    private func removeRecipe(_ recipe: Recipe) {
+    private func removeRecipeFromFavorites() {
         changeNavigationItemColorFor(UIColor.white)
+    }
+    
+    private func changeNavigationItemColorFor(_ color: UIColor) {
+        favoriteButtonOutlet.tintColor = color
     }
 }
