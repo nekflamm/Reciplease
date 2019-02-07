@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A0A324A21FA20D900D8CC32 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0A324921FA20D900D8CC32 /* SearchViewController.swift */; };
 		3A382F8B2208986D0054074E /* RecipesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A382F8A2208986D0054074E /* RecipesList.swift */; };
+		3A382F8D220C59F60054074E /* MealsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A382F8C220C59F50054074E /* MealsView.swift */; };
 		3A3F99C021FA09E800C466BA /* TodaysRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3F99BF21FA09E800C466BA /* TodaysRecipeViewController.swift */; };
 		3A41DDF321F9FD7D00501748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DDF221F9FD7D00501748 /* AppDelegate.swift */; };
 		3A41DDFA21F9FD7D00501748 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDF821F9FD7D00501748 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		3A0A324921FA20D900D8CC32 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3A382F8A2208986D0054074E /* RecipesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesList.swift; sourceTree = "<group>"; };
+		3A382F8C220C59F50054074E /* MealsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsView.swift; sourceTree = "<group>"; };
 		3A3F99BF21FA09E800C466BA /* TodaysRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysRecipeViewController.swift; sourceTree = "<group>"; };
 		3A41DDEF21F9FD7D00501748 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A41DDF221F9FD7D00501748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				3A42DB2B21FA2F0D007F6D3C /* SearchRecipesView.swift */,
 				3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */,
 				3A6E22C621FF52B600C3A248 /* RecipeDetailsView.swift */,
+				3A382F8C220C59F50054074E /* MealsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 			files = (
 				3A0A324A21FA20D900D8CC32 /* SearchViewController.swift in Sources */,
 				3A41DDF321F9FD7D00501748 /* AppDelegate.swift in Sources */,
+				3A382F8D220C59F60054074E /* MealsView.swift in Sources */,
 				3A6E22C92201FF7A00C3A248 /* Favorite.swift in Sources */,
 				3A42DB2C21FA2F0D007F6D3C /* SearchRecipesView.swift in Sources */,
 				3AB6DBDB21FE461500F02C4E /* RecipeTableViewCell.swift in Sources */,
