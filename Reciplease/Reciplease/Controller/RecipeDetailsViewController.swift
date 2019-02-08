@@ -13,7 +13,7 @@ class RecipeDetailsViewController: UIViewController {
     var recipe: Recipe {
         get {
             return getRecipe()
-        } set {}
+        } 
     }
     
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
@@ -33,7 +33,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func getRecipe() -> Recipe {
-        guard let recipe = RecipesList.selectedRecipe else {
+        guard let recipe = RecipesList.shared.selectedRecipe else {
             return Recipe(name: "", ingredients: [""], image: UIImage(),
                           rating: 0, timeInSeconds: 0, isFavorite: false)
         }
@@ -55,11 +55,11 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func setOrRemoveFavorite() {
-        if RecipesList.recipes[RecipesList.index].isFavorite {
-            RecipesList.recipes[RecipesList.index].isFavorite = false
+        if RecipesList.shared.recipes[RecipesList.shared.index].isFavorite {
+            RecipesList.shared.recipes[RecipesList.shared.index].isFavorite = false
             removeRecipeFromFavorites()
         } else {
-            RecipesList.recipes[RecipesList.index].isFavorite = true
+            RecipesList.shared.recipes[RecipesList.shared.index].isFavorite = true
             addRecipeToFavorites()
         }
     }

@@ -15,22 +15,13 @@ class FavoritesTableViewController: UITableViewController {
         getFavorites()
         tableView.reloadData()
     }
-
-    private func getFavorites() {
-        Favorite.recipes.removeAll()
-        for recipe in RecipesList.recipes {
-            if recipe.isFavorite {
-                Favorite.recipes.append(recipe)
-            }
-        }
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Favorite.recipes.count
+        return RecipesList.shared.favorites.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,20 +30,14 @@ class FavoritesTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell else {
             return UITableViewCell()
         }
-        let name = Favorite.recipes[indexPath.row].name
-        let ingredients = Favorite.recipes[indexPath.row].ingredientsList
-        let image = Favorite.recipes[indexPath.row].image
-        let rating = Favorite.recipes[indexPath.row].ratingToString
-        let time = Favorite.recipes[indexPath.row].timeToString
-        
-        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
+        configure(cell, with: indexPath)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RecipesList.selectedRecipe = Favorite.recipes[indexPath.row]
-        RecipesList.index = indexPath.row
+        RecipesList.shared.selectedRecipe = RecipesList.shared.favorites[indexPath.row]
+        RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails2", sender: self)
     }
@@ -62,7 +47,7 @@ class FavoritesTableViewController: UITableViewController {
             guard let index = removeFavorite(for: indexPath) else {
                 return
             }
-            RecipesList.recipes[index].isFavorite = false
+            RecipesList.shared.recipes[index].isFavorite = false
             
             tableView.deleteRows(at: [indexPath], with: .right)
         }
@@ -73,18 +58,34 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     private func removeFavorite(for indexPath: IndexPath) -> Int? {
-        RecipesList.index = 0
-        for recipe in RecipesList.recipes {
-            if recipe.name == Favorite.recipes[indexPath.row].name {
-                print(RecipesList.index)
-                print("recipe at index recipeList: \(recipe.name)")
-                print("recipe at index favorite: \(Favorite.recipes[indexPath.row].name)")
-                Favorite.recipes.remove(at: indexPath.row)
+        RecipesList.shared.index = 0
+        for recipe in RecipesList.shared.recipes {
+            if recipe.name == RecipesList.shared.favorites[indexPath.row].name {
+                RecipesList.shared.favorites.remove(at: indexPath.row)
                 
-                return RecipesList.index
+                return RecipesList.shared.index
             }
-            RecipesList.index += 1
+            RecipesList.shared.index += 1
         }
         return nil
+    }
+    
+    private func getFavorites() {
+        RecipesList.shared.favorites.removeAll()
+        for recipe in RecipesList.shared.recipes {
+            if recipe.isFavorite {
+                RecipesList.shared.favorites.append(recipe)
+            }
+        }
+    }
+    
+    private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
+        let name = RecipesList.shared.favorites[indexPath.row].name
+        let ingredients = RecipesList.shared.favorites[indexPath.row].ingredientsList
+        let image = RecipesList.shared.favorites[indexPath.row].image
+        let rating = RecipesList.shared.favorites[indexPath.row].ratingToString
+        let time = RecipesList.shared.favorites[indexPath.row].timeToString
+        
+        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
     }
 }

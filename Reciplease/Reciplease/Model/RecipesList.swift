@@ -8,8 +8,16 @@
 
 import Foundation
 
-struct RecipesList: List {
-    static var recipes = [Recipe]()
-    static var selectedRecipe: Recipe?
-    static var index = 0
+struct RecipesList {
+    static var shared = RecipesList()
+    var central = [Recipe]()
+    var recipes = [Recipe]()
+    var favorites = [Recipe]()
+    var todaysRecipes = [Recipe]()
+    var selectedRecipe: Recipe?
+    var index = 0
+    
+    mutating func emptyCentral() {
+        central.removeAll()
+    }
 }

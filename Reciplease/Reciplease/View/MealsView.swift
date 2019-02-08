@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
-class MealsView: UIStackView {
+class MealsView: UIView {
     @IBOutlet var selectedImages: [UIImageView]!
+    
+    func selectImage(for index: Int) {
+        for image in selectedImages {
+            image.image = UIImage(named: "notSelected")
+        }
+        selectedImages[index].image = UIImage(named: "selected")
+    }
 }

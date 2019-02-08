@@ -9,9 +9,9 @@
 import Foundation
 
 struct IngredientsList {
-    static var all = [String]()
+    var all = [String]()
     
-    static func getAllowedIngredients() -> String {
+    func getAllowedIngredients() -> String {
         var allowedIngredients = String()
         
         for ingredient in all {

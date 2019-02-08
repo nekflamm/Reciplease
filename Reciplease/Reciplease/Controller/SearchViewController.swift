@@ -15,6 +15,8 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchRecipesView: SearchRecipesView!
     
+    var ingredientsList = IngredientsList()
+    
     // -----------------------------------------------------------------
     //              MARK: - Methods / @IBActions
     // -----------------------------------------------------------------
@@ -25,9 +27,9 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchRecipesButton(_ sender: UIButton) {
-        RecipesList.recipes.removeAll()
+        RecipesList.shared.recipes.removeAll()
         getRecipes()
-        IngredientsList.all.removeAll()
+        ingredientsList.all.removeAll()
     }
     
     @IBAction func addButton(_ sender: UIButton) {
@@ -36,17 +38,17 @@ class SearchViewController: UIViewController {
     
     @IBAction func clearButton(_ sender: UIButton) {
         searchRecipesView.clearTextView()
-        IngredientsList.all.removeAll()
+        ingredientsList.all.removeAll()
     }
     
     private func getRecipes() {
-        if !IngredientsList.all.isEmpty {
-            RecipeService.shared.getRecipes { (success) in
+        guard let url = getURL() else {
+            return
+        }
+        if !ingredientsList.all.isEmpty {
+            RecipeService.shared.getRecipes(for: url) { (success)  in
                 if success {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.searchRecipesView.clearTextView()
-                        self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
-                    }
+                    self.goToNextPage()
                 } else {
                     self.presentNoRecipesAlert()
                 }
@@ -56,12 +58,29 @@ class SearchViewController: UIViewController {
         }
     }
     
+    private func getURL() -> URL? {
+        let allowedIngredients = ingredientsList.getAllowedIngredients()
+        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30") else {
+            return nil
+        }
+        return url
+    }
+    
     private func addIngredientsToList() {
         guard let ingredient = searchRecipesView.ingredientsTextField.text  else {
             return
         }
         searchRecipesView.addIngredient(ingredient)
-        IngredientsList.all.append(ingredient)
+        ingredientsList.all.append(ingredient)
+    }
+    
+    private func goToNextPage() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            RecipesList.shared.recipes = RecipesList.shared.central
+            RecipesList.shared.emptyCentral()
+            self.searchRecipesView.clearTextView()
+            self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
+        }
     }
     
     private func presentMissingIngredientsAlert() {

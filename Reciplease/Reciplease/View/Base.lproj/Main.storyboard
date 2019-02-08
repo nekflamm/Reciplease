@@ -225,7 +225,7 @@ Tell me and i will find recipes for you!</string>
                                 </constraints>
                                 <state key="normal" backgroundImage="getDirections"/>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jSA-Ml-zyW">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSA-Ml-zyW">
                                 <rect key="frame" x="18.666666666666657" y="239.33333333333329" width="337.66666666666674" height="317.66666666666674"/>
                                 <string key="text">• PineApple
 • Curry
@@ -321,7 +321,7 @@ Tell me and i will find recipes for you!</string>
                     </view>
                     <navigationItem key="navigationItem" title="Recipe" id="sfN-Eh-ZZs">
                         <barButtonItem key="backBarButtonItem" title="Back" id="r6a-Ht-6L2"/>
-                        <barButtonItem key="rightBarButtonItem" image="redStar" id="XAS-1R-GJb">
+                        <barButtonItem key="rightBarButtonItem" image="star" id="XAS-1R-GJb">
                             <connections>
                                 <action selector="addToFavoritesButton:" destination="ZSk-A6-Ogg" id="ieB-Um-aOZ"/>
                             </connections>
@@ -387,27 +387,27 @@ Tell me and i will find recipes for you!</string>
         <scene sceneID="5Uj-iT-XTb">
             <objects>
                 <viewController id="VDK-sO-zbV" customClass="TodaysRecipeViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RJk-sv-GtG">
+                    <view key="view" contentMode="scaleToFill" id="RJk-sv-GtG" customClass="MealsView" customModule="Reciplease" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="Nqj-eB-lBe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="ILy-UX-Z9Y" customClass="MealsView" customModule="Reciplease" customModuleProvider="target">
-                                <rect key="frame" x="18.666666666666657" y="15" width="337.66666666666674" height="525.66666666666663"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="ILy-UX-Z9Y">
+                                <rect key="frame" x="13" y="15" width="349" height="525.66666666666663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwe-S7-n2Y" userLabel="Breakfast">
-                                        <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUs-sE-BjX">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <connections>
                                                     <action selector="mealsButtons:" destination="VDK-sO-zbV" eventType="touchUpInside" id="uiw-a5-YVz"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Breakfast" translatesAutoresizingMaskIntoConstraints="NO" id="AeL-Hc-B9M">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="6"/>
@@ -415,7 +415,7 @@ Tell me and i will find recipes for you!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breakfast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1k-ND-van">
-                                                <rect key="frame" x="8" y="8" width="329.66666666666669" height="27"/>
+                                                <rect key="frame" x="8" y="8.0000000000000018" width="341" height="27.666666666666671"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="k1k-ND-van" secondAttribute="height" multiplier="270:22" id="Wz7-nb-OPZ"/>
                                                 </constraints>
@@ -426,7 +426,7 @@ Tell me and i will find recipes for you!</string>
                                                 <size key="shadowOffset" width="2" height="2"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selected" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-st-Eg7">
-                                                <rect key="frame" x="299.33333333333331" y="82.666666666666657" width="30.333333333333314" height="30.333333333333329"/>
+                                                <rect key="frame" x="309.33333333333331" y="81.666666666666657" width="31.666666666666686" height="31.333333333333329"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ePe-st-Eg7" secondAttribute="height" multiplier="1:1" id="EJl-Yc-Rsa"/>
                                                 </constraints>
@@ -456,16 +456,16 @@ Tell me and i will find recipes for you!</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDQ-GR-uMG" userLabel="Lunch">
-                                        <rect key="frame" x="0.0" y="135" width="337.66666666666669" height="120.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="135" width="349" height="120.66666666666669"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cx-uE-YAl">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="120.66666666666667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="120.66666666666667"/>
                                                 <connections>
                                                     <action selector="mealsButtons:" destination="VDK-sO-zbV" eventType="touchUpInside" id="5az-Ke-pJI"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lunch" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25s-rX-Xvy">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="120.66666666666667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="120.66666666666667"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="6"/>
@@ -473,7 +473,7 @@ Tell me and i will find recipes for you!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVw-lL-Qre">
-                                                <rect key="frame" x="8" y="8.0000000000000018" width="329.66666666666669" height="26.666666666666671"/>
+                                                <rect key="frame" x="8" y="8.0000000000000018" width="341" height="27.666666666666671"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="zVw-lL-Qre" secondAttribute="height" multiplier="270:22" id="1fN-F8-xGg"/>
                                                 </constraints>
@@ -484,7 +484,7 @@ Tell me and i will find recipes for you!</string>
                                                 <size key="shadowOffset" width="2" height="2"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notSelected" translatesAutoresizingMaskIntoConstraints="NO" id="17O-J9-Hvn">
-                                                <rect key="frame" x="299.33333333333331" y="82.333333333333314" width="30.333333333333314" height="30.333333333333329"/>
+                                                <rect key="frame" x="309.33333333333331" y="81.333333333333314" width="31.666666666666686" height="31.333333333333329"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="17O-J9-Hvn" secondAttribute="height" multiplier="6:6" id="POB-PK-ypq"/>
                                                 </constraints>
@@ -515,16 +515,16 @@ Tell me and i will find recipes for you!</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJa-g1-aEb" userLabel="TeaTime">
-                                        <rect key="frame" x="0.0" y="269.66666666666669" width="337.66666666666669" height="121"/>
+                                        <rect key="frame" x="0.0" y="269.66666666666669" width="349" height="121"/>
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sD-Vg-s1S">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <connections>
                                                     <action selector="mealsButtons:" destination="VDK-sO-zbV" eventType="touchUpInside" id="zXa-vo-7Za"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TeaTime" translatesAutoresizingMaskIntoConstraints="NO" id="ZJt-uv-73g">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="6"/>
@@ -532,7 +532,7 @@ Tell me and i will find recipes for you!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TeaTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJm-lI-FAK">
-                                                <rect key="frame" x="8" y="8" width="329.66666666666669" height="27"/>
+                                                <rect key="frame" x="8" y="8" width="341" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="RJm-lI-FAK" secondAttribute="height" multiplier="270:22" id="zLT-2m-vaT"/>
                                                 </constraints>
@@ -543,7 +543,7 @@ Tell me and i will find recipes for you!</string>
                                                 <size key="shadowOffset" width="2" height="2"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notSelected" translatesAutoresizingMaskIntoConstraints="NO" id="kQv-dI-2df">
-                                                <rect key="frame" x="299.33333333333331" y="82.666666666666629" width="30.333333333333314" height="30.333333333333329"/>
+                                                <rect key="frame" x="309.33333333333331" y="81.666666666666629" width="31.666666666666686" height="31.333333333333329"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="kQv-dI-2df" secondAttribute="height" multiplier="1:1" id="DaK-dt-PnP"/>
                                                 </constraints>
@@ -574,16 +574,16 @@ Tell me and i will find recipes for you!</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UN4-k0-DKX" userLabel="Dinner">
-                                        <rect key="frame" x="0.0" y="404.66666666666669" width="337.66666666666669" height="121.00000000000006"/>
+                                        <rect key="frame" x="0.0" y="404.66666666666669" width="349" height="121.00000000000006"/>
                                         <subviews>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSl-J2-u0G">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <connections>
                                                     <action selector="mealsButtons:" destination="VDK-sO-zbV" eventType="touchUpInside" id="ZU8-a5-jWR"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dinner" translatesAutoresizingMaskIntoConstraints="NO" id="cM2-26-2nV">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="121"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="121"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="6"/>
@@ -591,7 +591,7 @@ Tell me and i will find recipes for you!</string>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dinner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezu-GT-HZp">
-                                                <rect key="frame" x="8" y="7.9999999999999432" width="329.66666666666669" height="27"/>
+                                                <rect key="frame" x="8" y="7.9999999999999449" width="341" height="27.666666666666671"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ezu-GT-HZp" secondAttribute="height" multiplier="270:22" id="Nny-pn-qu4"/>
                                                 </constraints>
@@ -602,7 +602,7 @@ Tell me and i will find recipes for you!</string>
                                                 <size key="shadowOffset" width="2" height="2"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notSelected" translatesAutoresizingMaskIntoConstraints="NO" id="VGc-sq-COP">
-                                                <rect key="frame" x="299.33333333333331" y="82.666666666666686" width="30.333333333333314" height="30.333333333333329"/>
+                                                <rect key="frame" x="309.33333333333331" y="81.666666666666686" width="31.666666666666686" height="31.333333333333329"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="VGc-sq-COP" secondAttribute="height" multiplier="1:1" id="WCf-nc-dwT"/>
                                                 </constraints>
@@ -637,13 +637,16 @@ Tell me and i will find recipes for you!</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIr-TS-9Wk">
                                 <rect key="frame" x="18.666666666666657" y="562" width="337.66666666666674" height="64"/>
                                 <state key="normal" image="searchButton"/>
+                                <connections>
+                                    <action selector="searchRecipesButton:" destination="VDK-sO-zbV" eventType="touchUpInside" id="d9w-Lk-2Qt"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Gnd-pU-0b4" firstAttribute="trailing" secondItem="Nqj-eB-lBe" secondAttribute="trailing" id="730-bp-Z5J"/>
                             <constraint firstItem="LIr-TS-9Wk" firstAttribute="centerX" secondItem="RJk-sv-GtG" secondAttribute="centerX" id="7We-aw-PU3"/>
-                            <constraint firstItem="ILy-UX-Z9Y" firstAttribute="width" secondItem="Nqj-eB-lBe" secondAttribute="width" multiplier="0.9" id="8oW-bg-9T1"/>
+                            <constraint firstItem="ILy-UX-Z9Y" firstAttribute="width" secondItem="Nqj-eB-lBe" secondAttribute="width" multiplier="0.93" id="8oW-bg-9T1"/>
                             <constraint firstItem="ILy-UX-Z9Y" firstAttribute="top" secondItem="Gnd-pU-0b4" secondAttribute="top" constant="15" id="AIu-jG-v6X"/>
                             <constraint firstItem="Gnd-pU-0b4" firstAttribute="bottom" secondItem="LIr-TS-9Wk" secondAttribute="bottom" constant="15" id="ETK-gs-BN2"/>
                             <constraint firstItem="LIr-TS-9Wk" firstAttribute="height" secondItem="Nqj-eB-lBe" secondAttribute="height" multiplier="0.1" id="I6t-nI-lBE"/>
@@ -655,17 +658,19 @@ Tell me and i will find recipes for you!</string>
                             <constraint firstItem="Nqj-eB-lBe" firstAttribute="top" secondItem="Gnd-pU-0b4" secondAttribute="top" id="l1y-2Q-EmY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gnd-pU-0b4"/>
+                        <connections>
+                            <outletCollection property="selectedImages" destination="ePe-st-Eg7" collectionClass="NSMutableArray" id="KuW-fn-AXo"/>
+                            <outletCollection property="selectedImages" destination="17O-J9-Hvn" collectionClass="NSMutableArray" id="Zts-3p-Erf"/>
+                            <outletCollection property="selectedImages" destination="kQv-dI-2df" collectionClass="NSMutableArray" id="eAd-tD-eFq"/>
+                            <outletCollection property="selectedImages" destination="VGc-sq-COP" collectionClass="NSMutableArray" id="UZw-1f-cvX"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Today" id="MaQ-R2-4gn"/>
                     <navigationItem key="navigationItem" title="Today" id="klj-UE-3Um">
                         <barButtonItem key="backBarButtonItem" title="Back" id="E5o-al-JMc"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="mealsView" destination="ILy-UX-Z9Y" id="oFB-Ws-5Qo"/>
-                        <outletCollection property="selectedImages" destination="ePe-st-Eg7" collectionClass="NSMutableArray" id="5U1-EP-9aY"/>
-                        <outletCollection property="selectedImages" destination="25s-rX-Xvy" collectionClass="NSMutableArray" id="9uZ-hp-ZtB"/>
-                        <outletCollection property="selectedImages" destination="ZJt-uv-73g" collectionClass="NSMutableArray" id="04s-ga-Cws"/>
-                        <outletCollection property="selectedImages" destination="cM2-26-2nV" collectionClass="NSMutableArray" id="S0L-dH-m5t"/>
+                        <outlet property="mealsView" destination="RJk-sv-GtG" id="whh-Vz-hn5"/>
                         <segue destination="LYa-ZE-hIj" kind="show" identifier="toRecipesTableView2" id="elW-Rx-CPC"/>
                     </connections>
                 </viewController>
@@ -676,7 +681,7 @@ Tell me and i will find recipes for you!</string>
         <!--Today-->
         <scene sceneID="gF3-Ge-DF9">
             <objects>
-                <tableViewController id="LYa-ZE-hIj" sceneMemberID="viewController">
+                <tableViewController id="LYa-ZE-hIj" customClass="TodaysRecipeTableViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qMS-dE-sci">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -782,9 +787,9 @@ Tell me and i will find recipes for you!</string>
         <image name="infos" width="218" height="217"/>
         <image name="notSelected" width="26" height="25"/>
         <image name="pizza" width="5184" height="3456"/>
-        <image name="redStar" width="24" height="24"/>
         <image name="searchButton" width="339" height="59"/>
         <image name="selected" width="26" height="26"/>
+        <image name="star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QYV-UL-3Hw"/>
