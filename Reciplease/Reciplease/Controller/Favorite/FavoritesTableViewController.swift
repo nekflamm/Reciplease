@@ -36,7 +36,8 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RecipesList.shared.selectedRecipe = RecipesList.shared.favorites[indexPath.row]
+        RecipesList.shared.selectedRecipes["favorite"] = RecipesList.shared.favorites[indexPath.row]
+//        RecipesList.shared.key = "favorite"
         RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails2", sender: self)

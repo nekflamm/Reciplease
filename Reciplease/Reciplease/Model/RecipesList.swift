@@ -14,8 +14,11 @@ struct RecipesList {
     var recipes = [Recipe]()
     var favorites = [Recipe]()
     var todaysRecipes = [Recipe]()
-    var selectedRecipe: Recipe?
+    var selectedRecipes = [String: Recipe]()
+    var key = "search"
     var index = 0
+    
+    private init() {}
     
     mutating func emptyCentral() {
         central.removeAll()

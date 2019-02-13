@@ -336,10 +336,10 @@ Tell me and i will find recipes for you!</string>
             </objects>
             <point key="canvasLocation" x="3503" y="-299"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -360,7 +360,7 @@ Tell me and i will find recipes for you!</string>
         <scene sceneID="rkq-rB-GK6">
             <objects>
                 <navigationController id="jla-TQ-Wn9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Today" id="QVj-cV-yZH"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Today" id="QVj-cV-yZH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="e4I-vO-X0C">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -665,7 +665,7 @@ Tell me and i will find recipes for you!</string>
                             <outletCollection property="selectedImages" destination="VGc-sq-COP" collectionClass="NSMutableArray" id="UZw-1f-cvX"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Today" id="MaQ-R2-4gn"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Today" id="MaQ-R2-4gn"/>
                     <navigationItem key="navigationItem" title="Today" id="klj-UE-3Um">
                         <barButtonItem key="backBarButtonItem" title="Back" id="E5o-al-JMc"/>
                     </navigationItem>
@@ -733,7 +733,7 @@ Tell me and i will find recipes for you!</string>
                             <outlet property="delegate" destination="qBS-Vg-9bq" id="Fn9-Nn-TMC"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Favorites" id="1tM-fp-VkJ"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Favorites" id="1tM-fp-VkJ"/>
                     <navigationItem key="navigationItem" title="Favorites" id="Bij-dM-UQl">
                         <barButtonItem key="backBarButtonItem" title="Back" id="NPv-2v-Dmz"/>
                     </navigationItem>
@@ -749,7 +749,7 @@ Tell me and i will find recipes for you!</string>
         <scene sceneID="xXv-DC-h4e">
             <objects>
                 <navigationController id="NLT-5S-9bn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" id="8AJ-Fj-gMH"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Favorites" id="8AJ-Fj-gMH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="z6w-d8-xeZ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -792,6 +792,6 @@ Tell me and i will find recipes for you!</string>
         <image name="star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QYV-UL-3Hw"/>
+        <segue reference="zsw-L9-zvs"/>
     </inferredMetricsTieBreakers>
 </document>

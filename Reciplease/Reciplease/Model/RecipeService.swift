@@ -14,11 +14,6 @@ class RecipeService {
     static let shared = RecipeService()
     
     func getRecipes(for url: URL, callback: @escaping(Bool) -> Void) {
-//        let allowedIngredients = IngredientsList.getAllowedIngredients()
-//        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30") else {
-//            callback(false)
-//            return
-//        }
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
@@ -44,7 +39,6 @@ class RecipeService {
                 }
                 let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
                                     timeInSeconds: recipe.totalTimeInSeconds, isFavorite: false)
-//                RecipesList.shared.recipes.append(recipe)
                 RecipesList.shared.central.append(recipe)
             }
         }

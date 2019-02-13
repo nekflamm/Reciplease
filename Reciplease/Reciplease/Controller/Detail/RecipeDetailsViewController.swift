@@ -13,7 +13,7 @@ class RecipeDetailsViewController: UIViewController {
     var recipe: Recipe {
         get {
             return getRecipe()
-        } 
+        } set {}
     }
     
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
@@ -25,6 +25,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        recipe = getRecipe()
         setupView()
     }
     
@@ -33,7 +34,10 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func getRecipe() -> Recipe {
-        guard let recipe = RecipesList.shared.selectedRecipe else {
+//        let element = TabBarViewController.shared.getString()
+        let key = RecipesList.shared.key
+        
+        guard let recipe = RecipesList.shared.selectedRecipes[key] else {
             return Recipe(name: "", ingredients: [""], image: UIImage(),
                           rating: 0, timeInSeconds: 0, isFavorite: false)
         }
@@ -41,6 +45,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func setupView() {
+        print(RecipesList.shared.key)
         let ingredients = convertToList(recipe.ingredients)
         recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image, rate: recipe.ratingToString, time: recipe.timeToString)
         checkIfFavorite()
