@@ -13,7 +13,7 @@ struct Recipe {
     var name: String
     var ingredients: [String]
     var ingredientsList: String {
-        var string = ""
+        var string = String()
         for ingredient in ingredients {
             string += "\(ingredient), "
         }
@@ -30,6 +30,7 @@ struct Recipe {
         let timeInMinute = (timeInSeconds / 60)
         return "\(String(timeInMinute))m"
     }
+    var id: String
+    var url: URL?
     var isFavorite = false
 }
-

@@ -37,7 +37,6 @@ extension RecipesTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RecipesList.shared.selectedRecipes["search"] = RecipesList.shared.recipes[indexPath.row]
-//        RecipesList.shared.key = "search"
         RecipesList.shared.index = indexPath.row
         
         performSegue(withIdentifier: "toRecipeDetails", sender: self)

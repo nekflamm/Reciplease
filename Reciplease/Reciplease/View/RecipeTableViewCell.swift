@@ -6,6 +6,7 @@
 //  Copyright © 2019 Adrien Carvalot. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class RecipeTableViewCell: UITableViewCell {

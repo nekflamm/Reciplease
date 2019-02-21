@@ -12,7 +12,8 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFavorites()
+        getFavorites(in: RecipesList.shared.recipes)
+        getFavorites(in: RecipesList.shared.todaysRecipes)
         tableView.reloadData()
     }
     
@@ -22,6 +23,7 @@ class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RecipesList.shared.favorites.count
+//        return FavoritesList.all.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,47 +39,71 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RecipesList.shared.selectedRecipes["favorite"] = RecipesList.shared.favorites[indexPath.row]
-//        RecipesList.shared.key = "favorite"
         RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails2", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let index = removeFavorite(for: indexPath) else {
-                return
-            }
+        if let index = removeFavorite(in: RecipesList.shared.recipes, for: indexPath) {
             RecipesList.shared.recipes[index].isFavorite = false
-            
-            tableView.deleteRows(at: [indexPath], with: .right)
         }
+        if let scndIndex = removeFavorite(in: RecipesList.shared.todaysRecipes, for: indexPath) {
+            RecipesList.shared.todaysRecipes[scndIndex].isFavorite = false
+        }
+        RecipesList.shared.favorites.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .right)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 134
     }
-    
-    private func removeFavorite(for indexPath: IndexPath) -> Int? {
-        RecipesList.shared.index = 0
-        for recipe in RecipesList.shared.recipes {
+
+    private func removeFavorite(in recipes: [Recipe], for indexPath: IndexPath) -> Int? {
+        var index = 0
+
+        for recipe in recipes {
             if recipe.name == RecipesList.shared.favorites[indexPath.row].name {
-                RecipesList.shared.favorites.remove(at: indexPath.row)
-                
-                return RecipesList.shared.index
+
+                return index
             }
-            RecipesList.shared.index += 1
+            index += 1
         }
         return nil
     }
     
-    private func getFavorites() {
-        RecipesList.shared.favorites.removeAll()
-        for recipe in RecipesList.shared.recipes {
-            if recipe.isFavorite {
-                RecipesList.shared.favorites.append(recipe)
+    private func getFavorites(in recipes: [Recipe]) {
+        for recipe in recipes {
+            if recipe.isFavorite && !IsAlreadyFavorite(recipe) {
+                appendToFavorites(recipe)
             }
         }
+    }
+    
+    private func appendToFavorites(_ recipe: Recipe) {
+        RecipesList.shared.favorites.append(recipe)
+        print("Recipe add to favorites")
+    }
+    
+//    private func appendToFavorites(_ recipe: Recipe) {
+//        let favoritesList = FavoritesList(context: AppDelegate.viewContext)
+//        favoritesList.recipe = recipe
+//        try? AppDelegate.viewContext.save()
+//
+//        for recipe in FavoritesList.all {
+//            print(recipe.recipe?.name ?? "no recipe")
+//        }
+//    }
+    
+    
+    
+    private  func IsAlreadyFavorite(_ recipe: Recipe) -> Bool {
+        for favorite in RecipesList.shared.favorites {
+            if favorite.name ==  recipe.name {
+                return true
+            }
+        }
+        return false
     }
     
     private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {

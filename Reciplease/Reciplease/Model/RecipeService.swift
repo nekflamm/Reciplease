@@ -13,6 +13,8 @@ import AlamofireImage
 class RecipeService {
     static let shared = RecipeService()
     
+    private init() {}
+    
     func getRecipes(for url: URL, callback: @escaping(Bool) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
@@ -38,7 +40,7 @@ class RecipeService {
                     return
                 }
                 let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
-                                    timeInSeconds: recipe.totalTimeInSeconds, isFavorite: false)
+                                    timeInSeconds: recipe.totalTimeInSeconds, id: recipe.id, url: nil, isFavorite: false)
                 RecipesList.shared.central.append(recipe)
             }
         }
@@ -67,8 +69,25 @@ class RecipeService {
         }
         return url
     }
+    
+    func getUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {
+        Alamofire.request(url).responseJSON { (response) in
+            guard response.result.isSuccess,
+                let data = response.data else {
+                    callback(false, nil)
+                    return
+            }
+            guard let urlResponse = try? JSONDecoder().decode(URLResponse.self, from: data) else {
+                callback(false, nil)
+                return
+            }
+            let url = urlResponse.source.sourceRecipeUrl
+            callback(true, url)
+        }
+    }
 }
 
+    // Decode getRecipes func response
 fileprivate struct RecipeResponse: Decodable {
     let matches: [Matches]
 }
@@ -79,13 +98,15 @@ fileprivate struct Matches: Decodable {
     let totalTimeInSeconds: Int
     let rating: Int
     let smallImageUrls: [String]
+    let id: String
     
-    init(name: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String]) {
+    init(name: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String], id: String) {
         self.name = name
         self.ingredients = ingredients
         self.totalTimeInSeconds = totalTimeInSeconds
         self.rating = rating
         self.smallImageUrls = smallImageUrls
+        self.id = id
     }
         
     enum MyStructKeys: String, CodingKey {
@@ -94,6 +115,7 @@ fileprivate struct Matches: Decodable {
         case totalTimeInSeconds = "totalTimeInSeconds"
         case rating = "rating"
         case smallImageUrls = "smallImageUrls"
+        case id = "id"
     }
     
     init(from decoder: Decoder) throws {
@@ -103,8 +125,17 @@ fileprivate struct Matches: Decodable {
         let totalTimeInSeconds: Int = try container.decode(Int.self, forKey: .totalTimeInSeconds)
         let rating: Int = try container.decode(Int.self, forKey: .rating)
         let smallImageUrls: [String] = try container.decode([String].self, forKey: .smallImageUrls)
+        let id: String = try container.decode(String.self, forKey: .id)
         
         self.init(name: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds,
-                  rating: rating, smallImageUrls: smallImageUrls)
+                  rating: rating, smallImageUrls: smallImageUrls, id: id)
     }
+}
+
+fileprivate struct URLResponse: Codable {
+    let source: Source
+}
+fileprivate struct Source: Codable {
+    let sourceRecipeUrl: URL
+    let sourceDisplayName: String
 }

@@ -12,36 +12,19 @@ class TabBarViewController: UITabBarController {
     
     static let shared = TabBarViewController()
     
-    var selectedItem = 0
-    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 0:
+            print("Going to search page")
             RecipesList.shared.key = "search"
         case 1:
+            print("Going to favorite page")
             RecipesList.shared.key = "favorite"
         case 2:
+            print("Going to today page")
             RecipesList.shared.key = "today"
         default:
             print("Error")
         }
     }
-    
-//    func setValue(tag: Int) {
-//        selectedItem = tag
-//        print("Page changed for \(selectedItem)")
-//    }
-//
-//    func getString() -> String {
-//        switch selectedItem {
-//        case 0:
-//            return "search"
-//        case 1:
-//            return "favorite"
-//        case 2:
-//            return "today"
-//        default:
-//            return "error"
-//        }
-//    }
 }
