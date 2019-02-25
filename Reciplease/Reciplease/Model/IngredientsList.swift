@@ -19,4 +19,18 @@ struct IngredientsList {
         }
         return allowedIngredients
     }
+    
+    mutating func append(_ ingredient: String) {
+        var newIngredient = ingredient
+        
+        if newIngredient.first == " " {
+            newIngredient.removeFirst()
+            append(newIngredient)
+        } else if newIngredient.last == " " {
+            newIngredient.removeLast()
+            append(newIngredient)
+        } else {
+            all.append(newIngredient)
+        }
+    }
 }

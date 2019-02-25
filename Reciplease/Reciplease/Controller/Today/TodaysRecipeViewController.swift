@@ -26,7 +26,7 @@ class TodaysRecipeViewController: UIViewController {
         guard let url = todaysRecipe.getURL() else {
             return
         }
-        RecipeService.shared.getRecipes(for: url) { (success) in
+        RecipeService.shared.getRecipes(for: url) { (success, numberOfRecipes)  in
             if success {
                 self.goToNextPage()
             } else {

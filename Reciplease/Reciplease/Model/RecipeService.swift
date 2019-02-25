@@ -15,19 +15,21 @@ class RecipeService {
     
     private init() {}
     
-    func getRecipes(for url: URL, callback: @escaping(Bool) -> Void) {
+    func getRecipes(for url: URL, callback: @escaping(Bool, Int?) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
-                    callback(false)
+                    callback(false, nil)
                     return
             }
             guard let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
-                callback(false)
+                callback(false, nil)
                 return
             }
+            let numberOfRecipes = recipeData.matches.count
             self.storeRecipes(for: recipeData)
-            callback(true)
+            
+            callback(true, numberOfRecipes)
         }
     }
     
@@ -47,7 +49,7 @@ class RecipeService {
     }
     
     private func getImage(for url: URL, completionHandler: @escaping ((UIImage?) -> Void)) {
-        let url = url
+//        let url = url
         
         Alamofire.request(url).responseImage { (response) in
             guard response.result.isSuccess,
@@ -82,12 +84,13 @@ class RecipeService {
                 return
             }
             let url = urlResponse.source.sourceRecipeUrl
+            
             callback(true, url)
         }
     }
 }
 
-    // Decode getRecipes func response
+// Decode getRecipes func response
 fileprivate struct RecipeResponse: Decodable {
     let matches: [Matches]
 }
@@ -132,6 +135,7 @@ fileprivate struct Matches: Decodable {
     }
 }
 
+// Decode getUrl func response
 fileprivate struct URLResponse: Codable {
     let source: Source
 }

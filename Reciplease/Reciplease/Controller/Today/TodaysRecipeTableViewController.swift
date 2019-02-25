@@ -36,6 +36,7 @@ class TodaysRecipeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RecipesList.shared.selectedRecipes["today"] = RecipesList.shared.todaysRecipes[indexPath.row]
+        
         RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails3", sender: self)

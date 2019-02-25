@@ -73,15 +73,15 @@ class RecipeDetailsViewController: UIViewController {
         let todaysRecipes = RecipesList.shared.todaysRecipes
         let searchRecipes = RecipesList.shared.recipes
         
-        checkIfFavorite(for: "today", in: todaysRecipes)
-        checkIfFavorite(for: "search", in: searchRecipes)
+        checkIfFavorite(forKey: "today", in: todaysRecipes)
+        checkIfFavorite(forKey: "search", in: searchRecipes)
         
         if getKey() == "favorite" {
             changeNavigationItemColorFor(UIColor.orange)
         }
     }
     
-    private func checkIfFavorite(for key: String, in recipes: [Recipe]) {
+    private func checkIfFavorite(forKey key: String, in recipes: [Recipe]) {
         let index = RecipesList.shared.index
         
         if getKey() == key {

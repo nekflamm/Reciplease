@@ -46,12 +46,13 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if let index = removeFavorite(in: RecipesList.shared.recipes, for: indexPath) {
-            RecipesList.shared.recipes[index].isFavorite = false
+                    RecipesList.shared.recipes[index].isFavorite = false
         }
         if let scndIndex = removeFavorite(in: RecipesList.shared.todaysRecipes, for: indexPath) {
-            RecipesList.shared.todaysRecipes[scndIndex].isFavorite = false
+                    RecipesList.shared.todaysRecipes[scndIndex].isFavorite = false
         }
         RecipesList.shared.favorites.remove(at: indexPath.row)
+        
         tableView.deleteRows(at: [indexPath], with: .right)
     }
     
@@ -82,7 +83,6 @@ class FavoritesTableViewController: UITableViewController {
     
     private func appendToFavorites(_ recipe: Recipe) {
         RecipesList.shared.favorites.append(recipe)
-        print("Recipe add to favorites")
     }
     
 //    private func appendToFavorites(_ recipe: Recipe) {

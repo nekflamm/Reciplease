@@ -46,11 +46,9 @@ class SearchViewController: UIViewController {
             return
         }
         if !ingredientsList.all.isEmpty {
-            RecipeService.shared.getRecipes(for: url) { (success)  in
-                if success {
-                    self.goToNextPage()
-                } else {
-                    self.presentNoRecipesAlert()
+            RecipeService.shared.getRecipes(for: url) { (success, numberOfRecipes)   in
+                if let recipesNumber = numberOfRecipes, success {
+                    self.goToNextPage(recipesNumber: recipesNumber)
                 }
             }
         } else {
@@ -66,21 +64,35 @@ class SearchViewController: UIViewController {
         return url
     }
     
+    private func goToNextPage(recipesNumber: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+            RecipesList.shared.recipes = RecipesList.shared.central
+            RecipesList.shared.emptyCentral()
+            
+            if RecipesList.shared.recipes.count != 0 {
+                self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
+            } else {
+                self.presentNoRecipesAlert()
+            }
+            self.clearTextView()
+        }
+    }
+    
     private func addIngredientsToList() {
         guard let ingredient = searchRecipesView.ingredientsTextField.text  else {
             return
         }
-        searchRecipesView.addIngredient(ingredient)
-        ingredientsList.all.append(ingredient)
+        ingredientsList.append(ingredient)
+        
+        guard let newIngredient = ingredientsList.all.last else {
+            return
+        }
+        searchRecipesView.addIngredient(newIngredient)
     }
     
-    private func goToNextPage() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            RecipesList.shared.recipes = RecipesList.shared.central
-            RecipesList.shared.emptyCentral()
-            self.searchRecipesView.clearTextView()
-            self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
-        }
+    private func clearTextView() {
+        ingredientsList.all.removeAll()
+        searchRecipesView.clearTextView()
     }
     
     private func presentMissingIngredientsAlert() {
