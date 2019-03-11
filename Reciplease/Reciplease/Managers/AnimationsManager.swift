@@ -10,43 +10,43 @@ import Foundation
 import UIKit
 
 class AnimationManager {
-    private let imageArray = [UIImage(named: "pizza"), UIImage(named: "couscous"),
-                              UIImage(named: "sushis"), UIImage(named: "pates"),
-                              UIImage(named: "poivrons"), UIImage(named: "fruits")]
+    let imagesManager = ImagesManager()
     
-    private var index = 0
-    
-    func launchAnimation(banner: UIImageView, secondBanner: UIImageView) {
+    func animate(banner: UIImageView, secondBanner: UIImageView, imagesNames: String, delay: Double) {
         let x = -banner.frame.width
         
-        UIView.animate(withDuration: 2.0, delay: 2, animations: {
+        UIView.animate(withDuration: 2.0, delay: delay, animations: {
             banner.transform = CGAffineTransform(translationX: x, y: 0)
             secondBanner.transform = CGAffineTransform(translationX: x, y: 0)
         }) { (success) in
-            banner.image = self.imageArray[self.checkIndex()]
+            banner.image = self.imagesManager.takeAnImage(for: imagesNames)
             swap(&banner.image, &secondBanner.image)
             banner.transform = .identity
             secondBanner.transform = .identity
         }
     }
     
-    func setupBanners(banner: UIImageView, secondBanner: UIImageView, view: UIView) {
-        banner.accessibilityIdentifier = "banner"
-        secondBanner.accessibilityIdentifier = "scndBanner"
-        secondBanner.image = imageArray[checkIndex()]
-        secondBanner.image = UIImage(named: "pates")
-        secondBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
-        secondBanner.contentMode = .scaleAspectFill
-        secondBanner.clipsToBounds = true
+    func setupBanner(view: UIView?, banner: UIImageView?, scndBanner: UIImageView, images: String, addToY y: CGFloat) -> UIImageView {
+        let object = getObject(for: view, and: banner)
         
-        view.insertSubview(secondBanner, belowSubview: banner)
+        scndBanner.image = imagesManager.takeAnImage(for: images)
+        scndBanner.frame = CGRect(x: object.frame.maxX, y: object.frame.minY + y, width: object.frame.width, height: object.frame.height)
+        scndBanner.contentMode = .scaleAspectFill
+        scndBanner.clipsToBounds = true
+        
+        return scndBanner
     }
     
-    private func checkIndex() -> Int {
-        index += 1
-        if index == imageArray.count {
-            index = 0
+    private func getObject(for view: UIView?, and banner: UIImageView?) -> AnyObject {
+        var object: AnyObject = UIImage()
+        
+        guard view != nil, let view = view else {
+            object = banner!
+            
+            return object
         }
-        return index
+        object = view
+        
+        return object
     }
 }

@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlateAndSpoon" translatesAutoresizingMaskIntoConstraints="NO" id="Eq2-ht-L1l">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlateAndSpoons" translatesAutoresizingMaskIntoConstraints="NO" id="Eq2-ht-L1l">
                                 <rect key="frame" x="0.0" y="217" width="375" height="508"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Eq2-ht-L1l" secondAttribute="height" multiplier="375:508" id="z3r-Y9-FUs"/>
@@ -94,7 +94,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SlateAndSpoon" width="405" height="660"/>
+        <image name="SlateAndSpoons" width="405" height="661"/>
         <image name="buttonBlank" width="255" height="45"/>
     </resources>
 </document>

@@ -13,6 +13,11 @@ class TodaysRecipeViewController: UIViewController {
     
     @IBOutlet weak var mealsView: MealsView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mealsView.scheduledTimerWithTimeInterval()
+    }
+    
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         getRecipes()
     }

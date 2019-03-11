@@ -1,19 +1,9 @@
 //
 //  FavoritesList.swift
-//  
+//  Reciplease
 //
-//  Created by Adrien Carvalot on 19/02/2019.
+//  Created by Adrien Carvalot on 09/03/2019.
+//  Copyright © 2019 Adrien Carvalot. All rights reserved.
 //
 
-//import Foundation
-//import CoreData
-//
-//class FavoritesList: NSManagedObject {
-//    static var all: [FavoritesList] {
-//        let request: NSFetchRequest<FavoritesList> = FavoritesList.fetchRequest()
-//        guard let recipes = try? AppDelegate.viewContext.fetch(request) else {
-//            return []
-//        }
-//        return recipes
-//    }
-//}
+// import Foundation

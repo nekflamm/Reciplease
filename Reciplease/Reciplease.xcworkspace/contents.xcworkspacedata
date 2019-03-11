@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/nyoxide/Documents/Apps Xcode/Reciplease/Reciplease/Reciplease/Model/FavoritesList.swift">
-   </FileRef>
-   <FileRef
       location = "group:Reciplease.xcodeproj">
    </FileRef>
    <FileRef
