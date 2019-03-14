@@ -37,7 +37,7 @@ class MealsView: UIView {
         var delay = 2.0
         
         for name in names {
-            animationManager.animate(banner: bannersImages[index], secondBanner: secondaryImages[index], imagesNames: name, delay: delay)
+            animationManager.animate(banner: bannersImages[index], secondBanner: secondaryImages[index], imagesNames: name, delay: delay, check: bannersImages[index].image!)
             
             index += 1
             delay += 0.4
@@ -48,7 +48,7 @@ class MealsView: UIView {
         var index = 0
         
         for name in names {
-            let banner = animationManager.setupBanner(view: bannersView[index], banner: nil, scndBanner: secondaryImages[index], images: name, addToY: 15)
+            let banner = animationManager.setupBanner(view: bannersView[index], banner: nil, scndBanner: secondaryImages[index], images: name, check: bannersImages[index].image!, addToY: 15)
             self.insertSubview(banner, belowSubview: bannersImages[index])
             
             index += 1

@@ -15,7 +15,7 @@ class TodaysRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mealsView.scheduledTimerWithTimeInterval()
+//        mealsView.scheduledTimerWithTimeInterval()
     }
     
     @IBAction func searchRecipesButton(_ sender: UIButton) {
@@ -28,24 +28,25 @@ class TodaysRecipeViewController: UIViewController {
     }
     
     private func getRecipes() {
+        RecipesList.shared.todaysRecipes.removeAll()
+        
         guard let url = todaysRecipe.getURL() else {
             return
         }
-        RecipeService.shared.getRecipes(for: url) { (success, numberOfRecipes)  in
-            if success {
+        RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)  in
+            guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
+                return
+            }
+            RecipesList.shared.todaysRecipes.append(recipe)
+            if RecipesList.shared.todaysRecipes.count == totalRecipes {
                 self.goToNextPage()
-            } else {
-                self.presentDataNotFoundAlert()
             }
         }
     }
     
     private func goToNextPage() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            RecipesList.shared.todaysRecipes = RecipesList.shared.central
-            RecipesList.shared.emptyCentral()
-            self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
-        }
+        RecipesList.shared.emptyCentral()
+        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
     }
     
     private func presentDataNotFoundAlert() {

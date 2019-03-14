@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func addButton(_ sender: UIButton) {
-        addIngredientsToList()
+        addIngredientToList()
     }
     
     @IBAction func clearButton(_ sender: UIButton) {
@@ -42,13 +42,20 @@ class SearchViewController: UIViewController {
     }
     
     private func getRecipes() {
+        RecipesList.shared.recipes.removeAll()
+        
         guard let url = getURL() else {
             return
         }
         if !ingredientsList.all.isEmpty {
-            RecipeService.shared.getRecipes(for: url) { (success, numberOfRecipes)   in
-                if let recipesNumber = numberOfRecipes, success {
-                    self.goToNextPage(recipesNumber: recipesNumber)
+            RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)   in
+                guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
+                    return
+                }
+                RecipesList.shared.recipes.append(recipe)
+                
+                if RecipesList.shared.recipes.count == totalRecipes {
+                    self.goToNextPage()
                 }
             }
         } else {
@@ -58,28 +65,26 @@ class SearchViewController: UIViewController {
     
     private func getURL() -> URL? {
         let allowedIngredients = ingredientsList.getAllowedIngredients()
-        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=30") else {
+        print(allowedIngredients)
+        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=50") else {
             return nil
         }
         return url
     }
     
-    private func goToNextPage(recipesNumber: Int) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-            RecipesList.shared.recipes = RecipesList.shared.central
-            RecipesList.shared.emptyCentral()
-            
-            if RecipesList.shared.recipes.count != 0 {
-                self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
-            } else {
-                self.presentNoRecipesAlert()
-            }
-            self.clearTextView()
+    private func goToNextPage() {
+        RecipesList.shared.emptyCentral()
+        
+        if RecipesList.shared.recipes.count != 0 {
+            self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
+        } else {
+            self.presentNoRecipesAlert()
         }
+        self.clearTextView()
     }
     
-    private func addIngredientsToList() {
-        guard let ingredient = searchRecipesView.ingredientsTextField.text  else {
+    private func addIngredientToList() {
+        guard let ingredient = searchRecipesView.ingredientsTextField.text, ingredient != "" else {
             return
         }
         ingredientsList.append(ingredient)
@@ -119,6 +124,7 @@ extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchRecipesView.resignResponder()
+        addIngredientToList()
         
         return true
     }

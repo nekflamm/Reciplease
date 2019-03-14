@@ -12,24 +12,24 @@ import UIKit
 class AnimationManager {
     let imagesManager = ImagesManager()
     
-    func animate(banner: UIImageView, secondBanner: UIImageView, imagesNames: String, delay: Double) {
+    func animate(banner: UIImageView, secondBanner: UIImageView, imagesNames: String, delay: Double, check previousImage: UIImage) {
         let x = -banner.frame.width
         
         UIView.animate(withDuration: 2.0, delay: delay, animations: {
             banner.transform = CGAffineTransform(translationX: x, y: 0)
             secondBanner.transform = CGAffineTransform(translationX: x, y: 0)
         }) { (success) in
-            banner.image = self.imagesManager.takeAnImage(for: imagesNames)
+            banner.image = self.imagesManager.takeAnImage(for: imagesNames, withPrevious: previousImage)
             swap(&banner.image, &secondBanner.image)
             banner.transform = .identity
             secondBanner.transform = .identity
         }
     }
     
-    func setupBanner(view: UIView?, banner: UIImageView?, scndBanner: UIImageView, images: String, addToY y: CGFloat) -> UIImageView {
+    func setupBanner(view: UIView?, banner: UIImageView?, scndBanner: UIImageView, images: String, check previousImage: UIImage, addToY y: CGFloat) -> UIImageView {
         let object = getObject(for: view, and: banner)
         
-        scndBanner.image = imagesManager.takeAnImage(for: images)
+        scndBanner.image = imagesManager.takeAnImage(for: images, withPrevious: previousImage)
         scndBanner.frame = CGRect(x: object.frame.maxX, y: object.frame.minY + y, width: object.frame.width, height: object.frame.height)
         scndBanner.contentMode = .scaleAspectFill
         scndBanner.clipsToBounds = true

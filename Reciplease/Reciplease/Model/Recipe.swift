@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 struct Recipe {
     var name: String
@@ -32,5 +33,5 @@ struct Recipe {
     }
     var id: String
     var url: URL?
-    var isFavorite = false
+    var isFavorite: Bool
 }

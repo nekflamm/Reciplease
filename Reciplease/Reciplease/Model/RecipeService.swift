@@ -15,42 +15,49 @@ class RecipeService {
     
     private init() {}
     
-    func getRecipes(for url: URL, callback: @escaping(Bool, Int?) -> Void) {
+    func getRecipes(for url: URL, callback: @escaping(Bool, [Recipe]?, Int?) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
+            print(response.result)
             guard response.result.isSuccess,
                 let data = response.data else {
-                    callback(false, nil)
+                    callback(false, nil, nil)
                     return
             }
             guard let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
-                callback(false, nil)
+                callback(false, nil, nil)
                 return
             }
-            let numberOfRecipes = recipeData.matches.count
-            self.storeRecipes(for: recipeData)
+            let recipesNumber = recipeData.matches.count
             
-            callback(true, numberOfRecipes)
+            self.storeRecipes(for: recipeData) { (success, recipes)   in
+                guard let recipes = recipes, success else {
+                    callback(false, nil, nil)
+                    return
+                }
+                callback(true, recipes, recipesNumber)
+            }
         }
     }
     
-    private func storeRecipes(for recipeData: RecipeResponse) {
+    private func storeRecipes(for recipeData: RecipeResponse, callback: @escaping(Bool, [Recipe]?) -> Void) {
         for recipe in recipeData.matches {
             let imageUrl = self.modifyUrl(recipe.smallImageUrls[0])
-
+            
             self.getImage(for: imageUrl) { (image) in
                 guard let image = image else {
+                    callback(false, nil)
                     return
                 }
                 let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
                                     timeInSeconds: recipe.totalTimeInSeconds, id: recipe.id, url: nil, isFavorite: false)
                 RecipesList.shared.central.append(recipe)
+                print(RecipesList.shared.central.count)
+                callback(true, RecipesList.shared.central)
             }
         }
     }
     
     private func getImage(for url: URL, completionHandler: @escaping ((UIImage?) -> Void)) {
-//        let url = url
-        
         Alamofire.request(url).responseImage { (response) in
             guard response.result.isSuccess,
                 let image = response.result.value else {
@@ -87,6 +94,20 @@ class RecipeService {
             
             callback(true, url)
         }
+    }
+    
+    func getIngredientsList(for ingredients: [String]) -> String {
+        var string = String()
+        for ingredient in ingredients {
+            string += "\(ingredient), "
+        }
+        string.removeLast(2)
+        return "\(string)."
+    }
+    
+    func getTimeInMinute(for time: Int16) -> String {
+        let timeInMinute = (time / 60)
+        return "\(String(timeInMinute))m"
     }
 }
 

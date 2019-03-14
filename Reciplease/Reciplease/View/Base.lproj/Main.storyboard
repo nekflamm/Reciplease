@@ -14,7 +14,7 @@
         <scene sceneID="p6e-TZ-de1">
             <objects>
                 <navigationController id="8hU-wi-9vu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="rKy-bh-8jK"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="loupe" id="rKy-bh-8jK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="Nfx-n7-2Bv">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -84,7 +84,7 @@
                                         <rect key="frame" x="18.666666666666657" y="82.666666666666657" width="337.66666666666674" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
                                             <outlet property="delegate" destination="9pv-A4-QxB" id="sj8-ZC-3Xi"/>
                                         </connections>
@@ -215,7 +215,7 @@ Tell me and i will find recipes for you!</string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Slate" translatesAutoresizingMaskIntoConstraints="NO" id="x3e-nG-Bjh">
                                 <rect key="frame" x="0.0" y="224.33333333333329" width="375" height="416.66666666666674"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Meal4" translatesAutoresizingMaskIntoConstraints="NO" id="gFf-lj-sA0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Meal8" translatesAutoresizingMaskIntoConstraints="NO" id="gFf-lj-sA0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="224.33333333333334"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8q-99-BPz">
@@ -398,7 +398,7 @@ Tell me and i will find recipes for you!</string>
         <scene sceneID="rkq-rB-GK6">
             <objects>
                 <navigationController id="jla-TQ-Wn9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="Today" id="QVj-cV-yZH"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Today" image="recipeIcon" id="QVj-cV-yZH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="e4I-vO-X0C">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -605,7 +605,7 @@ Tell me and i will find recipes for you!</string>
                                                     <action selector="mealsButtons:" destination="VDK-sO-zbV" eventType="touchUpInside" id="ZU8-a5-jWR"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dinner5" translatesAutoresizingMaskIntoConstraints="NO" id="cM2-26-2nV">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dinner2" translatesAutoresizingMaskIntoConstraints="NO" id="cM2-26-2nV">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="121"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dinner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezu-GT-HZp">
@@ -775,7 +775,7 @@ Tell me and i will find recipes for you!</string>
         <scene sceneID="xXv-DC-h4e">
             <objects>
                 <navigationController id="NLT-5S-9bn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="Favorites" id="8AJ-Fj-gMH"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Favorites" image="star" id="8AJ-Fj-gMH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="z6w-d8-xeZ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -801,10 +801,10 @@ Tell me and i will find recipes for you!</string>
     </scenes>
     <resources>
         <image name="Breakfast2" width="3456" height="3351"/>
-        <image name="Dinner5" width="640" height="960"/>
+        <image name="Dinner2" width="6000" height="4000"/>
         <image name="Lunch3" width="5184" height="3456"/>
         <image name="Meal10" width="3456" height="4608"/>
-        <image name="Meal4" width="1349" height="901"/>
+        <image name="Meal8" width="5184" height="3456"/>
         <image name="Slate" width="875.52001953125" height="1313.280029296875"/>
         <image name="SlateAndSpoons" width="405" height="661"/>
         <image name="TeaTime3" width="640" height="960"/>
@@ -812,10 +812,12 @@ Tell me and i will find recipes for you!</string>
         <image name="clearButton" width="64" height="31"/>
         <image name="getDirections" width="278" height="49"/>
         <image name="infos" width="218" height="217"/>
+        <image name="loupe" width="48" height="48"/>
         <image name="notSelected" width="26" height="25"/>
+        <image name="recipeIcon" width="48" height="48"/>
         <image name="searchButton" width="339" height="59"/>
         <image name="selected" width="26" height="26"/>
-        <image name="star" width="24" height="24"/>
+        <image name="star" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sFn-qD-8t4"/>

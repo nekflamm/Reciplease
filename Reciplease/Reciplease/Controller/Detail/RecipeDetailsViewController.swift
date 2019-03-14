@@ -47,6 +47,7 @@ class RecipeDetailsViewController: UIViewController {
             guard let url = url else {
                 return
             }
+            print(url)
             RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = url
             self.performSegue(withIdentifier: "goToWebView", sender: self)
         }
@@ -99,12 +100,24 @@ class RecipeDetailsViewController: UIViewController {
         switch getKey() {
         case "today":
             RecipesList.shared.todaysRecipes[index].isFavorite = true
+            saveRecipe()
         case "search":
             RecipesList.shared.recipes[index].isFavorite = true
+            saveRecipe()
         default:
             print("error")
         }
-        changeNavigationItemColorFor(UIColor.orange)
+        changeNavigationItemColorFor(.orange)
+    }
+    
+    private func recipeIsAlreadyFavorite() -> Bool {
+        for savedRecipe in RecipeData.all {
+            if savedRecipe.name == recipe?.name {
+                
+                return true
+            }
+        }
+        return false
     }
     
     private func getKey() -> String {
@@ -122,5 +135,64 @@ class RecipeDetailsViewController: UIViewController {
             ingredientsList += "• \(ingredient)\n\n"
         }
         return ingredientsList
+    }
+    
+    private func saveRecipe() {
+        guard let recipe = recipe else {
+            return
+        }
+        
+        if !recipeIsAlreadyFavorite() {
+            let image = recipe.image.pngData()
+            
+            let recipeData = RecipeData(context: AppDelegate.viewContext)
+            recipeData.name = recipe.name
+            recipeData.ingredients = recipe.ingredients
+            recipeData.ingredientsList = getIngredientsList(for: recipeData.ingredients!)
+            recipeData.image = image
+            recipeData.rating = Int16(recipe.rating)
+            recipeData.ratingToString = String(recipeData.rating)
+            recipeData.timeInSeconds = Int16(recipe.timeInSeconds)
+            recipeData.timeToString = getTimeInMinute(for: recipeData.timeInSeconds)
+            recipeData.url = recipe.url
+            recipeData.id = recipe.id
+            recipeData.isFavorite = recipe.isFavorite
+            
+            try? AppDelegate.viewContext.save()
+        }
+    }
+    
+//    private func saveRecipe(from array: [Recipe], at  index: Int) {
+//        let recipe = array[index]
+//        let image = recipe.image.pngData()
+//
+//        let recipeData = RecipeData(context: AppDelegate.viewContext)
+//        recipeData.name = recipe.name
+//        recipeData.ingredients = recipe.ingredients
+//        recipeData.ingredientsList = getIngredientsList(for: recipeData.ingredients!)
+//        recipeData.image = image
+//        recipeData.rating = Int16(recipe.rating)
+//        recipeData.ratingToString = String(recipeData.rating)
+//        recipeData.timeInSeconds = Int16(recipe.timeInSeconds)
+//        recipeData.timeToString = getTimeInMinute(for: recipeData.timeInSeconds)
+//        recipeData.url = recipe.url
+//        recipeData.id = recipe.id
+//        recipeData.isFavorite = recipe.isFavorite
+//
+//        try? AppDelegate.viewContext.save()
+//    }
+    
+    func getIngredientsList(for ingredients: [String]) -> String {
+        var string = String()
+        for ingredient in ingredients {
+            string += "\(ingredient), "
+        }
+        string.removeLast(2)
+        return "\(string)."
+    }
+    
+    func getTimeInMinute(for time: Int16) -> String {
+        let timeInMinute = (time / 60)
+        return "\(String(timeInMinute))m"
     }
 }

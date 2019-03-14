@@ -24,7 +24,7 @@
                             <constraint firstAttribute="height" constant="14" id="9uA-3n-DCg"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="79a-Y6-NEA">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lunch3" translatesAutoresizingMaskIntoConstraints="NO" id="79a-Y6-NEA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="120" id="3Vl-S8-hy9"/>
@@ -112,8 +112,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Lunch3" width="5184" height="3456"/>
         <image name="Slate" width="875.52001953125" height="1313.280029296875"/>
         <image name="infos" width="218" height="217"/>
-        <image name="pizza" width="5184" height="3456"/>
     </resources>
 </document>

@@ -23,4 +23,16 @@ struct RecipesList {
     mutating func emptyCentral() {
         central.removeAll()
     }
+    
+    func checkRecipes(for recipe: Recipe, in array: [Recipe]) -> Int? {
+        var index = 0
+        
+        for recipe in array {
+            if recipe.image == recipe.image {
+                return index
+            }
+            index += 1
+        }
+        return nil
+    }
 }

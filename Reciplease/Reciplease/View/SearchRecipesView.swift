@@ -38,16 +38,16 @@ class SearchRecipesView: UIView {
         ingredientsTextField.resignFirstResponder()
     }
     
-    private func clearTextField() {
+    func clearTextField() {
         ingredientsTextField.text = nil
     }
     
     @objc private func animate() {
-        animationManager.animate(banner: banner, secondBanner: secondBanner, imagesNames: "Meal", delay: 2.0)
+        animationManager.animate(banner: banner, secondBanner: secondBanner, imagesNames: "Meal", delay: 2.0, check: banner.image!)
     }
     
     func scheduledTimerWithTimeInterval() {
-        self.insertSubview(animationManager.setupBanner(view: nil, banner: banner, scndBanner: secondBanner, images: "Meal", addToY: 0), belowSubview: banner)
+        self.insertSubview(animationManager.setupBanner(view: nil, banner: banner, scndBanner: secondBanner, images: "Meal", check: banner.image!, addToY: 0), belowSubview: banner)
         _ = Timer.scheduledTimer(timeInterval: (6.0), target: self, selector: #selector(animate), userInfo: nil, repeats: true)
     }
 }

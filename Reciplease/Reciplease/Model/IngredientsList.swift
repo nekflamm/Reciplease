@@ -29,7 +29,9 @@ struct IngredientsList {
         } else if newIngredient.last == " " {
             newIngredient.removeLast()
             append(newIngredient)
-        } else {
+        } else if newIngredient == "" {
+            return
+        }else {
             all.append(newIngredient)
         }
     }

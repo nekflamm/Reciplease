@@ -17,10 +17,14 @@ struct ImagesManager {
         all = createAllArrays()
     }
     
-    func takeAnImage(for name: String) -> UIImage? {
+    func takeAnImage(for name: String, withPrevious image: UIImage) -> UIImage? {
         for (arrayName, imageArray) in all {
             if name == arrayName {
+                let newImage = imageArray.randomElement()
                 
+                if newImage == image {
+                    return takeAnImage(for: name, withPrevious: image)
+                }
                 return imageArray.randomElement()
             }
         }

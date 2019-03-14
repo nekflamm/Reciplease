@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class FavoritesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFavorites(in: RecipesList.shared.recipes)
-        getFavorites(in: RecipesList.shared.todaysRecipes)
         tableView.reloadData()
     }
     
@@ -22,8 +21,7 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RecipesList.shared.favorites.count
-//        return FavoritesList.all.count
+        return RecipeData.all.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,20 +36,15 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        RecipesList.shared.selectedRecipes["favorite"] = RecipesList.shared.favorites[indexPath.row]
+        RecipesList.shared.selectedRecipes["favorite"] = RecipeData.dataToRecipe(for: indexPath.row)
         RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails2", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if let index = removeFavorite(in: RecipesList.shared.recipes, for: indexPath) {
-                    RecipesList.shared.recipes[index].isFavorite = false
-        }
-        if let scndIndex = removeFavorite(in: RecipesList.shared.todaysRecipes, for: indexPath) {
-                    RecipesList.shared.todaysRecipes[scndIndex].isFavorite = false
-        }
-        RecipesList.shared.favorites.remove(at: indexPath.row)
+        removeFavorites(for: indexPath)
+        removeFromContext(for: indexPath.row)
         
         tableView.deleteRows(at: [indexPath], with: .right)
     }
@@ -59,12 +52,19 @@ class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 134
     }
-
+    
+    private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
+        guard let recipe = RecipeData.dataToRecipe(for: indexPath.row) else {
+            return
+        }
+        cell.configure(name: recipe.name, ingredients: recipe.ingredientsList, image: recipe.image, rating: recipe.ratingToString, time: recipe.timeToString)
+    }
+    
     private func removeFavorite(in recipes: [Recipe], for indexPath: IndexPath) -> Int? {
         var index = 0
-
+        
         for recipe in recipes {
-            if recipe.name == RecipesList.shared.favorites[indexPath.row].name {
+            if recipe.name == RecipeData.all[indexPath.row].name {
 
                 return index
             }
@@ -73,18 +73,21 @@ class FavoritesTableViewController: UITableViewController {
         return nil
     }
     
-    private func getFavorites(in recipes: [Recipe]) {
-        for recipe in recipes {
-            if recipe.isFavorite && !IsAlreadyFavorite(recipe) {
-                appendToFavorites(recipe)
-            }
+    private func removeFavorites(for indexPath: IndexPath) {
+        if let index = removeFavorite(in: RecipesList.shared.recipes, for: indexPath) {
+            RecipesList.shared.recipes[index].isFavorite = false
+        }
+        if let scndIndex = removeFavorite(in: RecipesList.shared.todaysRecipes, for: indexPath) {
+            RecipesList.shared.todaysRecipes[scndIndex].isFavorite = false
         }
     }
     
-    private func appendToFavorites(_ recipe: Recipe) {
-        RecipesList.shared.favorites.append(recipe)
+    private func removeFromContext(for index: Int) {
+        AppDelegate.viewContext.delete(RecipeData.all[index])
+        try? AppDelegate.viewContext.save()
     }
-    
+}
+
 //    private func appendToFavorites(_ recipe: Recipe) {
 //        let favoritesList = FavoritesList(context: AppDelegate.viewContext)
 //        favoritesList.recipe = recipe
@@ -94,25 +97,24 @@ class FavoritesTableViewController: UITableViewController {
 //            print(recipe.recipe?.name ?? "no recipe")
 //        }
 //    }
-    
-    
-    
-    private  func IsAlreadyFavorite(_ recipe: Recipe) -> Bool {
-        for favorite in RecipesList.shared.favorites {
-            if favorite.name ==  recipe.name {
-                return true
-            }
-        }
-        return false
-    }
-    
-    private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
-        let name = RecipesList.shared.favorites[indexPath.row].name
-        let ingredients = RecipesList.shared.favorites[indexPath.row].ingredientsList
-        let image = RecipesList.shared.favorites[indexPath.row].image
-        let rating = RecipesList.shared.favorites[indexPath.row].ratingToString
-        let time = RecipesList.shared.favorites[indexPath.row].timeToString
-        
-        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
-    }
-}
+
+//    private func getFavorites(in recipes: [Recipe]) {
+//        for recipe in recipes {
+//            if recipe.isFavorite && !IsAlreadyFavorite(recipe) {
+//                appendToFavorites(recipe)
+//            }
+//        }
+//    }
+
+//    private func appendToFavorites(_ recipe: Recipe) {
+//        RecipesList.shared.favorites.append(recipe)
+//    }
+
+//    private  func IsAlreadyFavorite(_ recipe: Recipe) -> Bool {
+//        for favorite in RecipesList.shared.favorites {
+//            if favorite.name ==  recipe.name {
+//                return true
+//            }
+//        }
+//        return false
+//    }
