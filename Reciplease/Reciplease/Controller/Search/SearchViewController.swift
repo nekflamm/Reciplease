@@ -18,7 +18,7 @@ class SearchViewController: UIViewController {
     var ingredientsList = IngredientsList()
     
     // -----------------------------------------------------------------
-    //              MARK: - Methods / @IBActions
+    //              MARK: - @IBActions
     // -----------------------------------------------------------------
     
     override func viewDidLoad() {
@@ -41,35 +41,29 @@ class SearchViewController: UIViewController {
         ingredientsList.all.removeAll()
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
+    
     private func getRecipes() {
-        RecipesList.shared.recipes.removeAll()
+        let url = getURL()
         
-        guard let url = getURL() else {
-            return
-        }
         if !ingredientsList.all.isEmpty {
+            RecipesList.shared.recipes.removeAll()
+            
             RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)   in
                 guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
+                    self.clearTextView()
+                    self.presentNoRecipesAlert()
+            
                     return
                 }
                 RecipesList.shared.recipes.append(recipe)
-                
-                if RecipesList.shared.recipes.count == totalRecipes {
-                    self.goToNextPage()
-                }
+                self.checkRecipesNumber(with: totalRecipes)
             }
         } else {
             presentMissingIngredientsAlert()
         }
-    }
-    
-    private func getURL() -> URL? {
-        let allowedIngredients = ingredientsList.getAllowedIngredients()
-        print(allowedIngredients)
-        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(allowedIngredients)&maxResult=50") else {
-            return nil
-        }
-        return url
     }
     
     private func goToNextPage() {
@@ -81,6 +75,21 @@ class SearchViewController: UIViewController {
             self.presentNoRecipesAlert()
         }
         self.clearTextView()
+    }
+    
+    private func checkRecipesNumber(with number: Int?) {
+        if RecipesList.shared.recipes.count == number {
+            self.goToNextPage()
+        } else if number == 0 || number == nil {
+            self.presentNoRecipesAlert()
+        }
+    }
+    
+    private func getURL() -> URL {
+        let ingredients = ingredientsList.getAllowedIngredients()
+        let url = URLManager.getSearchURL(with: ingredients)
+        
+        return url
     }
     
     private func addIngredientToList() {

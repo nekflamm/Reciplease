@@ -17,6 +17,7 @@
 		3A382FA1221C587F0054074E /* FavoritesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A382FA0221C587F0054074E /* FavoritesList.swift */; };
 		3A3F99C021FA09E800C466BA /* TodaysRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3F99BF21FA09E800C466BA /* TodaysRecipeViewController.swift */; };
 		3A3FB86D22390522008466A8 /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FB86C22390522008466A8 /* RecipeData.swift */; };
+		3A3FB86F223AAE78008466A8 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FB86E223AAE78008466A8 /* URLManager.swift */; };
 		3A41DDF321F9FD7D00501748 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41DDF221F9FD7D00501748 /* AppDelegate.swift */; };
 		3A41DDFA21F9FD7D00501748 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDF821F9FD7D00501748 /* Main.storyboard */; };
 		3A41DDFC21F9FD7E00501748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A41DDFB21F9FD7E00501748 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		3A382FA0221C587F0054074E /* FavoritesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesList.swift; path = "/Users/nyoxide/Documents/Apps Xcode/Reciplease/Reciplease/Reciplease/Model/FavoritesList.swift"; sourceTree = "<absolute>"; };
 		3A3F99BF21FA09E800C466BA /* TodaysRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysRecipeViewController.swift; sourceTree = "<group>"; };
 		3A3FB86C22390522008466A8 /* RecipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
+		3A3FB86E223AAE78008466A8 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		3A41DDEF21F9FD7D00501748 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A41DDF221F9FD7D00501748 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A41DDF921F9FD7D00501748 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				3A42DB2F21FB3675007F6D3C /* IngredientsList.swift */,
 				3A382F8E220DB1FA0054074E /* TodaysRecipe.swift */,
 				3AB17D5F21FB58CE00730C6F /* RecipeService.swift */,
+				3AA228D12221A8990093AAB5 /* Managers */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,7 +201,6 @@
 		3A41DDF121F9FD7D00501748 /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
-				3AA228D12221A8990093AAB5 /* Managers */,
 				3A3F99C321FA0A3100C466BA /* Model */,
 				3A3F99C221FA0A2C00C466BA /* View */,
 				3A3F99C121FA0A2300C466BA /* Controller */,
@@ -213,6 +215,7 @@
 			children = (
 				3AE6DBDC22269B3A0053F741 /* ImagesManager.swift */,
 				3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */,
+				3A3FB86E223AAE78008466A8 /* URLManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				3A6E22C721FF52B600C3A248 /* RecipeDetailsView.swift in Sources */,
 				3A42DB3021FB3675007F6D3C /* IngredientsList.swift in Sources */,
 				3A382FA1221C587F0054074E /* FavoritesList.swift in Sources */,
+				3A3FB86F223AAE78008466A8 /* URLManager.swift in Sources */,
 				3AB17D6021FB58CE00730C6F /* RecipeService.swift in Sources */,
 				3A382F8B2208986D0054074E /* RecipesList.swift in Sources */,
 				3A41DE1721FA024400501748 /* RecipeDetailsViewController.swift in Sources */,

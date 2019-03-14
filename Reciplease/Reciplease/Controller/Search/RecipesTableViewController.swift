@@ -47,13 +47,9 @@ extension RecipesTableViewController {
     }
     
     private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
-        let name = RecipesList.shared.recipes[indexPath.row].name
-        let ingredients = RecipesList.shared.recipes[indexPath.row].ingredientsList
-        let image = RecipesList.shared.recipes[indexPath.row].image
-        let rating = RecipesList.shared.recipes[indexPath.row].ratingToString
-        let time = RecipesList.shared.recipes[indexPath.row].timeToString
+        let recipe = RecipesList.shared.recipes[indexPath.row]
         
-        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
+        cell.configure(name: recipe.name, ingredients: recipe.ingredientsList, image: recipe.image, rating: recipe.ratingToString, time: recipe.timeToString)
     }
 }
 

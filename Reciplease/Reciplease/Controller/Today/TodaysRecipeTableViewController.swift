@@ -36,7 +36,6 @@ class TodaysRecipeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RecipesList.shared.selectedRecipes["today"] = RecipesList.shared.todaysRecipes[indexPath.row]
-        
         RecipesList.shared.index = indexPath.row
 
         performSegue(withIdentifier: "toRecipeDetails3", sender: self)
@@ -47,12 +46,8 @@ class TodaysRecipeTableViewController: UITableViewController {
     }
     
     private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
-        let name = RecipesList.shared.todaysRecipes[indexPath.row].name
-        let ingredients = RecipesList.shared.todaysRecipes[indexPath.row].ingredientsList
-        let image = RecipesList.shared.todaysRecipes[indexPath.row].image
-        let rating = RecipesList.shared.todaysRecipes[indexPath.row].ratingToString
-        let time = RecipesList.shared.todaysRecipes[indexPath.row].timeToString
+        let recipe = RecipesList.shared.todaysRecipes[indexPath.row]
         
-        cell.configure(name: name, ingredients: ingredients, image: image, rating: rating, time: time)
+        cell.configure(name: recipe.name, ingredients: recipe.ingredientsList, image: recipe.image, rating: recipe.ratingToString, time: recipe.timeToString)
     }
 }

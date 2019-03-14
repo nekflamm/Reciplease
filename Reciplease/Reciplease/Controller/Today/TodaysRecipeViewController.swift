@@ -28,11 +28,10 @@ class TodaysRecipeViewController: UIViewController {
     }
     
     private func getRecipes() {
-        RecipesList.shared.todaysRecipes.removeAll()
+        let meal = todaysRecipe.mealSelected
+        let url = URLManager.getTodaysURL(with: meal)
         
-        guard let url = todaysRecipe.getURL() else {
-            return
-        }
+        RecipesList.shared.todaysRecipes.removeAll()
         RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)  in
             guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
                 return

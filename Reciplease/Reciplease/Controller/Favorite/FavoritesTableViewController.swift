@@ -87,34 +87,3 @@ class FavoritesTableViewController: UITableViewController {
         try? AppDelegate.viewContext.save()
     }
 }
-
-//    private func appendToFavorites(_ recipe: Recipe) {
-//        let favoritesList = FavoritesList(context: AppDelegate.viewContext)
-//        favoritesList.recipe = recipe
-//        try? AppDelegate.viewContext.save()
-//
-//        for recipe in FavoritesList.all {
-//            print(recipe.recipe?.name ?? "no recipe")
-//        }
-//    }
-
-//    private func getFavorites(in recipes: [Recipe]) {
-//        for recipe in recipes {
-//            if recipe.isFavorite && !IsAlreadyFavorite(recipe) {
-//                appendToFavorites(recipe)
-//            }
-//        }
-//    }
-
-//    private func appendToFavorites(_ recipe: Recipe) {
-//        RecipesList.shared.favorites.append(recipe)
-//    }
-
-//    private  func IsAlreadyFavorite(_ recipe: Recipe) -> Bool {
-//        for favorite in RecipesList.shared.favorites {
-//            if favorite.name ==  recipe.name {
-//                return true
-//            }
-//        }
-//        return false
-//    }

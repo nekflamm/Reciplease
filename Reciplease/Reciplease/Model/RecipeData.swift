@@ -20,14 +20,6 @@ class RecipeData: NSManagedObject {
     }
     
     static func dataToRecipe(for indexPath: Int) -> Recipe? {
-//        guard let name = all[indexPath].name,
-//            let ingredients = all[indexPath].ingredients,
-//            let image = UIImage(data: all[indexPath].image!),
-//            let id = all[indexPath].id,
-//            let url = all[indexPath].url else {
-//            return nil
-//        }
-        
         let name = all[indexPath].name
         let ingredients = all[indexPath].ingredients
         let image = UIImage(data: all[indexPath].image!)
@@ -37,7 +29,6 @@ class RecipeData: NSManagedObject {
         let time = Int(all[indexPath].timeInSeconds)
         
         let recipe = Recipe(name: name!, ingredients: ingredients!, image: image!, rating: rating, timeInSeconds: time, id: id!, url: url, isFavorite: false)
-        print(recipe.name)
         
         return recipe
     }
