@@ -13,46 +13,48 @@ class AnimationManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    let imagesManager = ImagesManager()
+    var imagesManager = ImagesManager()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    func animate(banner: UIImageView, secondBanner: UIImageView, imagesNames: String, delay: Double, check previousImage: UIImage) {
+    func bannerAnim(banner: UIImageView, secondBanner: UIImageView) {
         let x = -banner.frame.width
         
-        UIView.animate(withDuration: 2.0, delay: delay, animations: {
+        UIView.animate(withDuration: 2.0, delay: 2.0, animations: {
             banner.transform = CGAffineTransform(translationX: x, y: 0)
             secondBanner.transform = CGAffineTransform(translationX: x, y: 0)
         }) { (success) in
-            banner.image = self.imagesManager.takeAnImage(for: imagesNames, withPrevious: previousImage)
+            banner.image = self.imagesManager.takeAnImage()
             swap(&banner.image, &secondBanner.image)
             banner.transform = .identity
             secondBanner.transform = .identity
         }
     }
     
-    func setupBanner(view: UIView?, banner: UIImageView?, scndBanner: UIImageView, images: String, check previousImage: UIImage, addToY y: CGFloat) -> UIImageView {
-        let object = getObject(for: view, and: banner)
+    func todaysPageAnim(for views: [UIView], with translation: CGFloat) {
+        var index = 3
+        var delay: Double = 0.3
+        let translationY = -translation
         
-        scndBanner.image = imagesManager.takeAnImage(for: images, withPrevious: previousImage)
-        scndBanner.frame = CGRect(x: object.frame.maxX, y: object.frame.minY + y, width: object.frame.width, height: object.frame.height)
+        for view in views {
+            view.transform = CGAffineTransform(translationX: 0, y: translationY)
+        }
+        while index != -1 {
+            UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.85, options: [], animations: {
+                views[index].transform = .identity
+            })
+            index -= 1
+            delay += 0.3
+        }
+    }
+    
+    func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
+        scndBanner.image = imagesManager.takeAnImage()
+        scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
         scndBanner.contentMode = .scaleAspectFill
         scndBanner.clipsToBounds = true
         
         return scndBanner
-    }
-    
-    private func getObject(for view: UIView?, and banner: UIImageView?) -> AnyObject {
-        var object: AnyObject = UIImage()
-        
-        guard view != nil, let view = view else {
-            object = banner!
-            
-            return object
-        }
-        object = view
-        
-        return object
     }
 }

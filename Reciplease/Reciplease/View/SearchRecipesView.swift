@@ -30,7 +30,6 @@ class SearchRecipesView: UIView {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     func addIngredient(_ ingredient: String) {
         if introIsActive {
             introductoryLabel.isHidden = true
@@ -53,11 +52,13 @@ class SearchRecipesView: UIView {
     }
     
     @objc private func animate() {
-        animationManager.animate(banner: banner, secondBanner: secondBanner, imagesNames: "Meal", delay: 2.0, check: banner.image!)
+        animationManager.bannerAnim(banner: banner, secondBanner: secondBanner)
     }
     
     func scheduledTimerWithTimeInterval() {
-        self.insertSubview(animationManager.setupBanner(view: nil, banner: banner, scndBanner: secondBanner, images: "Meal", check: banner.image!, addToY: 0), belowSubview: banner)
+        let scndBanner = animationManager.setupBanner(banner: banner, scndBanner: secondBanner)
+        
+        self.insertSubview(scndBanner, belowSubview: banner)
         _ = Timer.scheduledTimer(timeInterval: (6.0), target: self, selector: #selector(animate), userInfo: nil, repeats: true)
     }
 }

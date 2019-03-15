@@ -17,7 +17,6 @@ class RecipesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     //              MARK: - Sections
     // -----------------------------------------------------------------
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -29,7 +28,6 @@ class RecipesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     //              MARK: - Cells
     // -----------------------------------------------------------------
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
         

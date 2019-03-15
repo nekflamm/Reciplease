@@ -12,7 +12,6 @@ class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - @IBOutlets / Properties
     // -----------------------------------------------------------------
-    
     var todaysRecipe = TodaysRecipe()
     
     @IBOutlet weak var mealsView: MealsView!
@@ -20,7 +19,6 @@ class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
-    
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         getRecipes()
     }
@@ -33,10 +31,14 @@ class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        mealsView.scheduledTimerWithTimeInterval()
+        
+        mealsView.animate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        mealsView.animate()
     }
     
     private func getRecipes() {
@@ -60,6 +62,9 @@ class TodaysRecipeViewController: UIViewController {
         self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Alerts
+    // -----------------------------------------------------------------
     private func presentDataNotFoundAlert() {
         let errorAlert = UIAlertController(title: "Data not found", message: "Please retry.", preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

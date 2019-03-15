@@ -42,7 +42,6 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     private func getRecipes() {
         let url = getURL()
         
@@ -110,7 +109,6 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Alerts
     // -----------------------------------------------------------------
-    
     private func presentMissingIngredientsAlert() {
         let errorAlert = UIAlertController(title: "Ingredients missing!", message: "Please enter ingredients.", preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -127,7 +125,6 @@ class SearchViewController: UIViewController {
 // -----------------------------------------------------------------
 //              MARK: - Extensions
 // -----------------------------------------------------------------
-
 extension SearchViewController: UITextFieldDelegate {
     @IBAction func hideKeyboard(_ sender: UITapGestureRecognizer) {
         searchRecipesView.resignResponder()

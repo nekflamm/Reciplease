@@ -12,7 +12,6 @@ class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    
     private var recipe: Recipe?
     
     private var url: URL? {
@@ -28,14 +27,12 @@ class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
-    
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
     @IBOutlet weak var favoriteButtonOutlet: UIBarButtonItem!
     
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
-    
     @IBAction func addToFavoritesButton(_ sender: UIBarButtonItem) {
         addRecipeToFavorites()
     }
@@ -57,7 +54,6 @@ class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

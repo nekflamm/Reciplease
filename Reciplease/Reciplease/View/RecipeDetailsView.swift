@@ -13,7 +13,6 @@ class RecipeDetailsView: UIView {
     // -----------------------------------------------------------------
     //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!

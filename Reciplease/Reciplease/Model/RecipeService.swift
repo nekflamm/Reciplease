@@ -121,8 +121,6 @@ class RecipeService {
 // -----------------------------------------------------------------
 //              MARK: - JSON Parsing
 // -----------------------------------------------------------------
-
-// Decode getRecipes func response
 fileprivate struct RecipeResponse: Decodable {
     let matches: [Matches]
 }

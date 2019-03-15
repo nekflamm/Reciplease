@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class FavoritesTableViewController: UITableViewController {
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
@@ -19,7 +18,6 @@ class FavoritesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     //              MARK: - Sections
     // -----------------------------------------------------------------
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -31,7 +29,6 @@ class FavoritesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     //              MARK: - Cells
     // -----------------------------------------------------------------
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
         
@@ -71,7 +68,6 @@ class FavoritesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     private func removeFavorite(in recipes: [Recipe], for indexPath: IndexPath) -> Int? {
         var index = 0
         

@@ -22,6 +22,9 @@ class RecipeData: NSManagedObject {
         return recipesData
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     static func dataToRecipe(for indexPath: Int) -> Recipe? {
         let name = all[indexPath].name
         let ingredients = all[indexPath].ingredients

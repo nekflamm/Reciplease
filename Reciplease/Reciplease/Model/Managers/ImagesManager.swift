@@ -13,29 +13,29 @@ struct ImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    private var all = [String: [UIImage]]()
+    private var images: [UIImage] {
+        return createArray(number: 10, name: "Meal")
+    }
+    private var index = 0
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    init() {
-        all = createAllArrays()
+    mutating func takeAnImage() -> UIImage {
+        checkIndex()
+        
+        let image = images[index]
+        index += 1
+        
+        return image
     }
     
-    func takeAnImage(for name: String, withPrevious image: UIImage) -> UIImage? {
-        for (arrayName, imageArray) in all {
-            if name == arrayName {
-                let newImage = imageArray.randomElement()
-                
-                if newImage == image {
-                    return takeAnImage(for: name, withPrevious: image)
-                }
-                return imageArray.randomElement()
-            }
+    mutating private func checkIndex() {
+        if index >= images.count {
+            index = 0
         }
-        return nil
     }
-    
+        
     private func createArray(number: Int, name: String) -> [UIImage] {
         var images = [UIImage]()
         var imageNumber = 1
@@ -45,18 +45,5 @@ struct ImagesManager {
             imageNumber += 1
         }
         return images
-    }
-    
-    private func createAllArrays() -> [String: [UIImage]] {
-        let meals = createArray(number: 10, name: "Meal")
-        let breakfast = createArray(number: 2, name: "Breakfast")
-        let dinner = createArray(number: 5, name: "Dinner")
-        let lunch = createArray(number: 5, name: "Lunch")
-        let teaTime = createArray(number: 3, name: "TeaTime")
-        
-        let all = ["Meal": meals, "Breakfast": breakfast, "Dinner":
-            dinner, "Lunch": lunch, "TeaTime": teaTime]
-        
-        return all
     }
 }

@@ -15,7 +15,22 @@ struct Recipe {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     var name: String
+    
     var ingredients: [String]
+    
+    var image: UIImage
+    
+    var rating: Int
+    
+    var timeInSeconds: Int
+    
+    var id: String
+    
+    var url: URL?
+    
+    var isFavorite: Bool
+    
+    
     var ingredientsList: String {
         var string = String()
         for ingredient in ingredients {
@@ -24,17 +39,13 @@ struct Recipe {
         string.removeLast(2)
         return "\(string)."
     }
-    var image: UIImage
-    var rating: Int
-    var ratingToString: String {
-        return String(rating)
-    }
-    var timeInSeconds: Int
+    
     var timeToString: String {
         let timeInMinute = (timeInSeconds / 60)
         return "\(String(timeInMinute))m"
     }
-    var id: String
-    var url: URL?
-    var isFavorite: Bool
+    
+    var ratingToString: String {
+        return String(rating)
+    }
 }
