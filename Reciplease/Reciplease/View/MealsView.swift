@@ -10,15 +10,26 @@ import Foundation
 import UIKit
 
 class MealsView: UIView {
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets
+    // -----------------------------------------------------------------
     @IBOutlet var selectedImages: [UIImageView]!
     @IBOutlet var bannersImages: [UIImageView]!
     @IBOutlet var bannersView: [UIView]!
     
-    var secondaryImages = [UIImageView(), UIImageView(), UIImageView(), UIImageView()]
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     
-    let animationManager = AnimationManager()
+    private var secondaryImages = [UIImageView(), UIImageView(), UIImageView(), UIImageView()]
     
-    let names = ["Breakfast", "Lunch", "TeaTime", "Dinner"]
+    private let animationManager = AnimationManager()
+    
+    private let names = ["Breakfast", "Lunch", "TeaTime", "Dinner"]
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     
     func selectImage(for index: Int) {
         for image in selectedImages {

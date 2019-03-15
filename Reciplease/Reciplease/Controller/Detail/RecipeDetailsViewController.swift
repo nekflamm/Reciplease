@@ -9,8 +9,12 @@
 import UIKit
 
 class RecipeDetailsViewController: UIViewController {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     
     private var recipe: Recipe?
+    
     private var url: URL? {
         guard let recipe = recipe else {
             return nil
@@ -21,18 +25,16 @@ class RecipeDetailsViewController: UIViewController {
         return url
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets
+    // -----------------------------------------------------------------
+    
     @IBOutlet weak var recipeDetailsView: RecipeDetailsView!
     @IBOutlet weak var favoriteButtonOutlet: UIBarButtonItem!
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupView()
-    }
+    // -----------------------------------------------------------------
+    //              MARK: - @IBActions
+    // -----------------------------------------------------------------
     
     @IBAction func addToFavoritesButton(_ sender: UIBarButtonItem) {
         addRecipeToFavorites()
@@ -50,6 +52,19 @@ class RecipeDetailsViewController: UIViewController {
             RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = url
             self.performSegue(withIdentifier: "goToWebView", sender: self)
         }
+    }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
     }
     
     private func getRecipe() -> Recipe {

@@ -9,14 +9,17 @@
 import UIKit
 
 class TodaysRecipeViewController: UIViewController {
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets / Properties
+    // -----------------------------------------------------------------
+    
     var todaysRecipe = TodaysRecipe()
     
     @IBOutlet weak var mealsView: MealsView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        mealsView.scheduledTimerWithTimeInterval()
-    }
+    // -----------------------------------------------------------------
+    //              MARK: - @IBActions
+    // -----------------------------------------------------------------
     
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         getRecipes()
@@ -25,6 +28,15 @@ class TodaysRecipeViewController: UIViewController {
     @IBAction func mealsButtons(_ sender: UIButton) {
         todaysRecipe.setMeal(for: sender.tag)
         mealsView.selectImage(for: sender.tag)
+    }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //        mealsView.scheduledTimerWithTimeInterval()
     }
     
     private func getRecipes() {

@@ -9,11 +9,14 @@
 import UIKit
 
 class TodaysRecipeTableViewController: UITableViewController {
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Sections
+    // -----------------------------------------------------------------
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -23,6 +26,10 @@ class TodaysRecipeTableViewController: UITableViewController {
         return RecipesList.shared.todaysRecipes.count
     }
 
+    // -----------------------------------------------------------------
+    //              MARK: - Cells
+    // -----------------------------------------------------------------
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
 

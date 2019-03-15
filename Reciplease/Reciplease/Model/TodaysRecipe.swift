@@ -10,8 +10,14 @@ import Foundation
 import UIKit
 
 struct TodaysRecipe {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
      var mealSelected = "Breakfast"
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     mutating func setMeal(for tag: Int) {
         switch tag {
         case 0:
@@ -27,10 +33,10 @@ struct TodaysRecipe {
         }
     }
     
-    func getURL() -> URL? {
-        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true&q=\(mealSelected)&maxResult=75") else {
-            return nil
-        }
-        return url
-    }
+//    func getURL() -> URL? {
+//        guard let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true&q=\(mealSelected)&maxResult=75") else {
+//            return nil
+//        }
+//        return url
+//    }
 }

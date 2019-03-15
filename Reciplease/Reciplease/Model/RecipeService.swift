@@ -11,8 +11,14 @@ import Alamofire
 import AlamofireImage
 
 class RecipeService {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     static let shared = RecipeService()
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     private init() {}
     
     func getRecipes(for url: URL, callback: @escaping(Bool, [Recipe]?, Int?) -> Void) {
@@ -28,6 +34,7 @@ class RecipeService {
                 return
             }
             let recipesNumber = recipeData.matches.count
+            print(recipesNumber)
             
             self.storeRecipes(for: recipeData) { (success, recipes)   in
                 guard let recipes = recipes, success else {
@@ -110,6 +117,10 @@ class RecipeService {
         return "\(String(timeInMinute))m"
     }
 }
+
+// -----------------------------------------------------------------
+//              MARK: - JSON Parsing
+// -----------------------------------------------------------------
 
 // Decode getRecipes func response
 fileprivate struct RecipeResponse: Decodable {

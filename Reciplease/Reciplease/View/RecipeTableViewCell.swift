@@ -10,12 +10,18 @@ import Foundation
 import UIKit
 
 class RecipeTableViewCell: UITableViewCell {
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets
+    // -----------------------------------------------------------------
     @IBOutlet weak var recipeNameLabel: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
     @IBOutlet weak var cellImageView: UIImageView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     override func awakeFromNib() {
         super.awakeFromNib()
     }

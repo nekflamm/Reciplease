@@ -11,6 +11,9 @@ import UIKit
 import CoreData
 
 class RecipeData: NSManagedObject {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     static var all: [RecipeData] {
         let request: NSFetchRequest<RecipeData> = RecipeData.fetchRequest()
         guard let recipesData = try? AppDelegate.viewContext.fetch(request) else {

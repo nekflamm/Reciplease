@@ -13,9 +13,11 @@ class RecipesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-}
-
-extension RecipesTableViewController {
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Sections
+    // -----------------------------------------------------------------
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -23,6 +25,10 @@ extension RecipesTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RecipesList.shared.recipes.count
     }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Cells
+    // -----------------------------------------------------------------
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")

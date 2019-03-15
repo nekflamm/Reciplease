@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 struct URLManager {
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     static func getSearchURL(with ingredients: String) -> URL {
         let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=d2db4f54&_app_key=3d9d9071094ba629125874ebdfc836d8&requirePictures=true\(ingredients)&maxResult=50")
         

@@ -11,6 +11,9 @@ import UIKit
 import CoreData
 
 struct Recipe {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     var name: String
     var ingredients: [String]
     var ingredientsList: String {

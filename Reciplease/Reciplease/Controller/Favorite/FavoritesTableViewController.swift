@@ -16,6 +16,10 @@ class FavoritesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Sections
+    // -----------------------------------------------------------------
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -23,6 +27,10 @@ class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RecipeData.all.count
     }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Cells
+    // -----------------------------------------------------------------
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
@@ -49,16 +57,20 @@ class FavoritesTableViewController: UITableViewController {
         tableView.deleteRows(at: [indexPath], with: .right)
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 134
-    }
-    
     private func configure(_ cell: RecipeTableViewCell, with indexPath: IndexPath) {
         guard let recipe = RecipeData.dataToRecipe(for: indexPath.row) else {
             return
         }
         cell.configure(name: recipe.name, ingredients: recipe.ingredientsList, image: recipe.image, rating: recipe.ratingToString, time: recipe.timeToString)
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 134
+    }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     
     private func removeFavorite(in recipes: [Recipe], for indexPath: IndexPath) -> Int? {
         var index = 0

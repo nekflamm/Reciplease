@@ -10,8 +10,14 @@ import Foundation
 import UIKit
 
 class AnimationManager {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     let imagesManager = ImagesManager()
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     func animate(banner: UIImageView, secondBanner: UIImageView, imagesNames: String, delay: Double, check previousImage: UIImage) {
         let x = -banner.frame.width
         

@@ -10,16 +10,26 @@ import Foundation
 import UIKit
 
 class SearchRecipesView: UIView {
-    
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets
+    // -----------------------------------------------------------------
     @IBOutlet weak var banner: UIImageView!
     @IBOutlet weak var ingredientsTextField: UITextField!
     @IBOutlet weak var ingredientsList: UITextView!
     @IBOutlet weak var introductoryLabel: UILabel!
-    var secondBanner = UIImageView()
     
-    let animationManager = AnimationManager()
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
+    private var secondBanner = UIImageView()
+    
+    private let animationManager = AnimationManager()
     
     private var introIsActive = true
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     
     func addIngredient(_ ingredient: String) {
         if introIsActive {

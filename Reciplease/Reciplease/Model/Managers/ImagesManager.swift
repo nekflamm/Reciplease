@@ -10,9 +10,14 @@ import Foundation
 import UIKit
 
 struct ImagesManager {
-    
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     private var all = [String: [UIImage]]()
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     init() {
         all = createAllArrays()
     }
@@ -31,7 +36,7 @@ struct ImagesManager {
         return nil
     }
     
-    func createArray(number: Int, name: String) -> [UIImage] {
+    private func createArray(number: Int, name: String) -> [UIImage] {
         var images = [UIImage]()
         var imageNumber = 1
         
@@ -42,7 +47,7 @@ struct ImagesManager {
         return images
     }
     
-    func createAllArrays() -> [String: [UIImage]] {
+    private func createAllArrays() -> [String: [UIImage]] {
         let meals = createArray(number: 10, name: "Meal")
         let breakfast = createArray(number: 2, name: "Breakfast")
         let dinner = createArray(number: 5, name: "Dinner")

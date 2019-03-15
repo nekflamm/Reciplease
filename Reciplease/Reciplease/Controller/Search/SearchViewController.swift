@@ -12,7 +12,6 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //             MARK: - Properties / @IBOutlets
     // -----------------------------------------------------------------
-    
     @IBOutlet weak var searchRecipesView: SearchRecipesView!
     
     var ingredientsList = IngredientsList()
@@ -20,7 +19,6 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchRecipesView.scheduledTimerWithTimeInterval()
@@ -108,6 +106,10 @@ class SearchViewController: UIViewController {
         ingredientsList.all.removeAll()
         searchRecipesView.clearTextView()
     }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Alerts
+    // -----------------------------------------------------------------
     
     private func presentMissingIngredientsAlert() {
         let errorAlert = UIAlertController(title: "Ingredients missing!", message: "Please enter ingredients.", preferredStyle: .alert)

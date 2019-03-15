@@ -10,7 +10,15 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
+    // -----------------------------------------------------------------
+    //              MARK: - @IBOutlets
+    // -----------------------------------------------------------------
+    
     @IBOutlet weak var webView: WKWebView!
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
