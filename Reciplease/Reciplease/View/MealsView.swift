@@ -16,6 +16,7 @@ class MealsView: UIView {
     @IBOutlet var selectedImages: [UIImageView]!
     @IBOutlet var bannersImages: [UIImageView]!
     @IBOutlet var bannersView: [UIView]!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -----------------------------------------------------------------
     //              MARK: - Properties
@@ -30,6 +31,10 @@ class MealsView: UIView {
             image.image = UIImage(named: "notSelected")
         }
         selectedImages[index].image = UIImage(named: "selected")
+    }
+    
+    func activityIndicatorState(hidden: Bool) {
+        activityIndicator.isHidden = hidden
     }
     
     func animate() {

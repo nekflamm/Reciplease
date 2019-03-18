@@ -16,6 +16,9 @@ class RecipeService {
     // -----------------------------------------------------------------
     static let shared = RecipeService()
     
+    // Number of recipes who can't be save
+    var fails = 0
+    
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
@@ -23,7 +26,6 @@ class RecipeService {
     
     func getRecipes(for url: URL, callback: @escaping(Bool, [Recipe]?, Int?) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
-            print(response.result)
             guard response.result.isSuccess,
                 let data = response.data else {
                     callback(false, nil, nil)
@@ -34,7 +36,6 @@ class RecipeService {
                 return
             }
             let recipesNumber = recipeData.matches.count
-            print(recipesNumber)
             
             self.storeRecipes(for: recipeData) { (success, recipes)   in
                 guard let recipes = recipes, success else {
@@ -47,20 +48,26 @@ class RecipeService {
     }
     
     private func storeRecipes(for recipeData: RecipeResponse, callback: @escaping(Bool, [Recipe]?) -> Void) {
-        for recipe in recipeData.matches {
-            let imageUrl = self.modifyUrl(recipe.smallImageUrls[0])
-            
-            self.getImage(for: imageUrl) { (image) in
-                guard let image = image else {
-                    callback(false, nil)
-                    return
+        if recipeData.matches.count != 0 {
+            for recipe in recipeData.matches {
+                if let url = recipe.smallImageUrls?[0], let time = recipe.totalTimeInSeconds {
+                    let imageUrl = self.modifyUrl(url)
+                    
+                    self.getImage(for: imageUrl) { (image) in
+                        guard let image = image else {
+                            callback(false, nil)
+                            return
+                        }
+                        self.addRecipeToCentral(recipe, image, time)
+                        
+                        callback(true, RecipesList.shared.central)
+                    }
+                } else {
+                    fails += 1
                 }
-                let recipe = Recipe(name: recipe.name, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
-                                    timeInSeconds: recipe.totalTimeInSeconds, id: recipe.id, url: nil, isFavorite: false)
-                RecipesList.shared.central.append(recipe)
-                print(RecipesList.shared.central.count)
-                callback(true, RecipesList.shared.central)
             }
+        } else {
+            callback(false, nil)
         }
     }
     
@@ -116,53 +123,34 @@ class RecipeService {
         let timeInMinute = (time / 60)
         return "\(String(timeInMinute))m"
     }
+    
+    private func addRecipeToCentral(_ recipe: Infos, _ image: UIImage, _ time: Int) {
+        let recipe = Recipe(name: recipe.recipeName, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
+                            timeInSeconds: time, id: recipe.id, url: nil, isFavorite: false)
+        RecipesList.shared.central.append(recipe)
+        print(RecipesList.shared.central.count)
+    }
+    
+    func resetFails() {
+        fails = 0
+    }
 }
 
 // -----------------------------------------------------------------
 //              MARK: - JSON Parsing
 // -----------------------------------------------------------------
-fileprivate struct RecipeResponse: Decodable {
-    let matches: [Matches]
+fileprivate struct RecipeResponse: Codable {
+    let totalMatchCount: Int
+    var matches: [Infos]
 }
 
-fileprivate struct Matches: Decodable {
-    let name: String
+fileprivate struct Infos: Codable {
+    let smallImageUrls: [String]?
     let ingredients: [String]
-    let totalTimeInSeconds: Int
-    let rating: Int
-    let smallImageUrls: [String]
     let id: String
-    
-    init(name: String, ingredients: [String], totalTimeInSeconds: Int, rating: Int, smallImageUrls: [String], id: String) {
-        self.name = name
-        self.ingredients = ingredients
-        self.totalTimeInSeconds = totalTimeInSeconds
-        self.rating = rating
-        self.smallImageUrls = smallImageUrls
-        self.id = id
-    }
-        
-    enum MyStructKeys: String, CodingKey {
-        case recipeName = "recipeName"
-        case ingredients = "ingredients"
-        case totalTimeInSeconds = "totalTimeInSeconds"
-        case rating = "rating"
-        case smallImageUrls = "smallImageUrls"
-        case id = "id"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MyStructKeys.self)
-        let recipeName: String = try container.decode(String.self, forKey: .recipeName)
-        let ingredients: [String] = try container.decode([String].self, forKey: .ingredients)
-        let totalTimeInSeconds: Int = try container.decode(Int.self, forKey: .totalTimeInSeconds)
-        let rating: Int = try container.decode(Int.self, forKey: .rating)
-        let smallImageUrls: [String] = try container.decode([String].self, forKey: .smallImageUrls)
-        let id: String = try container.decode(String.self, forKey: .id)
-        
-        self.init(name: recipeName, ingredients: ingredients, totalTimeInSeconds: totalTimeInSeconds,
-                  rating: rating, smallImageUrls: smallImageUrls, id: id)
-    }
+    let recipeName: String
+    let totalTimeInSeconds: Int?
+    let rating: Int
 }
 
 // Decode getUrl func response

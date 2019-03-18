@@ -17,6 +17,7 @@ class SearchRecipesView: UIView {
     @IBOutlet weak var ingredientsTextField: UITextField!
     @IBOutlet weak var ingredientsList: UITextView!
     @IBOutlet weak var introductoryLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -----------------------------------------------------------------
     //              MARK: - Properties
@@ -49,6 +50,10 @@ class SearchRecipesView: UIView {
     
     func clearTextField() {
         ingredientsTextField.text = nil
+    }
+    
+    func activityIndicatorState(hidden: Bool) {
+        activityIndicator.isHidden = hidden
     }
     
     @objc private func animate() {

@@ -27,7 +27,6 @@ class SearchViewController: UIViewController {
     @IBAction func searchRecipesButton(_ sender: UIButton) {
         RecipesList.shared.recipes.removeAll()
         getRecipes()
-        ingredientsList.all.removeAll()
     }
     
     @IBAction func addButton(_ sender: UIButton) {
@@ -46,15 +45,14 @@ class SearchViewController: UIViewController {
         let url = getURL()
         
         if !ingredientsList.all.isEmpty {
-            RecipesList.shared.recipes.removeAll()
-            
             RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)   in
                 guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
+                    RecipeService.shared.resetFails()
                     self.clearTextView()
                     self.presentNoRecipesAlert()
-            
                     return
                 }
+                self.searchRecipesView.activityIndicatorState(hidden: false)
                 RecipesList.shared.recipes.append(recipe)
                 self.checkRecipesNumber(with: totalRecipes)
             }
@@ -64,27 +62,27 @@ class SearchViewController: UIViewController {
     }
     
     private func goToNextPage() {
+        RecipeService.shared.resetFails()
         RecipesList.shared.emptyCentral()
+        searchRecipesView.activityIndicatorState(hidden: true)
         
-        if RecipesList.shared.recipes.count != 0 {
-            self.performSegue(withIdentifier: "toRecipesTableView", sender: self)
-        } else {
-            self.presentNoRecipesAlert()
-        }
-        self.clearTextView()
+        performSegue(withIdentifier: "toRecipesTableView", sender: self)
     }
     
-    private func checkRecipesNumber(with number: Int?) {
-        if RecipesList.shared.recipes.count == number {
+    private func checkRecipesNumber(with number: Int) {
+        let fails = RecipeService.shared.fails
+        
+        if RecipesList.shared.recipes.count == number - fails {
             self.goToNextPage()
-        } else if number == 0 || number == nil {
+        } else if number == 0 {
+            self.clearTextView()
             self.presentNoRecipesAlert()
         }
     }
     
     private func getURL() -> URL {
-        let ingredients = ingredientsList.getAllowedIngredients()
-        let url = URLManager.getSearchURL(with: ingredients)
+        let parameter = ingredientsList.getAllowedIngredients()
+        let url = URLManager.getSearchURL(with: parameter)
         
         return url
     }
@@ -93,7 +91,8 @@ class SearchViewController: UIViewController {
         guard let ingredient = searchRecipesView.ingredientsTextField.text, ingredient != "" else {
             return
         }
-        ingredientsList.append(ingredient)
+        let ingredientName = ingredient.lowercased()
+        ingredientsList.append(ingredientName)
         
         guard let newIngredient = ingredientsList.all.last else {
             return

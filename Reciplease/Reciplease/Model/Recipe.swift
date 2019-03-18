@@ -15,21 +15,13 @@ struct Recipe {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     var name: String
-    
     var ingredients: [String]
-    
     var image: UIImage
-    
     var rating: Int
-    
     var timeInSeconds: Int
-    
     var id: String
-    
     var url: URL?
-    
     var isFavorite: Bool
-    
     
     var ingredientsList: String {
         var string = String()

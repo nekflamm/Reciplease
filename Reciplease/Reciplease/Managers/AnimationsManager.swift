@@ -32,23 +32,6 @@ class AnimationManager {
         }
     }
     
-    func todaysPageAnim(for views: [UIView], with translation: CGFloat) {
-        var index = 3
-        var delay: Double = 0.3
-        let translationY = -translation
-        
-        for view in views {
-            view.transform = CGAffineTransform(translationX: 0, y: translationY)
-        }
-        while index != -1 {
-            UIView.animate(withDuration: 0.8, delay: delay, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.85, options: [], animations: {
-                views[index].transform = .identity
-            })
-            index -= 1
-            delay += 0.3
-        }
-    }
-    
     func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
         scndBanner.image = imagesManager.takeAnImage()
         scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
@@ -56,5 +39,22 @@ class AnimationManager {
         scndBanner.clipsToBounds = true
         
         return scndBanner
+    }
+    
+    func todaysPageAnim(for views: [UIView], with translation: CGFloat) {
+        var index = 3
+        var delay: Double = 0.2
+        let translationY = -translation
+        
+        for view in views {
+            view.transform = CGAffineTransform(translationX: 0, y: translationY)
+        }
+        while index != -1 {
+            UIView.animate(withDuration: 0.6, delay: delay, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.85, options: [], animations: {
+                views[index].transform = .identity
+            })
+            index -= 1
+            delay += 0.3
+        }
     }
 }

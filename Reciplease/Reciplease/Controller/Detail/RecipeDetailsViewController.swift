@@ -12,12 +12,13 @@ class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    private var recipe: Recipe?
+    private var recipe: Recipe {
+        get {
+            return getRecipe()
+        } set {}
+    }
     
     private var url: URL? {
-        guard let recipe = recipe else {
-            return nil
-        }
         let id = recipe.id
         let url = URLManager.getWebPageURL(with: id)
         
@@ -41,7 +42,6 @@ class RecipeDetailsViewController: UIViewController {
         guard let url = url else {
             return
         }
-
         RecipeService.shared.getUrl(for: url) { (success, url) in
             guard let url = url else {
                 return
@@ -75,26 +75,34 @@ class RecipeDetailsViewController: UIViewController {
     
     private func setupView() {
         recipe = getRecipe()
-        let ingredients = convertToList(recipe!.ingredients)
-        recipeDetailsView.setup(title: recipe!.name, ingredients: ingredients, image: recipe!.image, rate: recipe!.ratingToString, time: recipe!.timeToString)
+        let ingredients = convertToList(recipe.ingredients)
+        recipeDetailsView.setup(title: recipe.name, ingredients: ingredients, image: recipe.image, rate: recipe.ratingToString, time: recipe.timeToString)
         checkIfRecipeIsFavorite()
     }
+    
+//    private func checkIfRecipeIsFavorite() {
+//        if recipe.isFavorite {
+//            changeNavigationItemColorFor(.orange)
+//        } else {
+//            changeNavigationItemColorFor(.white)
+//        }
+//    }
     
     private func checkIfRecipeIsFavorite() {
         let todaysRecipes = RecipesList.shared.todaysRecipes
         let searchRecipes = RecipesList.shared.recipes
-        
+
         checkIfFavorite(forKey: "today", in: todaysRecipes)
         checkIfFavorite(forKey: "search", in: searchRecipes)
-        
+
         if getKey() == "favorite" {
             changeNavigationItemColorFor(UIColor.orange)
         }
     }
-    
+
     private func checkIfFavorite(forKey key: String, in recipes: [Recipe]) {
         let index = RecipesList.shared.index
-        
+
         if getKey() == key {
             if recipes[index].isFavorite {
                 changeNavigationItemColorFor(UIColor.orange)
@@ -122,7 +130,7 @@ class RecipeDetailsViewController: UIViewController {
     
     private func recipeIsAlreadyFavorite() -> Bool {
         for savedRecipe in RecipeData.all {
-            if savedRecipe.name == recipe?.name {
+            if savedRecipe.name == recipe.name {
                 
                 return true
             }
@@ -148,14 +156,10 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func saveRecipe() {
-        guard let recipe = recipe else {
-            return
-        }
-        
         if !recipeIsAlreadyFavorite() {
             let image = recipe.image.pngData()
-            
             let recipeData = RecipeData(context: AppDelegate.viewContext)
+            
             recipeData.name = recipe.name
             recipeData.ingredients = recipe.ingredients
             recipeData.ingredientsList = RecipeService.shared.getIngredientsList(for: recipeData.ingredients!)
