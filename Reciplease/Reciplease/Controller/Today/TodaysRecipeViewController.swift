@@ -75,16 +75,7 @@ class TodaysRecipeViewController: UIViewController {
         if RecipesList.shared.todaysRecipes.count == number - fails {
             goToNextPage()
         } else if number == 0 {
-            presentDataNotFoundAlert()
+            displayAlert(title: "Data not found !", message: "Please retry.")
         }
-    }
-    
-    // -----------------------------------------------------------------
-    //              MARK: - Alerts
-    // -----------------------------------------------------------------
-    private func presentDataNotFoundAlert() {
-        let errorAlert = UIAlertController(title: "Data not found", message: "Please retry.", preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(errorAlert, animated: true, completion: nil)
     }
 }

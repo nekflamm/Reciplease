@@ -40,6 +40,7 @@
 		3AA228D32221A8DB0093AAB5 /* AnimationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */; };
 		3AB17D6021FB58CE00730C6F /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB17D5F21FB58CE00730C6F /* RecipeService.swift */; };
 		3AB6DBDB21FE461500F02C4E /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */; };
+		3AD4C6C2229440C30066F675 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD4C6C1229440C30066F675 /* UIViewControllerExtension.swift */; };
 		3AE6DBDD22269B3A0053F741 /* ImagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE6DBDC22269B3A0053F741 /* ImagesManager.swift */; };
 		76DA3B9CAAB4C5D6262F635D /* Pods_Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820038537A31C6A264C1D8EB /* Pods_Reciplease.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationsManager.swift; sourceTree = "<group>"; };
 		3AB17D5F21FB58CE00730C6F /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		3AB6DBDA21FE461500F02C4E /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		3AD4C6C1229440C30066F675 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		3AE6DBDC22269B3A0053F741 /* ImagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesManager.swift; sourceTree = "<group>"; };
 		50841EF5759CE96FBAE8E0FD /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		820038537A31C6A264C1D8EB /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 		3A3F99C121FA0A2300C466BA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3AD4C6C0229440930066F675 /* Extensions */,
 				3AA228CE221DAF4F0093AAB5 /* WebViewController.swift */,
 				3A382F972211A5E80054074E /* TabBarViewController.swift */,
 				3A382F922211A49C0054074E /* Search */,
@@ -265,6 +268,14 @@
 				3A3FB86E223AAE78008466A8 /* URLManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		3AD4C6C0229440930066F675 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AD4C6C1229440C30066F675 /* UIViewControllerExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		96302BF3E3C739B3320270F2 /* Pods */ = {
@@ -452,6 +463,7 @@
 			files = (
 				3A0A324A21FA20D900D8CC32 /* SearchViewController.swift in Sources */,
 				3A41DDF321F9FD7D00501748 /* AppDelegate.swift in Sources */,
+				3AD4C6C2229440C30066F675 /* UIViewControllerExtension.swift in Sources */,
 				3A3FB86D22390522008466A8 /* RecipeData.swift in Sources */,
 				3A382F8D220C59F60054074E /* MealsView.swift in Sources */,
 				3AA228CF221DAF4F0093AAB5 /* WebViewController.swift in Sources */,

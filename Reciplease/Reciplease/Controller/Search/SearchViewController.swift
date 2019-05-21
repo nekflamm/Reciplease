@@ -49,15 +49,16 @@ class SearchViewController: UIViewController {
                 guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
                     RecipeService.shared.resetFails()
                     self.clearTextView()
-                    self.presentNoRecipesAlert()
+                    self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
                     return
                 }
+                
                 self.searchRecipesView.activityIndicatorState(hidden: false)
                 RecipesList.shared.recipes.append(recipe)
                 self.checkRecipesNumber(with: totalRecipes)
             }
         } else {
-            presentMissingIngredientsAlert()
+            displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
         }
     }
     
@@ -76,7 +77,7 @@ class SearchViewController: UIViewController {
             self.goToNextPage()
         } else if number == 0 {
             self.clearTextView()
-            self.presentNoRecipesAlert()
+            self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
         }
     }
     
@@ -103,21 +104,6 @@ class SearchViewController: UIViewController {
     private func clearTextView() {
         ingredientsList.all.removeAll()
         searchRecipesView.clearTextView()
-    }
-    
-    // -----------------------------------------------------------------
-    //              MARK: - Alerts
-    // -----------------------------------------------------------------
-    private func presentMissingIngredientsAlert() {
-        let errorAlert = UIAlertController(title: "Ingredients missing!", message: "Please enter ingredients.", preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(errorAlert, animated: true, completion: nil)
-    }
-    
-    private func presentNoRecipesAlert() {
-        let errorAlert = UIAlertController(title: "No recipes found!", message: "Verify your ingredients.", preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(errorAlert, animated: true, completion: nil)
     }
 }
 

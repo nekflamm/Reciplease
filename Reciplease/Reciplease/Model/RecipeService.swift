@@ -31,10 +31,12 @@ class RecipeService {
                     callback(false, nil, nil)
                     return
             }
+            
             guard let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
                 callback(false, nil, nil)
                 return
             }
+            
             let recipesNumber = recipeData.matches.count
             
             self.storeRecipes(for: recipeData) { (success, recipes)   in
@@ -42,6 +44,7 @@ class RecipeService {
                     callback(false, nil, nil)
                     return
                 }
+                
                 callback(true, recipes, recipesNumber)
             }
         }
@@ -58,6 +61,7 @@ class RecipeService {
                             callback(false, nil)
                             return
                         }
+                        
                         self.addRecipeToCentral(recipe, image, time)
                         
                         callback(true, RecipesList.shared.central)
@@ -78,6 +82,7 @@ class RecipeService {
                     completionHandler(nil)
                     return
             }
+            
             completionHandler(image)
         }
     }
@@ -90,6 +95,7 @@ class RecipeService {
         guard let url = URL(string: stringUrl) else {
             return URL(string: "Error")!
         }
+        
         return url
     }
     
@@ -100,10 +106,12 @@ class RecipeService {
                     callback(false, nil)
                     return
             }
+            
             guard let urlResponse = try? JSONDecoder().decode(URLResponse.self, from: data) else {
                 callback(false, nil)
                 return
             }
+            
             let url = urlResponse.source.sourceRecipeUrl
             
             callback(true, url)
@@ -115,6 +123,7 @@ class RecipeService {
         for ingredient in ingredients {
             string += "\(ingredient), "
         }
+        
         string.removeLast(2)
         return "\(string)."
     }

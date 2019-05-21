@@ -42,10 +42,12 @@ class RecipeDetailsViewController: UIViewController {
         guard let url = url else {
             return
         }
+        
         RecipeService.shared.getUrl(for: url) { (success, url) in
             guard let url = url else {
                 return
             }
+            
             RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = url
             self.performSegue(withIdentifier: "goToWebView", sender: self)
         }
@@ -80,14 +82,6 @@ class RecipeDetailsViewController: UIViewController {
         checkIfRecipeIsFavorite()
     }
     
-//    private func checkIfRecipeIsFavorite() {
-//        if recipe.isFavorite {
-//            changeNavigationItemColorFor(.orange)
-//        } else {
-//            changeNavigationItemColorFor(.white)
-//        }
-//    }
-    
     private func checkIfRecipeIsFavorite() {
         let todaysRecipes = RecipesList.shared.todaysRecipes
         let searchRecipes = RecipesList.shared.recipes
@@ -96,7 +90,7 @@ class RecipeDetailsViewController: UIViewController {
         checkIfFavorite(forKey: "search", in: searchRecipes)
 
         if getKey() == "favorite" {
-            changeNavigationItemColorFor(UIColor.orange)
+            changeNavigationItemColorFor(.orange)
         }
     }
 
@@ -105,9 +99,9 @@ class RecipeDetailsViewController: UIViewController {
 
         if getKey() == key {
             if recipes[index].isFavorite {
-                changeNavigationItemColorFor(UIColor.orange)
+                changeNavigationItemColorFor(.orange)
             } else {
-                changeNavigationItemColorFor(UIColor.white)
+                changeNavigationItemColorFor(.white)
             }
         }
     }
