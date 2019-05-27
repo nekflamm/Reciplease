@@ -14,7 +14,7 @@ struct ImagesManager {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     private var images: [UIImage] {
-        return createArray(number: 15, name: "Meal")
+        return createArray(number: 12, name: "Meal")
     }
     private var index = 0
     

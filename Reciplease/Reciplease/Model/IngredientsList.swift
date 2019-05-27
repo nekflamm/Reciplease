@@ -27,18 +27,10 @@ struct IngredientsList {
     }
     
     mutating func append(_ ingredient: String) {
-        var newIngredient = ingredient
+        let ingredientWithoutSpaces = ingredient.replacingOccurrences(of: " ", with: "+")
         
-        if newIngredient.first == " " {
-            newIngredient.removeFirst()
-            append(newIngredient)
-        } else if newIngredient.last == " " {
-            newIngredient.removeLast()
-            append(newIngredient)
-        } else if newIngredient == "" {
-            return
-        }else {
-            all.append(newIngredient)
+        if ingredientWithoutSpaces != "" {
+            all.append(ingredientWithoutSpaces)
         }
     }
 }

@@ -22,15 +22,12 @@ class RecipeTableViewCell: UITableViewCell {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
-    func configure(name: String, ingredients: String, image: UIImage, rating: String, time: String) {
-        recipeNameLabel.text = name
-        ingredientsLabel.text = ingredients
-        cellImageView.image = image
-        ratingLabel.text = rating
-        timeLabel.text = time
+    func configure(with recipe:  Recipe) {
+        recipeNameLabel.text = recipe.name
+        ingredientsLabel.text = recipe.ingredientsList
+        cellImageView.image = recipe.image
+        ratingLabel.text = recipe.ratingToString
+        timeLabel.text = recipe.timeToString
     }
 }

@@ -42,16 +42,17 @@ class AnimationManager {
     }
     
     func todaysPageAnim(for views: [UIView], with translation: CGFloat) {
-        var index = 3
+        var index = views.count
         var delay: Double = 0.2
         let translationY = -translation
         
         for view in views {
             view.transform = CGAffineTransform(translationX: 0, y: translationY)
         }
-        while index != -1 {
+        
+        while index != 0 {
             UIView.animate(withDuration: 0.6, delay: delay, usingSpringWithDamping: 0.85, initialSpringVelocity: 0.85, options: [], animations: {
-                views[index].transform = .identity
+                views[index - 1].transform = .identity
             })
             index -= 1
             delay += 0.3
