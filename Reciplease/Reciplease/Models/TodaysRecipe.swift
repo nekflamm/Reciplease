@@ -10,14 +10,8 @@ import Foundation
 import UIKit
 
 struct TodaysRecipe {
-    // -----------------------------------------------------------------
-    //              MARK: - Properties
-    // -----------------------------------------------------------------
      var mealSelected = "Breakfast"
     
-    // -----------------------------------------------------------------
-    //              MARK: - Methods
-    // -----------------------------------------------------------------
     mutating func setMeal(for tag: Int) {
         switch tag {
         case 0:

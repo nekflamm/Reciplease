@@ -51,10 +51,8 @@ class SearchViewController: UIViewController {
     //              MARK: - Methods
     // -----------------------------------------------------------------
     private func getRecipes() {
-        let url = getURL()
-        
         if !ingredientsList.all.isEmpty {
-            RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)   in
+            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipe, totalRecipes)   in
                 guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
                     RecipeService.shared.resetFails()
                     self.clearTextView()
@@ -63,6 +61,7 @@ class SearchViewController: UIViewController {
                 }
                 
                 self.activityIndicator.isHidden = false
+                
                 RecipesList.shared.recipes.append(recipe)
                 self.checkRecipesNumber(with: totalRecipes)
             }
@@ -88,13 +87,6 @@ class SearchViewController: UIViewController {
             self.clearTextView()
             self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
         }
-    }
-    
-    private func getURL() -> URL {
-        let parameter = ingredientsList.getAllowedIngredients()
-        let url = URLManager.getSearchURL(with: parameter)
-        
-        return url
     }
     
     private func addIngredientToList() {

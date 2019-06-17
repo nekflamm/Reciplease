@@ -45,13 +45,10 @@ class TodaysRecipeViewController: UIViewController {
     }
     
     private func getRecipes() {
-        let meal = todaysRecipe.mealSelected
-        let url = URLManager.getTodaysURL(with: meal)
-        
         RecipeService.shared.resetFails()
         RecipesList.shared.todaysRecipes.removeAll()
         
-        RecipeService.shared.getRecipes(for: url) { (success, recipe, totalRecipes)  in
+        RecipeService.shared.getRecipes(nil, todaysRecipe.mealSelected) { (success, recipe, totalRecipes)  in
             guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
                 return
             }

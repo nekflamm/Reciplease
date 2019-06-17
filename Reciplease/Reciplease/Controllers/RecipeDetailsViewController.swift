@@ -27,10 +27,17 @@ class RecipeDetailsViewController: UIViewController {
     
     private var url: URL? {
         let id = recipe.id
-        let url = URLManager.getWebPageURL(with: id)
         
-        return url
+        if let appID = Constants.APIKeys.all["AppID"],
+            let appKey = Constants.APIKeys.all["AppKey"],
+            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(appID)&_app_key=\(appKey)") {
+            
+            return url
+        }
+        
+        return nil
     }
+    
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
@@ -44,11 +51,11 @@ class RecipeDetailsViewController: UIViewController {
         }
         
         RecipeService.shared.getUrl(for: url) { (success, url) in
-            guard let url = url else {
+            guard let goodURL = url else {
                 return
             }
             
-            RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = url
+            RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = goodURL
             self.performSegue(withIdentifier: "goToWebView", sender: self)
         }
     }

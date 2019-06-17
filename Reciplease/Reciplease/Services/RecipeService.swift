@@ -16,6 +16,22 @@ class RecipeService {
     // -----------------------------------------------------------------
     static let shared = RecipeService()
     
+    private var appID: String {
+        if let appID = Constants.APIKeys.all["AppID"] {
+            return appID
+        }
+        
+        return String()
+    }
+    
+    private var appKey: String {
+        if let appKey = Constants.APIKeys.all["AppKey"] {
+            return appKey
+        }
+        
+        return String()
+    }
+    
     // Number of recipes who can't be save
     var fails = 0
     
@@ -24,8 +40,8 @@ class RecipeService {
     // -----------------------------------------------------------------
     private init() {}
     
-    func getRecipes(for url: URL, callback: @escaping(Bool, [Recipe]?, Int?) -> Void) {
-        Alamofire.request(url).responseJSON { (response) in
+    func getRecipes(_ ingredients: String?, _ meal: String?, callback: @escaping(Bool, [Recipe]?, Int?) -> Void) {
+        Alamofire.request(getIngredientsOrMealURL(ingredients, meal)).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data,
                 let recipeData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
@@ -93,6 +109,22 @@ class RecipeService {
         }
         
         return url
+    }
+    
+    private func getIngredientsOrMealURL(_ ingredients: String?, _ meal: String?) -> URL {
+        var url = URL(string: "")
+        
+        if let ingredients = ingredients,
+            let ingredientsURL = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=\(appID)&_app_key=\(appKey)&requirePictures=true\(ingredients)&maxResult=50") {
+            url = ingredientsURL
+        } else {
+            if let meal = meal,
+                let mealURL = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=\(appID)&_app_key=\(appKey)&requirePictures=true&q=\(meal)&maxResult=35") {
+                url = mealURL
+            }
+        }
+        
+        return url!
     }
     
     func getUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {

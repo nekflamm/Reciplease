@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -812,20 +812,20 @@
         <image name="Lunch4" width="1000" height="667"/>
         <image name="Meal10" width="1000" height="667"/>
         <image name="Meal8" width="1000" height="667"/>
-        <image name="Slate" width="240" height="360"/>
+        <image name="Slate" width="1000" height="1500"/>
         <image name="SlateAndSpoons" width="405" height="661"/>
         <image name="TeaTime3" width="1000" height="1500"/>
         <image name="addButton" width="44" height="26"/>
         <image name="clearButton" width="64" height="31"/>
-        <image name="favoriteStar" width="24" height="24"/>
+        <image name="favoriteStar" width="32" height="32"/>
         <image name="getDirections" width="278" height="49"/>
         <image name="infos" width="218" height="217"/>
-        <image name="loupe" width="48" height="48"/>
+        <image name="loupe" width="21.333333969116211" height="21.333333969116211"/>
         <image name="notSelected" width="26" height="25"/>
-        <image name="recipeIcon" width="48" height="48"/>
+        <image name="recipeIcon" width="21.333333969116211" height="21.333333969116211"/>
         <image name="searchButton" width="339" height="59"/>
         <image name="selected" width="26" height="26"/>
-        <image name="star" width="48" height="48"/>
+        <image name="star" width="21.333333969116211" height="21.333333969116211"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sFn-qD-8t4"/>

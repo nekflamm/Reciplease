@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 struct Recipe {
-    // -----------------------------------------------------------------
-    //              MARK: - Properties
-    // -----------------------------------------------------------------
+    
     var name: String
     var ingredients: [String]
     var image: UIImage
@@ -24,16 +22,17 @@ struct Recipe {
     
     var ingredientsList: String {
         var string = String()
+        
         for ingredient in ingredients {
             string += "\(ingredient), "
         }
         string.removeLast(2)
+        
         return "\(string)."
     }
     
     var timeToString: String {
-        let timeInMinute = (timeInSeconds / 60)
-        return "\(String(timeInMinute))m"
+        return "\(String(timeInSeconds / 60))m"
     }
     
     var ratingToString: String {

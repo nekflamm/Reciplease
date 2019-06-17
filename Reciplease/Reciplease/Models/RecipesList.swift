@@ -13,6 +13,7 @@ struct RecipesList {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     static var shared = RecipesList()
+    
     var central = [Recipe]()
     var recipes = [Recipe]()
     var favorites = [Recipe]()
