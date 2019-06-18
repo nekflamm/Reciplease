@@ -11,9 +11,23 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     // -----------------------------------------------------------------
-    //              MARK: - @IBOutlets
+    //              MARK: - Properties / @IBOutlets
     // -----------------------------------------------------------------
     @IBOutlet weak var webView: WKWebView!
+    
+    var recipeID: String?
+    
+    private var url: URL? {
+        if let id = recipeID,
+            let appID = Constants.APIKeys.all["AppID"],
+            let appKey = Constants.APIKeys.all["AppKey"],
+            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(appID)&_app_key=\(appKey)") {
+            
+            return url
+        }
+        
+        return nil
+    }
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -25,11 +39,16 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func loadRequest() {
-        guard let url = RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url else {
+        guard let url = url else {
             return
         }
-        let request = URLRequest(url: url)
         
-        webView.load(request)
+        RecipeService.shared.getWebPageUrl(for: url) { (success, url) in
+            guard let webPageURL = url else {
+                return
+            }
+            
+            self.webView.load(URLRequest(url: webPageURL))
+        }
     }
 }

@@ -38,4 +38,23 @@ struct Recipe {
     var ratingToString: String {
         return String(rating)
     }
+    
+    func getTimeInMinute(for time: Int16) -> String {
+        return "\(String(time / 60))m"
+    }
+}
+
+// Structs for JSON decoder
+struct RecipeResponse: Codable {
+    let totalMatchCount: Int
+    var matches: [RecipeInfos]
+}
+
+struct RecipeInfos: Codable {
+    let smallImageUrls: [String]?
+    let ingredients: [String]
+    let id: String
+    let recipeName: String
+    let totalTimeInSeconds: Int?
+    let rating: Int
 }

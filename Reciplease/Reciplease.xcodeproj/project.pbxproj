@@ -149,6 +149,7 @@
 			children = (
 				3A41DDF821F9FD7D00501748 /* Main.storyboard */,
 				3A58465222020BD100138015 /* RecipeCell.xib */,
+				3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -248,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				3AE6DBDC22269B3A0053F741 /* ImagesManager.swift */,
-				3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";

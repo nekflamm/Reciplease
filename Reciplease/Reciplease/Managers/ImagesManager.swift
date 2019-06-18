@@ -7,43 +7,41 @@
 //
 
 import Foundation
-import UIKit
 
 struct ImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    private var images: [UIImage] {
+    private var imagesNames: [String] {
         return createArray(number: 12, name: "Meal")
     }
+    
     private var index = 0
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    mutating func takeAnImage() -> UIImage {
+    mutating func takeAnImageName() -> String {
         checkIndex()
         
-        let image = images[index]
+        let imageName = imagesNames[index]
         index += 1
         
-        return image
+        return imageName
     }
     
     mutating private func checkIndex() {
-        if index >= images.count {
+        if index >= imagesNames.count {
             index = 0
         }
     }
         
-    private func createArray(number: Int, name: String) -> [UIImage] {
-        var images = [UIImage]()
-        var imageNumber = 1
+    private func createArray(number: Int, name: String) -> [String] {
+        var imagesNames = [String]()
         
-        for _ in 1...number {
-            images.append(UIImage(named: "\(name)\(imageNumber)")!)
-            imageNumber += 1
+        for number in 1...number {
+            imagesNames.append("\(name)\(number)")
         }
-        return images
+        return imagesNames
     }
 }

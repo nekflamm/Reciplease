@@ -25,19 +25,6 @@ class RecipeDetailsViewController: UIViewController {
         } set {}
     }
     
-    private var url: URL? {
-        let id = recipe.id
-        
-        if let appID = Constants.APIKeys.all["AppID"],
-            let appKey = Constants.APIKeys.all["AppKey"],
-            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(appID)&_app_key=\(appKey)") {
-            
-            return url
-        }
-        
-        return nil
-    }
-    
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
@@ -46,18 +33,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @IBAction func getDirectionsButton(_ sender: UIButton) {
-        guard let url = url else {
-            return
-        }
-        
-        RecipeService.shared.getUrl(for: url) { (success, url) in
-            guard let goodURL = url else {
-                return
-            }
-            
-            RecipesList.shared.selectedRecipes[RecipesList.shared.key]?.url = goodURL
-            self.performSegue(withIdentifier: "goToWebView", sender: self)
-        }
+        self.performSegue(withIdentifier: "goToWebView", sender: self)
     }
     
     // -----------------------------------------------------------------
@@ -70,6 +46,14 @@ class RecipeDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupView()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is WebViewController {
+            let viewController = segue.destination as? WebViewController
+
+            viewController?.recipeID = recipe.id
+        }
     }
     
     private func getRecipe() -> Recipe {
@@ -145,12 +129,14 @@ class RecipeDetailsViewController: UIViewController {
         return false
     }
     
-    private func getKey() -> String {
-        return RecipesList.shared.key
-    }
-    
-    private func changeNavigationItemColorFor(_ color: UIColor) {
-        favoriteButtonOutlet.tintColor = color
+    func getFollowingIngredientsNames(for ingredients: [String]) -> String {
+        var string = String()
+        for ingredient in ingredients {
+            string += "\(ingredient), "
+        }
+        
+        string.removeLast(2)
+        return "\(string)."
     }
     
     private func convertToList(_ ingredients: [String]) -> String {
@@ -162,6 +148,14 @@ class RecipeDetailsViewController: UIViewController {
         return ingredientsList
     }
     
+    private func getKey() -> String {
+        return RecipesList.shared.key
+    }
+    
+    private func changeNavigationItemColorFor(_ color: UIColor) {
+        favoriteButtonOutlet.tintColor = color
+    }
+    
     private func saveRecipe() {
         if !recipeIsAlreadyFavorite() {
             let image = recipe.image.pngData()
@@ -169,12 +163,12 @@ class RecipeDetailsViewController: UIViewController {
             
             recipeData.name = recipe.name
             recipeData.ingredients = recipe.ingredients
-            recipeData.ingredientsList = RecipeService.shared.getIngredientsList(for: recipeData.ingredients!)
+            recipeData.ingredientsList = getFollowingIngredientsNames(for: recipeData.ingredients!)
             recipeData.image = image
             recipeData.rating = Int16(recipe.rating)
             recipeData.ratingToString = String(recipeData.rating)
             recipeData.timeInSeconds = Int16(recipe.timeInSeconds)
-            recipeData.timeToString = RecipeService.shared.getTimeInMinute(for: recipeData.timeInSeconds)
+            recipeData.timeToString = "\(String(recipeData.timeInSeconds / 60))m"
             recipeData.url = recipe.url
             recipeData.id = recipe.id
             recipeData.isFavorite = recipe.isFavorite

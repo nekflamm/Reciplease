@@ -9,14 +9,8 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    // -----------------------------------------------------------------
-    //              MARK: - Properties
-    // -----------------------------------------------------------------
     static let shared = TabBarViewController()
     
-    // -----------------------------------------------------------------
-    //              MARK: - Methods
-    // -----------------------------------------------------------------
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 0:

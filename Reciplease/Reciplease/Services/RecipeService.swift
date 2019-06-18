@@ -127,7 +127,7 @@ class RecipeService {
         return url!
     }
     
-    func getUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {
+    func getWebPageUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data else {
@@ -156,12 +156,7 @@ class RecipeService {
         return "\(string)."
     }
     
-    func getTimeInMinute(for time: Int16) -> String {
-        let timeInMinute = (time / 60)
-        return "\(String(timeInMinute))m"
-    }
-    
-    private func addRecipeToCentral(_ recipe: Infos, _ image: UIImage, _ time: Int) {
+    private func addRecipeToCentral(_ recipe: RecipeInfos, _ image: UIImage, _ time: Int) {
         let recipe = Recipe(name: recipe.recipeName, ingredients: recipe.ingredients, image: image, rating: recipe.rating,
                             timeInSeconds: time, id: recipe.id, url: nil, isFavorite: false)
         RecipesList.shared.central.append(recipe)
@@ -173,24 +168,7 @@ class RecipeService {
     }
 }
 
-// -----------------------------------------------------------------
-//              MARK: - JSON Parsing
-// -----------------------------------------------------------------
-fileprivate struct RecipeResponse: Codable {
-    let totalMatchCount: Int
-    var matches: [Infos]
-}
-
-fileprivate struct Infos: Codable {
-    let smallImageUrls: [String]?
-    let ingredients: [String]
-    let id: String
-    let recipeName: String
-    let totalTimeInSeconds: Int?
-    let rating: Int
-}
-
-// Decode getUrl func response
+// Decode getWebPageUrl func response
 fileprivate struct URLResponse: Codable {
     let source: Source
 }

@@ -25,7 +25,7 @@ class AnimationManager {
             banner.transform = CGAffineTransform(translationX: x, y: 0)
             secondBanner.transform = CGAffineTransform(translationX: x, y: 0)
         }) { (success) in
-            banner.image = self.imagesManager.takeAnImage()
+            banner.image = UIImage(named: self.imagesManager.takeAnImageName())
             swap(&banner.image, &secondBanner.image)
             banner.transform = .identity
             secondBanner.transform = .identity
@@ -33,7 +33,7 @@ class AnimationManager {
     }
     
     func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
-        scndBanner.image = imagesManager.takeAnImage()
+        scndBanner.image = UIImage(named: imagesManager.takeAnImageName())
         scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
         scndBanner.contentMode = .scaleAspectFill
         scndBanner.clipsToBounds = true
