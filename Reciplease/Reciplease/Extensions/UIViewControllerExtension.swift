@@ -15,4 +15,24 @@ extension UIViewController {
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(errorAlert, animated: true, completion: nil)
     }
+    
+    
+    func getInitialImageURL(for recipeData: RecipeInfos) -> URL {
+        var imageURL = URL(string: Constants.URL.defaultImageURL)!
+        
+        if let firstImageURL = recipeData.smallImageUrls?.first {
+            imageURL = modifyImageSizeUrl(firstImageURL)
+        }
+        
+        return imageURL
+    }
+    
+    // Remove the two lasts caracters and replace it by the iphone's width size
+    func modifyImageSizeUrl(_ imageUrl: String) -> URL {
+        guard let modifyedURL = URL(string: imageUrl.replacingOccurrences(of: "=s90", with: "=s\((String(Int(Double(self.view.frame.width)))))")) else {
+            return URL(string: "Error")!
+        }
+        
+        return modifyedURL
+    }
 }

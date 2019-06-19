@@ -27,12 +27,6 @@ class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        launchAnimation()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         launchAnimation()
     }
@@ -68,63 +62,36 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
-//    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
-//        var imagesArray = [UIImage]()
-//        var imageURL = URL(string: Constants.URL.defaultImageURL)!
-//
-//        for recipeData in recipesData {
-//            if let firstImageURL = recipeData.smallImageUrls?.first {
-//                imageURL = modifyImageSizeUrl(firstImageURL)
-//            }
-//
-//            RecipeService.shared.getImage(for: imageURL) { (image) in
-//                guard let image = image else {
-//                    return
-//                }
-//
-//                imagesArray.append(image)
-//
-//                if imagesArray.count == recipesData.count {
-//                    self.recipesManager.fillRecipes(forKey: "Meals", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
-//                    self.goToNextPage()
-//                }
-//            }
-//        }
-//    }
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var imagesArray = [UIImage]()
-        var imageURL = URL(string: Constants.URL.defaultImageURL)!
-        
+
         for recipeData in recipesData {
-            if let firstImageURL = recipeData.smallImageUrls?.first {
-                imageURL = modifyImageSizeUrl(firstImageURL)
-            }
-            
+            let imageURL = getInitialImageURL(for: recipeData)
+
             RecipeService.shared.getImage(for: imageURL) { (image) in
                 guard let image = image else {
                     return
                 }
-                
+
                 imagesArray.append(image)
-                
-                if imagesArray.count == recipesData.count {
-                    self.recipesManager.fillRecipes(forKey: "Meals", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
-                    self.goToNextPage()
-                }
+
+                self.fillRecipesIfNeeded(check: imagesArray, and: recipesData)
             }
         }
     }
     
-    private func modifyImageSizeUrl(_ imageUrl: String) -> URL {
-        var stringUrl = imageUrl
-        stringUrl.removeLast(2)
-        stringUrl.append(String(Int(Double(self.view.frame.width))))
-        
-        guard let url = URL(string: stringUrl) else {
-            return URL(string: "Error")!
+    // Check if images and recipes number is the same and fill recipes if needed
+    private func fillRecipesIfNeeded(check imagesArray: [UIImage], and recipesData: [RecipeInfos]) {
+        if imagesArray.count == recipesData.count {
+            recipesManager.fillRecipes(forKey: "Meals", with: recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
+            goToNextPage()
         }
+    }
+    
+    private func goToNextPage() {
+        activityIndicator.isHidden = true
         
-        return url
+        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -133,12 +100,6 @@ class TodaysRecipeViewController: UIViewController {
             
             viewController?.recipes = recipesManager.getRecipes(forKey: "Meals")
         }
-    }
-    
-    private func goToNextPage() {
-        activityIndicator.isHidden = true
-        
-        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
     }
     
     // -----------------------------------------------------------------
@@ -153,31 +114,3 @@ class TodaysRecipeViewController: UIViewController {
         setSelectedImage(for: sender.tag)
     }
 }
-
-
-
-
-
-
-//    private func checkRecipesNumber(_ number: Int) {
-//        if RecipesList.shared.todaysRecipes.count == number - RecipeService.shared.fails {
-//            goToNextPage()
-//        } else if number == 0 {
-//            displayAlert(title: "Data not found !", message: "Please retry.")
-//        }
-//    }
-
-//    private func getRecipes() {
-//        RecipeService.shared.resetFails()
-//        RecipesList.shared.todaysRecipes.removeAll()
-//
-//        RecipeService.shared.getRecipes(nil, mealSelected) { (success, recipe, totalRecipes)  in
-//            guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
-//                return
-//            }
-//            self.activityIndicator.isHidden = false
-//
-//            RecipesList.shared.todaysRecipes.append(recipe)
-//            self.checkRecipesNumber(totalRecipes)
-//        }
-//    }

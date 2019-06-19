@@ -9,7 +9,6 @@
 import UIKit
 
 class RecipesTableViewController: UITableViewController {
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
@@ -33,6 +32,7 @@ class RecipesTableViewController: UITableViewController {
     //              MARK: - Cells
     // -----------------------------------------------------------------
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell,
@@ -59,6 +59,9 @@ class RecipesTableViewController: UITableViewController {
         return 145
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is RecipeDetailsViewController {
             let viewController = segue.destination as? RecipeDetailsViewController

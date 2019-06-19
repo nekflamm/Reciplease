@@ -64,12 +64,9 @@ class SearchViewController: UIViewController {
     
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var imagesArray = [UIImage]()
-        var imageURL = URL(string: Constants.URL.defaultImageURL)!
         
         for recipeData in recipesData {
-            if let firstImageURL = recipeData.smallImageUrls?.first {
-                imageURL = modifyImageSizeUrl(firstImageURL)
-            }
+            let imageURL = getInitialImageURL(for: recipeData)
             
             RecipeService.shared.getImage(for: imageURL) { (image) in
                 guard let image = image else {
@@ -78,42 +75,33 @@ class SearchViewController: UIViewController {
                 
                 imagesArray.append(image)
                 
-                if imagesArray.count == recipesData.count {
-                    self.recipesManager.fillRecipes(forKey: "Search", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
-                    self.goToNextPage()
-                }
+                self.fillRecipesIfNeeded(check: imagesArray, and: recipesData)
             }
         }
     }
     
-    private func modifyImageSizeUrl(_ imageUrl: String) -> URL {
-        var stringUrl = imageUrl
-        stringUrl.removeLast(2)
-        stringUrl.append(String(Int(Double(self.view.frame.width))))
-        
-        guard let url = URL(string: stringUrl) else {
-            return URL(string: "Error")!
+    // Check if images and recipes number is the same and fill recipes if needed
+    private func fillRecipesIfNeeded(check imagesArray: [UIImage], and recipesData: [RecipeInfos]) {
+        if imagesArray.count == recipesData.count {
+            recipesManager.fillRecipes(forKey: "Search", with: recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
+            goToNextPage()
         }
-        
-        return url
     }
     
     private func addIngredientToList() {
         guard let ingredientName = ingredientsTextField.text?.lowercased(), ingredientName != "" else {
             return
         }
+        
         ingredientsList.append(ingredientName)
         
         guard let newIngredient = ingredientsList.all.last else {
             return
         }
         
-        if !introductoryLabel.isHidden {
-            introductoryLabel.isHidden = true
-        }
-        
         ingredientsTextView.text += "• \(newIngredient.replacingOccurrences(of: "+", with: " "))\n\n"
         ingredientsTextField.text = nil
+        introductoryLabel.isHidden = true
     }
     
     private func clearTextView() {
@@ -175,36 +163,3 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
 }
-
-
-
-
-
-//    private func getRecipes() {
-//        if !ingredientsList.all.isEmpty {
-//            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipe, totalRecipes)   in
-//                guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
-//                    RecipeService.shared.resetFails()
-//                    self.clearTextView()
-//                    self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
-//                    return
-//                }
-//
-//                self.activityIndicator.isHidden = false
-//
-//                RecipesList.shared.recipes.append(recipe)
-//                self.checkRecipesNumber(with: totalRecipes)
-//            }
-//        } else {
-//            displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
-//        }
-//    }
-
-//    private func checkRecipesNumber(with number: Int) {
-//        if RecipesList.shared.recipes.count == number - RecipeService.shared.fails {
-//            self.goToNextPage()
-//        } else if number == 0 {
-//            self.clearTextView()
-//            self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
-//        }
-//    }

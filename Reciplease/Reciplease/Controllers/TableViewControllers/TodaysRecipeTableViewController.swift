@@ -33,6 +33,7 @@ class TodaysRecipeTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell,
             let recipe = recipes?[indexPath.row] else {
             return UITableViewCell()
@@ -57,6 +58,9 @@ class TodaysRecipeTableViewController: UITableViewController {
         return 145
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is RecipeDetailsViewController {
             let viewController = segue.destination as? RecipeDetailsViewController
