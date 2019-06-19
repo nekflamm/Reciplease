@@ -20,26 +20,10 @@ struct Recipe {
     var isFavorite = false
     
     var ingredientsList: String {
-        var string = String()
+        var list = ingredients.joined(separator: ", ")
+        list.removeLast(2)
         
-        for ingredient in ingredients {
-            string += "\(ingredient), "
-        }
-        string.removeLast(2)
-        
-        return "\(string)."
-    }
-    
-    var timeToString: String {
-        return "\(String(timeInSeconds / 60))m"
-    }
-    
-    var ratingToString: String {
-        return String(rating)
-    }
-    
-    func getTimeInMinute(for time: Int16) -> String {
-        return "\(String(time / 60))m"
+        return "\(list)."
     }
 }
 

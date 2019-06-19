@@ -10,13 +10,18 @@ import UIKit
 
 class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
-    //              MARK: - @IBOutlets / Properties
+    //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
     @IBOutlet var selectedImages: [UIImageView]!
     @IBOutlet var bannersView: [UIView]!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     private let animationManager = AnimationManager()
+    private let recipesManager = RecipesManager()
+    
     private var mealSelected = "Breakfast"
     
     // -----------------------------------------------------------------
@@ -46,6 +51,7 @@ class TodaysRecipeViewController: UIViewController {
         for image in selectedImages {
             image.image = UIImage(named: "notSelected")
         }
+        
         selectedImages[index].image = UIImage(named: "selected")
     }
     
@@ -62,6 +68,29 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
+//    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
+//        var imagesArray = [UIImage]()
+//        var imageURL = URL(string: Constants.URL.defaultImageURL)!
+//
+//        for recipeData in recipesData {
+//            if let firstImageURL = recipeData.smallImageUrls?.first {
+//                imageURL = modifyImageSizeUrl(firstImageURL)
+//            }
+//
+//            RecipeService.shared.getImage(for: imageURL) { (image) in
+//                guard let image = image else {
+//                    return
+//                }
+//
+//                imagesArray.append(image)
+//
+//                if imagesArray.count == recipesData.count {
+//                    self.recipesManager.fillRecipes(forKey: "Meals", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
+//                    self.goToNextPage()
+//                }
+//            }
+//        }
+//    }
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var imagesArray = [UIImage]()
         var imageURL = URL(string: Constants.URL.defaultImageURL)!
@@ -79,7 +108,7 @@ class TodaysRecipeViewController: UIViewController {
                 imagesArray.append(image)
                 
                 if imagesArray.count == recipesData.count {
-                    RecipesManager.shared.fillRecipes(forKey: "Meals", with: RecipesManager.shared.convertDataToRecipes(withData: recipesData, and: imagesArray))
+                    self.recipesManager.fillRecipes(forKey: "Meals", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
                     self.goToNextPage()
                 }
             }
@@ -102,7 +131,7 @@ class TodaysRecipeViewController: UIViewController {
         if segue.destination is TodaysRecipeTableViewController {
             let viewController = segue.destination as? TodaysRecipeTableViewController
             
-            viewController?.recipes = RecipesManager.shared.getRecipes(forKey: "Meals")
+            viewController?.recipes = recipesManager.getRecipes(forKey: "Meals")
         }
     }
     

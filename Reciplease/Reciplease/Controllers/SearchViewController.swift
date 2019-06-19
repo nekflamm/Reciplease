@@ -24,6 +24,7 @@ class SearchViewController: UIViewController {
     //             MARK: - Properties
     // -----------------------------------------------------------------
     private var ingredientsList = IngredientsList()
+    private var recipesManager = RecipesManager()
     private let animationManager = AnimationManager()
     private var secondBanner = UIImageView()
     
@@ -78,7 +79,7 @@ class SearchViewController: UIViewController {
                 imagesArray.append(image)
                 
                 if imagesArray.count == recipesData.count {
-                    RecipesManager.shared.fillRecipes(forKey: "Search", with: RecipesManager.shared.convertDataToRecipes(withData: recipesData, and: imagesArray))
+                    self.recipesManager.fillRecipes(forKey: "Search", with: self.recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
                     self.goToNextPage()
                 }
             }
@@ -130,7 +131,7 @@ class SearchViewController: UIViewController {
         if segue.destination is RecipesTableViewController {
             let viewController = segue.destination as? RecipesTableViewController
             
-            viewController?.recipes = RecipesManager.shared.getRecipes(forKey: "Search")
+            viewController?.recipes = recipesManager.getRecipes(forKey: "Search")
         }
     }
     

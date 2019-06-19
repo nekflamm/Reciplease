@@ -45,8 +45,8 @@ class RecipeDetailsViewController: UIViewController {
         titleLabel.text = recipe?.name
         ingredientsTextView.text = convertToList(recipe?.ingredients ?? [""])
         imageView.image = recipe?.image
-        rateLabel.text = recipe?.ratingToString
-        timeLabel.text = recipe?.timeToString
+        rateLabel.text = String(recipe!.rating)
+        timeLabel.text = "\(String(recipe!.timeInSeconds / 60))m"
     }
     
     private func checkIfRecipeIsFavorite() {
@@ -97,9 +97,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeData.ingredientsList = getFollowingIngredientsNames(for: recipeData.ingredients!)
         recipeData.image = recipe?.image.pngData()
         recipeData.rating = Int16(recipe!.rating)
-        recipeData.ratingToString = String(recipeData.rating)
         recipeData.timeInSeconds = Int16(recipe!.timeInSeconds)
-        recipeData.timeToString = "\(String(recipeData.timeInSeconds / 60))m"
         recipeData.id = recipe?.id
         recipeData.isFavorite = recipe!.isFavorite
         

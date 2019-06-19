@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ImagesManager {
+class ImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
@@ -21,7 +21,16 @@ struct ImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    mutating func takeAnImageName() -> String {
+    private func createArray(number: Int, name: String) -> [String] {
+        var imagesNames = [String]()
+        
+        for number in 1...number {
+            imagesNames.append("\(name)\(number)")
+        }
+        return imagesNames
+    }
+    
+    func takeAnImageName() -> String {
         checkIndex()
         
         let imageName = imagesNames[index]
@@ -30,18 +39,9 @@ struct ImagesManager {
         return imageName
     }
     
-    mutating private func checkIndex() {
+    private func checkIndex() {
         if index >= imagesNames.count {
             index = 0
         }
-    }
-        
-    private func createArray(number: Int, name: String) -> [String] {
-        var imagesNames = [String]()
-        
-        for number in 1...number {
-            imagesNames.append("\(name)\(number)")
-        }
-        return imagesNames
     }
 }

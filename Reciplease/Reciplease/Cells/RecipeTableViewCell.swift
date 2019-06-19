@@ -27,7 +27,7 @@ class RecipeTableViewCell: UITableViewCell {
         recipeNameLabel.text = recipe.name
         ingredientsLabel.text = recipe.ingredientsList
         cellImageView.image = recipe.image
-        ratingLabel.text = recipe.ratingToString
-        timeLabel.text = recipe.timeToString
+        ratingLabel.text = String(recipe.rating)
+        timeLabel.text = "\(String(recipe.timeInSeconds / 60))m"
     }
 }

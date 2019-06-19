@@ -72,10 +72,10 @@ class RecipeService {
 }
 
 // Decode getWebPageUrl func response
-fileprivate struct URLResponse: Codable {
+fileprivate struct URLResponse: Decodable {
     let source: Source
 }
-fileprivate struct Source: Codable {
+fileprivate struct Source: Decodable {
     let sourceRecipeUrl: URL
     let sourceDisplayName: String
 }
