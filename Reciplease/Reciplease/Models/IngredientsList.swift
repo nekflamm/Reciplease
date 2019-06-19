@@ -9,28 +9,19 @@
 import Foundation
 
 class IngredientsList {
-    // -----------------------------------------------------------------
-    //              MARK: - Properties
-    // -----------------------------------------------------------------
+    
     var all = [String]()
     
-    // -----------------------------------------------------------------
-    //              MARK: - Methods
-    // -----------------------------------------------------------------
-    func getAllowedIngredients() -> String {
-        var allowedIngredients = String()
+    func append(_ ingredient: String) {
+        let trimedSpacesIngredient = ingredient.trimmingCharacters(in: .whitespacesAndNewlines)
+        let ingredientWithReplacedSpaces = trimedSpacesIngredient.replacingOccurrences(of: " ", with: "+")
         
-        for ingredient in all {
-            allowedIngredients += "&allowedIngredient[]=\(ingredient)"
+        if ingredientWithReplacedSpaces != "" {
+            all.append(ingredientWithReplacedSpaces)
         }
-        return allowedIngredients
     }
     
-    func append(_ ingredient: String) {
-        let ingredientWithoutSpaces = ingredient.replacingOccurrences(of: " ", with: "+")
-        
-        if ingredientWithoutSpaces != "" {
-            all.append(ingredientWithoutSpaces)
-        }
+    func getAllowedIngredients() -> String {
+        return all.map { "&allowedIngredient[]=\($0)" }.joined()
     }
 }
