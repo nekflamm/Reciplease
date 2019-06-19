@@ -19,11 +19,15 @@ struct Recipe {
     var id: String
     var isFavorite = false
     
-    var ingredientsList: String {
-        var list = ingredients.joined(separator: ", ")
-        list.removeLast(2)
+    var followingIngredients: String {
+        var followingIngredients = ingredients.joined(separator: ", ")
+        followingIngredients.removeLast(2)
         
-        return "\(list)."
+        return "\(followingIngredients)."
+    }
+    
+    var ingredientsToList: String {
+        return ingredients.map { "• \($0)\n\n" }.joined()
     }
 }
 

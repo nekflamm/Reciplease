@@ -25,7 +25,7 @@ class RecipeTableViewCell: UITableViewCell {
     
     func configure(with recipe:  Recipe) {
         recipeNameLabel.text = recipe.name
-        ingredientsLabel.text = recipe.ingredientsList
+        ingredientsLabel.text = recipe.followingIngredients
         cellImageView.image = recipe.image
         ratingLabel.text = String(recipe.rating)
         timeLabel.text = "\(String(recipe.timeInSeconds / 60))m"

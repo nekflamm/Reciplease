@@ -10,7 +10,7 @@ import UIKit
 
 class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
-    //              MARK: - @IBOutlets / Properties
+    //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
@@ -19,6 +19,9 @@ class RecipeDetailsViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var favoriteButtonOutlet: UIBarButtonItem!
     
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     var recipe: Recipe?
     
     private var selectedTab: String {
@@ -33,26 +36,26 @@ class RecipeDetailsViewController: UIViewController {
         setupView()
     }
     
-    private func getSelectedTab() -> String {
-        let possiblesTabs = ["Search", "Favorites", "Meals"]
-        
-        return possiblesTabs[tabBarController?.selectedIndex ?? 0]
-    }
-
     private func setupView() {
         checkIfRecipeIsFavorite()
         
         titleLabel.text = recipe?.name
-        ingredientsTextView.text = convertToList(recipe?.ingredients ?? [""])
+        ingredientsTextView.text = recipe?.ingredientsToList
         imageView.image = recipe?.image
         rateLabel.text = String(recipe!.rating)
         timeLabel.text = "\(String(recipe!.timeInSeconds / 60))m"
     }
     
+    private func getSelectedTab() -> String {
+        let tabs = ["Search", "Favorites", "Meals"]
+        
+        return tabs[tabBarController?.selectedIndex ?? 0]
+    }
+    
     private func checkIfRecipeIsFavorite() {
         for savedRecipe in RecipeData.all {
-            if recipe?.name == savedRecipe.name || selectedTab == "Favorites" {
-                changeNavigationItemColorFor(.orange)
+            if recipe?.name == savedRecipe.name {
+                favoriteButtonOutlet.tintColor = .orange
             }
         }
     }
@@ -62,31 +65,8 @@ class RecipeDetailsViewController: UIViewController {
             recipe?.isFavorite = true
             saveRecipe()
             
-            changeNavigationItemColorFor(.orange)
+            favoriteButtonOutlet.tintColor = .orange
         }
-    }
-    
-    func getFollowingIngredientsNames(for ingredients: [String]) -> String {
-        var string = String()
-        for ingredient in ingredients {
-            string += "\(ingredient), "
-        }
-        
-        string.removeLast(2)
-        return "\(string)."
-    }
-    
-    private func convertToList(_ ingredients: [String]) -> String {
-        var ingredientsList = ""
-        
-        for ingredient in ingredients {
-            ingredientsList += "• \(ingredient)\n\n"
-        }
-        return ingredientsList
-    }
-    
-    private func changeNavigationItemColorFor(_ color: UIColor) {
-        favoriteButtonOutlet.tintColor = color
     }
     
     private func saveRecipe() {
@@ -94,7 +74,7 @@ class RecipeDetailsViewController: UIViewController {
         
         recipeData.name = recipe?.name
         recipeData.ingredients = recipe?.ingredients
-        recipeData.ingredientsList = getFollowingIngredientsNames(for: recipeData.ingredients!)
+        recipeData.ingredientsList = recipe?.followingIngredients
         recipeData.image = recipe?.image.pngData()
         recipeData.rating = Int16(recipe!.rating)
         recipeData.timeInSeconds = Int16(recipe!.timeInSeconds)
