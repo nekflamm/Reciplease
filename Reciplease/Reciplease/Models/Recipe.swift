@@ -17,8 +17,7 @@ struct Recipe {
     var rating: Int
     var timeInSeconds: Int
     var id: String
-    var url: URL?
-    var isFavorite: Bool
+    var isFavorite = false
     
     var ingredientsList: String {
         var string = String()
@@ -45,12 +44,12 @@ struct Recipe {
 }
 
 // Structs for JSON decoder
-struct RecipeResponse: Codable {
+struct RecipeResponse: Decodable {
     let totalMatchCount: Int
     var matches: [RecipeInfos]
 }
 
-struct RecipeInfos: Codable {
+struct RecipeInfos: Decodable {
     let smallImageUrls: [String]?
     let ingredients: [String]
     let id: String

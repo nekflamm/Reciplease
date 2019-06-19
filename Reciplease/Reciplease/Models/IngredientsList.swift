@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct IngredientsList {
+class IngredientsList {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
@@ -26,7 +26,7 @@ struct IngredientsList {
         return allowedIngredients
     }
     
-    mutating func append(_ ingredient: String) {
+    func append(_ ingredient: String) {
         let ingredientWithoutSpaces = ingredient.replacingOccurrences(of: " ", with: "+")
         
         if ingredientWithoutSpaces != "" {

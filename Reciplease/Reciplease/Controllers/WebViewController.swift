@@ -19,9 +19,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     private var url: URL? {
         if let id = recipeID,
-            let appID = Constants.APIKeys.all["AppID"],
-            let appKey = Constants.APIKeys.all["AppKey"],
-            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(appID)&_app_key=\(appKey)") {
+            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)") {
             
             return url
         }

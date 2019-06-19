@@ -10,7 +10,7 @@ import UIKit
 
 class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
-    //             MARK: - Properties / @IBOutlets
+    //             MARK: - @IBOutlets
     // -----------------------------------------------------------------
     
     @IBOutlet weak var globalView: UIView!
@@ -20,12 +20,15 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var introductoryLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // -----------------------------------------------------------------
+    //             MARK: - Properties
+    // -----------------------------------------------------------------
     private var ingredientsList = IngredientsList()
     private let animationManager = AnimationManager()
     private var secondBanner = UIImageView()
     
     // -----------------------------------------------------------------
-    //              MARK: - @IBActions
+    //              MARK: - Methods
     // -----------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,60 +36,65 @@ class SearchViewController: UIViewController {
         launchAnimationLoop()
     }
     
-    @IBAction func searchRecipesButton(_ sender: UIButton) {
-        RecipesList.shared.recipes.removeAll()
-        getRecipes()
+    private func launchAnimationLoop() {
+        let scndBanner = animationManager.setupBanner(banner: banner, scndBanner: secondBanner)
+        
+        globalView.insertSubview(scndBanner, belowSubview: banner)
+        _ = Timer.scheduledTimer(timeInterval: (6.0), target: self, selector: #selector(animate), userInfo: nil, repeats: true)
     }
     
-    @IBAction func addButton(_ sender: UIButton) {
-        addIngredientToList()
-    }
-    
-    @IBAction func clearButton(_ sender: UIButton) {
-        clearTextView()
-        ingredientsList.all.removeAll()
-    }
-    
-    // -----------------------------------------------------------------
-    //              MARK: - Methods
-    // -----------------------------------------------------------------
     private func getRecipes() {
         if !ingredientsList.all.isEmpty {
-            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipe, totalRecipes)   in
-                guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
-                    RecipeService.shared.resetFails()
+            self.activityIndicator.isHidden = false
+            
+            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipesInfos)   in
+                guard let recipesInfos = recipesInfos, success else {
                     self.clearTextView()
                     self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
                     return
                 }
                 
-                self.activityIndicator.isHidden = false
-                
-                RecipesList.shared.recipes.append(recipe)
-                self.checkRecipesNumber(with: totalRecipes)
+                self.getImagesAndStoreRecipes(for: recipesInfos)
             }
         } else {
             displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
         }
     }
     
-    private func goToNextPage() {
-        RecipeService.shared.resetFails()
-        RecipesList.shared.emptyCentral()
-        activityIndicator.isHidden = true
+    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
+        var imagesArray = [UIImage]()
+        var imageURL = URL(string: Constants.URL.defaultImageURL)!
         
-        performSegue(withIdentifier: "toRecipesTableView", sender: self)
+        for recipeData in recipesData {
+            if let firstImageURL = recipeData.smallImageUrls?.first {
+                imageURL = modifyImageSizeUrl(firstImageURL)
+            }
+            
+            RecipeService.shared.getImage(for: imageURL) { (image) in
+                guard let image = image else {
+                    return
+                }
+                
+                imagesArray.append(image)
+                
+                if imagesArray.count == recipesData.count {
+                    RecipesManager.shared.fillRecipes(forKey: "Search", with: RecipesManager.shared.convertDataToRecipes(withData: recipesData, and: imagesArray))
+                    self.goToNextPage()
+                }
+            }
+        }
     }
     
-    private func checkRecipesNumber(with number: Int) {
-        let fails = RecipeService.shared.fails
+    private func modifyImageSizeUrl(_ imageUrl: String) -> URL {
+        var stringUrl = imageUrl
+        stringUrl.removeLast(2)
+        stringUrl.append(String(Int(Double(self.view.frame.width))))
         
-        if RecipesList.shared.recipes.count == number - fails {
-            self.goToNextPage()
-        } else if number == 0 {
-            self.clearTextView()
-            self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
+        guard let url = URL(string: stringUrl) else {
+            return URL(string: "Error")!
         }
+        
+        return url
     }
     
     private func addIngredientToList() {
@@ -118,11 +126,35 @@ class SearchViewController: UIViewController {
         animationManager.bannerAnim(banner: banner, secondBanner: secondBanner)
     }
     
-    func launchAnimationLoop() {
-        let scndBanner = animationManager.setupBanner(banner: banner, scndBanner: secondBanner)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is RecipesTableViewController {
+            let viewController = segue.destination as? RecipesTableViewController
+            
+            viewController?.recipes = RecipesManager.shared.getRecipes(forKey: "Search")
+        }
+    }
+    
+    private func goToNextPage() {
+        clearTextView()
+        activityIndicator.isHidden = true
         
-        globalView.insertSubview(scndBanner, belowSubview: banner)
-        _ = Timer.scheduledTimer(timeInterval: (6.0), target: self, selector: #selector(animate), userInfo: nil, repeats: true)
+        performSegue(withIdentifier: "toRecipesTableView", sender: self)
+    }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - @IBActions
+    // -----------------------------------------------------------------
+    @IBAction func searchRecipesButton(_ sender: UIButton) {
+        getRecipes()
+    }
+    
+    @IBAction func addButton(_ sender: UIButton) {
+        addIngredientToList()
+    }
+    
+    @IBAction func clearButton(_ sender: UIButton) {
+        clearTextView()
+        ingredientsList.all.removeAll()
     }
 }
 
@@ -142,3 +174,36 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
 }
+
+
+
+
+
+//    private func getRecipes() {
+//        if !ingredientsList.all.isEmpty {
+//            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipe, totalRecipes)   in
+//                guard let recipe = recipe?.last, let totalRecipes = totalRecipes, success else {
+//                    RecipeService.shared.resetFails()
+//                    self.clearTextView()
+//                    self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
+//                    return
+//                }
+//
+//                self.activityIndicator.isHidden = false
+//
+//                RecipesList.shared.recipes.append(recipe)
+//                self.checkRecipesNumber(with: totalRecipes)
+//            }
+//        } else {
+//            displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
+//        }
+//    }
+
+//    private func checkRecipesNumber(with number: Int) {
+//        if RecipesList.shared.recipes.count == number - RecipeService.shared.fails {
+//            self.goToNextPage()
+//        } else if number == 0 {
+//            self.clearTextView()
+//            self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
+//        }
+//    }

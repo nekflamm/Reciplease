@@ -36,6 +36,8 @@ class AnimationManager {
         scndBanner.image = UIImage(named: imagesManager.takeAnImageName())
         scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
         scndBanner.contentMode = .scaleAspectFill
+        scndBanner.autoresizesSubviews = true
+        scndBanner.clearsContextBeforeDrawing = true
         scndBanner.clipsToBounds = true
         
         return scndBanner

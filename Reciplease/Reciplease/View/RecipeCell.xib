@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainCell" rowHeight="134" id="cYy-WL-E2w" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainCell" rowHeight="170" id="cYy-WL-E2w" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cYy-WL-E2w" id="qR9-Q9-Jkj">
@@ -25,10 +25,7 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lunch3" translatesAutoresizingMaskIntoConstraints="NO" id="79a-Y6-NEA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="120" id="3Vl-S8-hy9"/>
-                        </constraints>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza 4 fromages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCC-BN-eJq">
                         <rect key="frame" x="11" y="7" width="279" height="32"/>
@@ -94,6 +91,7 @@
                     <constraint firstItem="79a-Y6-NEA" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="top" id="qp8-nG-SeP"/>
                     <constraint firstItem="rCC-BN-eJq" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="top" constant="7" id="qsg-tx-k2n"/>
                     <constraint firstItem="rCC-BN-eJq" firstAttribute="leading" secondItem="qR9-Q9-Jkj" secondAttribute="leading" constant="11" id="rkB-1N-wSM"/>
+                    <constraint firstItem="79a-Y6-NEA" firstAttribute="bottom" secondItem="LII-H8-7Vv" secondAttribute="top" id="sDH-wd-aOd"/>
                     <constraint firstAttribute="trailing" secondItem="dwb-tp-nxm" secondAttribute="trailing" constant="85" id="v96-8G-ii2"/>
                     <constraint firstItem="oyN-58-RA0" firstAttribute="top" secondItem="rK5-sj-A1g" secondAttribute="bottom" constant="5" id="vBM-jN-oXP"/>
                     <constraint firstItem="rK5-sj-A1g" firstAttribute="top" secondItem="qR9-Q9-Jkj" secondAttribute="topMargin" constant="31" id="x2b-zc-m04"/>
@@ -112,8 +110,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Lunch3" width="5184" height="3456"/>
-        <image name="Slate" width="875.52001953125" height="1313.280029296875"/>
+        <image name="Lunch3" width="1000" height="667"/>
+        <image name="Slate" width="1000" height="1500"/>
         <image name="infos" width="218" height="217"/>
     </resources>
 </document>
