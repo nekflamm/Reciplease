@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 struct Recipe {
-    
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     var name: String
     var ingredients: [String]
     var image: UIImage
@@ -31,9 +33,8 @@ struct Recipe {
     }
 }
 
-// Structs for JSON decoder
+// Decodable structs to decode recipes response
 struct RecipeResponse: Decodable {
-    let totalMatchCount: Int
     var matches: [RecipeInfos]
 }
 

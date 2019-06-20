@@ -37,6 +37,7 @@ class SearchViewController: UIViewController {
         launchAnimationLoop()
     }
     
+    // Setup and launch banner's animation
     private func launchAnimationLoop() {
         let scndBanner = animationManager.setupBanner(banner: banner, scndBanner: secondBanner)
         
@@ -44,6 +45,27 @@ class SearchViewController: UIViewController {
         _ = Timer.scheduledTimer(timeInterval: (6.0), target: self, selector: #selector(animate), userInfo: nil, repeats: true)
     }
     
+    @objc private func animate() {
+        animationManager.bannerAnim(banner: banner, secondBanner: secondBanner)
+    }
+    
+    private func addIngredientToList() {
+        guard let ingredientName = ingredientsTextField.text?.lowercased(), ingredientName != "" else {
+            return
+        }
+        
+        ingredientsList.append(ingredientName)
+        
+        guard let newIngredient = ingredientsList.all.last else {
+            return
+        }
+        
+        ingredientsTextView.text += "• \(newIngredient.replacingOccurrences(of: "+", with: " "))\n\n"
+        ingredientsTextField.text = nil
+        introductoryLabel.isHidden = true
+    }
+    
+    // Get recipe with inputed ingredients
     private func getRecipes() {
         if !ingredientsList.all.isEmpty {
             self.activityIndicator.isHidden = false
@@ -62,11 +84,12 @@ class SearchViewController: UIViewController {
         }
     }
     
+    // Get recipes images and store recipes
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var imagesArray = [UIImage]()
         
         for recipeData in recipesData {
-            let imageURL = getInitialImageURL(for: recipeData)
+            let imageURL = getImageURL(for: recipeData)
             
             RecipeService.shared.getImage(for: imageURL) { (image) in
                 guard let image = image else {
@@ -88,33 +111,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func addIngredientToList() {
-        guard let ingredientName = ingredientsTextField.text?.lowercased(), ingredientName != "" else {
-            return
-        }
-        
-        ingredientsList.append(ingredientName)
-        
-        guard let newIngredient = ingredientsList.all.last else {
-            return
-        }
-        
-        ingredientsTextView.text += "• \(newIngredient.replacingOccurrences(of: "+", with: " "))\n\n"
-        ingredientsTextField.text = nil
-        introductoryLabel.isHidden = true
-    }
-    
-    private func clearTextView() {
-        ingredientsList.all.removeAll()
-        
-        introductoryLabel.isHidden = false
-        ingredientsTextView.text = nil
-    }
-    
-    @objc private func animate() {
-        animationManager.bannerAnim(banner: banner, secondBanner: secondBanner)
-    }
-    
+    // Pass data to next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is RecipesTableViewController {
             let viewController = segue.destination as? RecipesTableViewController
@@ -128,6 +125,13 @@ class SearchViewController: UIViewController {
         activityIndicator.isHidden = true
         
         performSegue(withIdentifier: "toRecipesTableView", sender: self)
+    }
+    
+    private func clearTextView() {
+        ingredientsList.all.removeAll()
+        
+        introductoryLabel.isHidden = false
+        ingredientsTextView.text = nil
     }
     
     // -----------------------------------------------------------------

@@ -9,16 +9,31 @@
 import UIKit
 
 class TodaysRecipeTableViewController: UITableViewController {
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
+    var recipes: [Recipe]?
+    var selectedRecipe: Recipe?
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
-    var recipes: [Recipe]?
-    var selectedRecipe: Recipe?
+    // Pass data to next ViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is RecipeDetailsViewController {
+            let viewController = segue.destination as? RecipeDetailsViewController
+            
+            viewController?.recipe = selectedRecipe
+        }
+    }
     
     // -----------------------------------------------------------------
-    //              MARK: - Sections
+    //              MARK: - TableView methods
     // -----------------------------------------------------------------
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -28,9 +43,6 @@ class TodaysRecipeTableViewController: UITableViewController {
         return recipes?.count ?? 0
     }
 
-    // -----------------------------------------------------------------
-    //              MARK: - Cells
-    // -----------------------------------------------------------------
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
         
@@ -56,16 +68,5 @@ class TodaysRecipeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 145
-    }
-    
-    // -----------------------------------------------------------------
-    //              MARK: - Methods
-    // -----------------------------------------------------------------
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is RecipeDetailsViewController {
-            let viewController = segue.destination as? RecipeDetailsViewController
-            
-            viewController?.recipe = selectedRecipe
-        }
     }
 }

@@ -11,10 +11,13 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     // -----------------------------------------------------------------
-    //              MARK: - Properties / @IBOutlets
+    //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
     @IBOutlet weak var webView: WKWebView!
     
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     var recipeID: String?
     
     private var url: URL? {

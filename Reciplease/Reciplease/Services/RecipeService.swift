@@ -11,11 +11,17 @@ import Alamofire
 import AlamofireImage
 
 class RecipeService {
-    
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     static let shared = RecipeService()
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     private init() {}
     
+    // Get a list of recipes from a list of ingredients
     func getRecipes(_ ingredients: String?, _ meal: String?, callback: @escaping(Bool, [RecipeInfos]?) -> Void) {
         Alamofire.request(getIngredientsOrMealURL(ingredients, meal)).responseJSON { (response) in
             guard response.result.isSuccess,
@@ -29,6 +35,7 @@ class RecipeService {
         }
     }
     
+    // Get image from an url
     func getImage(for url: URL, callback: @escaping ((UIImage?) -> Void)) {
         Alamofire.request(url).responseImage { (response) in
             guard response.result.isSuccess,
@@ -41,6 +48,7 @@ class RecipeService {
         }
     }
     
+    // Get a webPageUrl from a recipeID
     func getWebPageUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
@@ -54,6 +62,7 @@ class RecipeService {
         }
     }
     
+    // Check if getRecipes is called from Search or Todays ViewController and return good url
     private func getIngredientsOrMealURL(_ ingredients: String?, _ meal: String?) -> URL {
         var url = URL(string: "")
         
@@ -71,7 +80,7 @@ class RecipeService {
     }
 }
 
-// Decode getWebPageUrl func response
+// Decodable structs to decode webPageUrlResponse
 fileprivate struct URLResponse: Decodable {
     let source: Source
 }

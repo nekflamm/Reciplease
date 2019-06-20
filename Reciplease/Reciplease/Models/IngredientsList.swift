@@ -9,9 +9,14 @@
 import Foundation
 
 class IngredientsList {
-    
+    // -----------------------------------------------------------------
+    //              MARK: - Properties
+    // -----------------------------------------------------------------
     var all = [String]()
     
+    // -----------------------------------------------------------------
+    //              MARK: - Methods
+    // -----------------------------------------------------------------
     func append(_ ingredient: String) {
         let trimedSpacesIngredient = ingredient.trimmingCharacters(in: .whitespacesAndNewlines)
         let ingredientWithReplacedSpaces = trimedSpacesIngredient.replacingOccurrences(of: " ", with: "+")

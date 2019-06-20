@@ -13,7 +13,7 @@ class ImagesManager {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     private var imagesNames: [String] {
-        return createArray(number: 12, name: "Meal")
+        return createImagesNamesArray(number: 12, name: "Meal")
     }
     
     private var index = 0
@@ -21,7 +21,9 @@ class ImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    private func createArray(number: Int, name: String) -> [String] {
+    
+    // Create images names array with an imageName and the imagesNumber
+    private func createImagesNamesArray(number: Int, name: String) -> [String] {
         var imagesNames = [String]()
         
         for number in 1...number {
@@ -30,6 +32,7 @@ class ImagesManager {
         return imagesNames
     }
     
+    // Return an imageName
     func takeAnImageName() -> String {
         checkIndex()
         
@@ -39,6 +42,7 @@ class ImagesManager {
         return imageName
     }
     
+    // Reset index if needed
     private func checkIndex() {
         if index >= imagesNames.count {
             index = 0

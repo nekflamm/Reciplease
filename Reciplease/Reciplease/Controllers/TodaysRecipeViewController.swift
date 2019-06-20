@@ -35,6 +35,7 @@ class TodaysRecipeViewController: UIViewController {
         animationManager.todaysPageAnim(for: bannersView, with: UIScreen.main.bounds.height)
     }
     
+    // Change the mealSelected with user choice
     private func setMealSelected(for tag: Int) {
         let possiblesMeals = ["Breakfast", "Lunch", "TeaTime", "Dinner"]
         
@@ -49,6 +50,7 @@ class TodaysRecipeViewController: UIViewController {
         selectedImages[index].image = UIImage(named: "selected")
     }
     
+    // Get recipe with inputed ingredients
     private func getRecipes() {
         self.activityIndicator.isHidden = false
         
@@ -62,11 +64,12 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
+    // Get recipes images and store recipes
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var imagesArray = [UIImage]()
 
         for recipeData in recipesData {
-            let imageURL = getInitialImageURL(for: recipeData)
+            let imageURL = getImageURL(for: recipeData)
 
             RecipeService.shared.getImage(for: imageURL) { (image) in
                 guard let image = image else {
@@ -88,18 +91,19 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
-    private func goToNextPage() {
-        activityIndicator.isHidden = true
-        
-        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
-    }
-    
+    // Pass data to next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is TodaysRecipeTableViewController {
             let viewController = segue.destination as? TodaysRecipeTableViewController
             
             viewController?.recipes = recipesManager.getRecipes(forKey: "Meals")
         }
+    }
+    
+    private func goToNextPage() {
+        activityIndicator.isHidden = true
+        
+        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
     }
     
     // -----------------------------------------------------------------

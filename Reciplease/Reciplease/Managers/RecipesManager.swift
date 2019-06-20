@@ -18,6 +18,11 @@ class RecipesManager {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
+    func fillRecipes(forKey key: String, with recipes: [Recipe]) {
+        self.recipes[key]?.removeAll()
+        self.recipes[key] = recipes
+    }
+    
     func convertDataToRecipes(withData recipesData: [RecipeInfos], and images: [UIImage]) -> [Recipe] {
         var recipes = [Recipe]()
         
@@ -26,11 +31,6 @@ class RecipesManager {
         }
         
         return recipes
-    }
-    
-    func fillRecipes(forKey key: String, with recipes: [Recipe]) {
-        self.recipes[key]?.removeAll()
-        self.recipes[key] = recipes
     }
     
     func getRecipes(forKey key: String) -> [Recipe]? {

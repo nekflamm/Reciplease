@@ -10,14 +10,21 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    // -----------------------------------------------------------------
+    //              MARK: - Alerts
+    // -----------------------------------------------------------------
     func displayAlert(title: String, message: String) {
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(errorAlert, animated: true, completion: nil)
     }
     
+    // -----------------------------------------------------------------
+    //              MARK: - URL Management
+    // -----------------------------------------------------------------
     
-    func getInitialImageURL(for recipeData: RecipeInfos) -> URL {
+    // Get image url if possible, else set default image
+    func getImageURL(for recipeData: RecipeInfos) -> URL {
         var imageURL = URL(string: Constants.URL.defaultImageURL)!
         
         if let firstImageURL = recipeData.smallImageUrls?.first {

@@ -27,7 +27,6 @@ class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     override func viewWillAppear(_ animated: Bool) {
         setupView()
     }
@@ -42,6 +41,7 @@ class RecipeDetailsViewController: UIViewController {
         timeLabel.text = "\(String(recipe!.timeInSeconds / 60))m"
     }
     
+    // Set FavoriteButton to orange if recipe is already favorite
     private func checkIfRecipeIsFavorite() {
         for savedRecipe in RecipeData.all {
             if recipe?.name == savedRecipe.name {
@@ -74,6 +74,7 @@ class RecipeDetailsViewController: UIViewController {
         try? AppDelegate.viewContext.save()
     }
     
+    // Pass data to next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is WebViewController {
             let viewController = segue.destination as? WebViewController

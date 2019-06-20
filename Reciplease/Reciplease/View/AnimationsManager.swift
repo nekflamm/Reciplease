@@ -18,6 +18,19 @@ class AnimationManager {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
+    
+    // Setup banner's properties and position in view
+    func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
+        scndBanner.image = UIImage(named: imagesManager.takeAnImageName())
+        scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
+        scndBanner.contentMode = .scaleAspectFill
+        scndBanner.autoresizesSubviews = true
+        scndBanner.clearsContextBeforeDrawing = true
+        scndBanner.clipsToBounds = true
+        
+        return scndBanner
+    }
+    
     func bannerAnim(banner: UIImageView, secondBanner: UIImageView) {
         let x = -banner.frame.width
         
@@ -30,17 +43,6 @@ class AnimationManager {
             banner.transform = .identity
             secondBanner.transform = .identity
         }
-    }
-    
-    func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
-        scndBanner.image = UIImage(named: imagesManager.takeAnImageName())
-        scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
-        scndBanner.contentMode = .scaleAspectFill
-        scndBanner.autoresizesSubviews = true
-        scndBanner.clearsContextBeforeDrawing = true
-        scndBanner.clipsToBounds = true
-        
-        return scndBanner
     }
     
     func todaysPageAnim(for views: [UIView], with translation: CGFloat) {

@@ -22,7 +22,6 @@ class RecipeTableViewCell: UITableViewCell {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
     func configure(with recipe:  Recipe) {
         recipeNameLabel.text = recipe.name
         ingredientsLabel.text = recipe.followingIngredients
