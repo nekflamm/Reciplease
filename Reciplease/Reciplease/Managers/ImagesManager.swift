@@ -25,7 +25,7 @@ class ImagesManager {
     // Create images names array with an imageName and the imagesNumber
     private func createImagesNamesArray(number: Int, name: String) -> [String] {
         var imagesNames = [String]()
-        
+
         for number in 1...number {
             imagesNames.append("\(name)\(number)")
         }

@@ -34,11 +34,13 @@ class RecipeDetailsViewController: UIViewController {
     private func setupView() {
         checkIfRecipeIsFavorite()
         
-        titleLabel.text = recipe?.name
-        ingredientsTextView.text = recipe?.ingredientsToList
-        imageView.image = recipe?.image
-        rateLabel.text = String(recipe!.rating)
-        timeLabel.text = "\(String(recipe!.timeInSeconds / 60))m"
+        if let recipe = recipe {
+            titleLabel.text = recipe.name
+            ingredientsTextView.text = recipe.ingredientsToList
+            imageView.image = recipe.image
+            rateLabel.text = String(recipe.rating)
+            timeLabel.text = "\(String(recipe.timeInSeconds / 60))m"
+        }
     }
     
     // Set FavoriteButton to orange if recipe is already favorite
@@ -60,18 +62,20 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func saveRecipe() {
-        let recipeData = RecipeData(context: AppDelegate.viewContext)
-        
-        recipeData.name = recipe?.name
-        recipeData.ingredients = recipe?.ingredients
-        recipeData.ingredientsList = recipe?.followingIngredients
-        recipeData.image = recipe?.image.pngData()
-        recipeData.rating = Int16(recipe!.rating)
-        recipeData.timeInSeconds = Int16(recipe!.timeInSeconds)
-        recipeData.id = recipe?.id
-        recipeData.isFavorite = recipe!.isFavorite
-        
-        try? AppDelegate.viewContext.save()
+        if let recipe = recipe {
+            let recipeData = RecipeData(context: AppDelegate.viewContext)
+            
+            recipeData.name = recipe.name
+            recipeData.ingredients = recipe.ingredients
+            recipeData.ingredientsList = recipe.followingIngredients
+            recipeData.image = recipe.image.pngData()
+            recipeData.rating = Int16(recipe.rating)
+            recipeData.timeInSeconds = Int16(recipe.timeInSeconds)
+            recipeData.id = recipe.id
+            recipeData.isFavorite = recipe.isFavorite
+            
+            try? AppDelegate.viewContext.save()
+        }
     }
     
     // Pass data to next ViewController

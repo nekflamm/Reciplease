@@ -26,15 +26,15 @@ class RecipeData: NSManagedObject {
     //              MARK: - Methods
     // -----------------------------------------------------------------
     static func dataToRecipe(for index: Int) -> Recipe? {
-        let name = all[index].name
-        let ingredients = all[index].ingredients
-        let image = UIImage(data: all[index].image!)
-        let id = all[index].id
-        let rating = Int(all[index].rating)
-        let time = Int(all[index].timeInSeconds)
+        guard let name = all[index].name,
+            let ingredients = all[index].ingredients,
+            let imageData = all[index].image,
+            let image = UIImage(data: imageData),
+            let id = all[index].id else {
+                
+            return nil
+        }
         
-        let recipe = Recipe(name: name!, ingredients: ingredients!, image: image!, rating: rating, timeInSeconds: time, id: id!, isFavorite: false)
-        
-        return recipe
+        return Recipe(name: name, ingredients: ingredients, image: image, rating: Int(all[index].rating), timeInSeconds: Int(all[index].timeInSeconds), id: id, isFavorite: false)
     }
 }

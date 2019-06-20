@@ -24,13 +24,7 @@ class RecipesManager {
     }
     
     func convertDataToRecipes(withData recipesData: [RecipeInfos], and images: [UIImage]) -> [Recipe] {
-        var recipes = [Recipe]()
-        
-        for (i, data) in recipesData.enumerated() {
-            recipes.append(Recipe(name: data.recipeName, ingredients: data.ingredients, image: images[i], rating: data.rating, timeInSeconds: data.totalTimeInSeconds ?? 00, id: data.id, isFavorite: false))
-        }
-        
-        return recipes
+        return recipesData.enumerated().map { Recipe(name: $1.recipeName, ingredients: $1.ingredients, image: images[$0], rating: $1.rating, timeInSeconds: $1.totalTimeInSeconds ?? 00, id: $1.id, isFavorite: false) }
     }
     
     func getRecipes(forKey key: String) -> [Recipe]? {

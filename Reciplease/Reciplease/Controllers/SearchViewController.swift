@@ -68,10 +68,11 @@ class SearchViewController: UIViewController {
     // Get recipe with inputed ingredients
     private func getRecipes() {
         if !ingredientsList.all.isEmpty {
-            self.activityIndicator.isHidden = false
+            activityIndicator.isHidden = false
             
             RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipesInfos)   in
-                guard let recipesInfos = recipesInfos, success else {
+                guard let recipesInfos = recipesInfos, !recipesInfos.isEmpty, success else {
+                    self.activityIndicator.isHidden = true
                     self.clearTextView()
                     self.displayAlert(title: "No recipes found!", message: "Verify your ingredients.")
                     return
