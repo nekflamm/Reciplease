@@ -13,21 +13,25 @@ class RecipesManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    private var recipes = [String: [Recipe]]()
+    private var recipes = [Recipe]()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    func fillRecipes(forKey key: String, with recipes: [Recipe]) {
-        self.recipes[key]?.removeAll()
-        self.recipes[key] = recipes
+    
+    func fillRecipe(with recipe: Recipe) {
+        recipes.append(recipe)
     }
     
-    func convertDataToRecipes(withData recipesData: [RecipeInfos], and images: [UIImage]) -> [Recipe] {
-        return recipesData.enumerated().map { Recipe(name: $1.recipeName, ingredients: $1.ingredients, image: images[$0], rating: $1.rating, timeInSeconds: $1.totalTimeInSeconds ?? 00, id: $1.id, isFavorite: false) }
+    func removeRecipes() {
+        recipes.removeAll()
     }
     
-    func getRecipes(forKey key: String) -> [Recipe]? {
-        return recipes[key]
+    func convertDataToRecipe(withData recipeData: RecipeInfos, and image: UIImage) -> Recipe {
+        return Recipe(name: recipeData.recipeName, ingredients: recipeData.ingredients, image: image, rating: recipeData.rating, timeInSeconds: recipeData.totalTimeInSeconds ?? 00, id: recipeData.id, isFavorite: false)
+    }
+
+    func getRecipes() -> [Recipe]? {
+        return recipes
     }
 }

@@ -15,6 +15,6 @@ struct Constants {
     }
     
     struct URL {
-        static var defaultImageURL = "https://translate.google.com/#view=home&op=translate&sl=en&tl=fr&text=printer%20spooler"
+        static var defaultImageURL = "https://lh3.googleusercontent.com/G7i42P1z_ofmfH-bkXR7grpm8uDGhDeQkbejb1viBexv2shAqBSLkD6gP-4utDSHq4PwP6XOdMhSkUXbijA_4g=s300"
     }
 }

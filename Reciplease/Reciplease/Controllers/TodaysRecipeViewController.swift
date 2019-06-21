@@ -22,6 +22,7 @@ class TodaysRecipeViewController: UIViewController {
     private let animationManager = AnimationManager()
     private let recipesManager = RecipesManager()
     
+    var requestsQueue = [Request]()
     private var mealSelected = "Breakfast"
     
     // -----------------------------------------------------------------
@@ -37,9 +38,7 @@ class TodaysRecipeViewController: UIViewController {
     
     // Change the mealSelected with user choice
     private func setMealSelected(for tag: Int) {
-        let possiblesMeals = ["Breakfast", "Lunch", "TeaTime", "Dinner"]
-        
-        mealSelected = possiblesMeals[tag]
+        mealSelected = ["Breakfast", "Lunch", "TeaTime", "Dinner"][tag]
     }
     
     private func setSelectedImage(for index: Int) {
@@ -56,39 +55,47 @@ class TodaysRecipeViewController: UIViewController {
         
         RecipeService.shared.getRecipes(nil, mealSelected) { (success, recipesInfos)   in
             guard let recipesInfos = recipesInfos, success else {
+                self.activityIndicator.isHidden = true
                 self.displayAlert(title: "No recipes found!", message: "Please retry.")
                 return
             }
             
-            self.getImagesAndStoreRecipes(for: recipesInfos)
+            self.fillRequestsQueue(withNumber: recipesInfos.count)
+            self.launchImagesRequests(withData: recipesInfos)
+        }
+    }
+    
+    private func launchImagesRequests(withData recipesInfos: [RecipeInfos]) {
+        if !isAllRequestsDone() {
+            for (index, request) in requestsQueue.enumerated() {
+                if request.state == .waiting && (requestsQueue.filter{ $0.state == .inProgress }).count == 0 {
+                    getImageAndStoreRecipe(for: recipesInfos, at: index)
+                }
+            }
+        } else {
+            goToNextPage()
         }
     }
     
     // Get recipes images and store recipes
-    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
-        var imagesArray = [UIImage]()
-
-        for recipeData in recipesData {
-            let imageURL = getImageURL(for: recipeData)
-
-            RecipeService.shared.getImage(for: imageURL) { (image) in
-                guard let image = image else {
-                    return
-                }
-
-                imagesArray.append(image)
-
-                self.fillRecipesIfNeeded(check: imagesArray, and: recipesData)
+    private func getImageAndStoreRecipe(for recipesData: [RecipeInfos], at index: Int) {
+        requestsQueue[index].state = .inProgress
+        
+        RecipeService.shared.getImage(for: getImageURL(for: recipesData[index])) { (image) in
+            guard let image = image else {
+                self.requestsQueue[index].state = .failed
+                return
             }
+            
+            self.recipesManager.fillRecipe(with: self.recipesManager.convertDataToRecipe(withData: recipesData[index], and: image))
+            self.requestsQueue[index].state = .done
+            
+            self.launchImagesRequests(withData: recipesData)
         }
     }
     
-    // Check if images and recipes number is the same and fill recipes if needed
-    private func fillRecipesIfNeeded(check imagesArray: [UIImage], and recipesData: [RecipeInfos]) {
-        if imagesArray.count == recipesData.count {
-            recipesManager.fillRecipes(forKey: "Meals", with: recipesManager.convertDataToRecipes(withData: recipesData, and: imagesArray))
-            goToNextPage()
-        }
+    private func isAllRequestsDone() -> Bool {
+        return (requestsQueue.filter { $0.state == .done}).count == (requestsQueue.filter {$0.state != .failed}).count
     }
     
     // Pass data to next ViewController
@@ -96,14 +103,16 @@ class TodaysRecipeViewController: UIViewController {
         if segue.destination is TodaysRecipeTableViewController {
             let viewController = segue.destination as? TodaysRecipeTableViewController
             
-            viewController?.recipes = recipesManager.getRecipes(forKey: "Meals")
+            viewController?.recipes = recipesManager.getRecipes()
         }
     }
     
     private func goToNextPage() {
-        activityIndicator.isHidden = true
-        
         self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
+        
+        activityIndicator.isHidden = true
+        resetRequestsQueue()
+        recipesManager.removeRecipes()
     }
     
     // -----------------------------------------------------------------

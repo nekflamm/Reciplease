@@ -13,7 +13,7 @@ class AnimationManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
-    var imagesManager = ImagesManager()
+    var bannerImagesManager = BannerImagesManager()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -21,7 +21,7 @@ class AnimationManager {
     
     // Setup banner's properties and position in view
     func setupBanner(banner: UIImageView, scndBanner: UIImageView) -> UIImageView {
-        scndBanner.image = UIImage(named: imagesManager.takeAnImageName())
+        scndBanner.image = UIImage(named: bannerImagesManager.takeAnImageName())
         scndBanner.frame = CGRect(x: banner.frame.maxX, y: banner.frame.minY, width: banner.frame.width, height: banner.frame.height)
         scndBanner.contentMode = .scaleAspectFill
         scndBanner.autoresizesSubviews = true
@@ -38,7 +38,7 @@ class AnimationManager {
             banner.transform = CGAffineTransform(translationX: x, y: 0)
             secondBanner.transform = CGAffineTransform(translationX: x, y: 0)
         }) { (success) in
-            banner.image = UIImage(named: self.imagesManager.takeAnImageName())
+            banner.image = UIImage(named: self.bannerImagesManager.takeAnImageName())
             swap(&banner.image, &secondBanner.image)
             banner.transform = .identity
             secondBanner.transform = .identity

@@ -16,6 +16,7 @@ extension UIViewController {
     func displayAlert(title: String, message: String) {
         let errorAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
         self.present(errorAlert, animated: true, completion: nil)
     }
     
@@ -26,20 +27,44 @@ extension UIViewController {
     // Get image url if possible, else set default image
     func getImageURL(for recipeData: RecipeInfos) -> URL {
         var imageURL = URL(string: Constants.URL.defaultImageURL)!
-        
+
         if let firstImageURL = recipeData.smallImageUrls?.first {
             imageURL = modifyImageSizeUrl(firstImageURL)
         }
         
         return imageURL
     }
+
     
     // Remove the two lasts caracters and replace it by the iphone's width size
-    func modifyImageSizeUrl(_ imageUrl: String) -> URL {
+    private func modifyImageSizeUrl(_ imageUrl: String) -> URL {
         guard let modifyedURL = URL(string: imageUrl.replacingOccurrences(of: "=s90", with: "=s\((String(Int(Double(self.view.frame.width)))))")) else {
+            
             return URL(string: "Error")!
         }
         
         return modifyedURL
+    }
+    
+    // -----------------------------------------------------------------
+    //              MARK: - Requests Management
+    // -----------------------------------------------------------------
+    
+    func fillRequestsQueue(withNumber number: Int) {
+        for _ in 0..<number {
+            if let todaysViewController = self as? TodaysRecipeViewController {
+                todaysViewController.requestsQueue.append(Request())
+            } else if let searchViewController = self as? SearchViewController {
+                searchViewController.requestsQueue.append(Request())
+            }
+        }
+    }
+    
+    func resetRequestsQueue() {
+        if let todaysViewController = self as? TodaysRecipeViewController {
+            todaysViewController.requestsQueue.removeAll()
+        } else if let searchViewController = self as? SearchViewController {
+            searchViewController.requestsQueue.removeAll()
+        }
     }
 }

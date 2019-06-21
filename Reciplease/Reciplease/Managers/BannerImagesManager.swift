@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImagesManager {
+class BannerImagesManager {
     // -----------------------------------------------------------------
     //              MARK: - Properties
     // -----------------------------------------------------------------
