@@ -50,21 +50,21 @@ extension UIViewController {
     //              MARK: - Requests Management
     // -----------------------------------------------------------------
     
-    func fillRequestsQueue(withNumber number: Int) {
-        for _ in 0..<number {
-            if let todaysViewController = self as? TodaysRecipeViewController {
-                todaysViewController.requestsQueue.append(Request())
-            } else if let searchViewController = self as? SearchViewController {
-                searchViewController.requestsQueue.append(Request())
-            }
-        }
-    }
-    
-    func resetRequestsQueue() {
-        if let todaysViewController = self as? TodaysRecipeViewController {
-            todaysViewController.requestsQueue.removeAll()
-        } else if let searchViewController = self as? SearchViewController {
-            searchViewController.requestsQueue.removeAll()
-        }
-    }
+//    func fillRequestsQueue(withNumber number: Int) {
+//        for _ in 0..<number {
+//            if let todaysViewController = self as? TodaysRecipeViewController {
+//                todaysViewController.requestsQueue.append(Request())
+//            } else if let searchViewController = self as? SearchViewController {
+//                searchViewController.requestsQueue.append(Request())
+//            }
+//        }
+//    }
+//    
+//    func resetRequestsQueue() {
+//        if let todaysViewController = self as? TodaysRecipeViewController {
+//            todaysViewController.requestsQueue.removeAll()
+//        } else if let searchViewController = self as? SearchViewController {
+//            searchViewController.requestsQueue.removeAll()
+//        }
+//    }
 }

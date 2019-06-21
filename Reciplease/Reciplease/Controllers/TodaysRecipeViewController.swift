@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodaysRecipeViewController: UIViewController {
+class TodaysRecipeViewController: UIViewController, RequestsManagement {
     // -----------------------------------------------------------------
     //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
@@ -20,7 +20,7 @@ class TodaysRecipeViewController: UIViewController {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     private let animationManager = AnimationManager()
-    private let recipesManager = RecipesManager()
+    var recipesManager = RecipesManager()
     
     var requestsQueue = [Request]()
     private var mealSelected = "Breakfast"
@@ -65,39 +65,6 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
-    private func launchImagesRequests(withData recipesInfos: [RecipeInfos]) {
-        if !isAllRequestsDone() {
-            for (index, request) in requestsQueue.enumerated() {
-                if request.state == .waiting && (requestsQueue.filter{ $0.state == .inProgress }).count == 0 {
-                    getImageAndStoreRecipe(for: recipesInfos, at: index)
-                }
-            }
-        } else {
-            goToNextPage()
-        }
-    }
-    
-    // Get recipes images and store recipes
-    private func getImageAndStoreRecipe(for recipesData: [RecipeInfos], at index: Int) {
-        requestsQueue[index].state = .inProgress
-        
-        RecipeService.shared.getImage(for: getImageURL(for: recipesData[index])) { (image) in
-            guard let image = image else {
-                self.requestsQueue[index].state = .failed
-                return
-            }
-            
-            self.recipesManager.fillRecipe(with: self.recipesManager.convertDataToRecipe(withData: recipesData[index], and: image))
-            self.requestsQueue[index].state = .done
-            
-            self.launchImagesRequests(withData: recipesData)
-        }
-    }
-    
-    private func isAllRequestsDone() -> Bool {
-        return (requestsQueue.filter { $0.state == .done}).count == (requestsQueue.filter {$0.state != .failed}).count
-    }
-    
     // Pass data to next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is TodaysRecipeTableViewController {
@@ -107,7 +74,7 @@ class TodaysRecipeViewController: UIViewController {
         }
     }
     
-    private func goToNextPage() {
+    func goToNextPage() {
         self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
         
         activityIndicator.isHidden = true
