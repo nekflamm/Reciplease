@@ -39,7 +39,6 @@ extension RequestsManagement {
         return (requestsQueue.filter { $0.state == .done}).count == (requestsQueue.filter {$0.state != .failed}).count
     }
     
-    // Get recipes images and store recipes
     private func getImageAndStoreRecipe(for recipesData: [RecipeInfos], at index: Int) {
         requestsQueue[index].state = .inProgress
         

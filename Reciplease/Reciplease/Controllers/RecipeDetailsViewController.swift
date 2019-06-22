@@ -32,7 +32,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func setupView() {
-        checkIfRecipeIsFavorite()
+        checkIfRecipeIsAlreadyFavorite()
         
         if let recipe = recipe {
             titleLabel.text = recipe.name
@@ -44,7 +44,7 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     // Set FavoriteButton to orange if recipe is already favorite
-    private func checkIfRecipeIsFavorite() {
+    private func checkIfRecipeIsAlreadyFavorite() {
         for savedRecipe in RecipeData.all {
             if recipe?.name == savedRecipe.name {
                 favoriteButtonOutlet.tintColor = .orange

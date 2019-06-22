@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, RequestsManagement {
+class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //             MARK: - @IBOutlets
     // -----------------------------------------------------------------
@@ -27,8 +27,6 @@ class SearchViewController: UIViewController, RequestsManagement {
     private var ingredientsList = IngredientsList()
     private let animationManager = AnimationManager()
     private var secondBanner = UIImageView()
-    
-    var requestsQueue = [Request]()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -80,13 +78,38 @@ class SearchViewController: UIViewController, RequestsManagement {
                     return
                 }
                 
-                self.fillRequestsQueue(withNumber: recipesInfos.count)
-                self.launchImagesRequests(withData: recipesInfos)
+                self.getImagesAndStoreRecipes(for: recipesInfos)
             }
         } else {
             displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
         }
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
+        var images = [Int: UIImage]()
+        
+        for (i, recipeData) in recipesData.enumerated() {
+            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { (image) in
+                guard let image = image else {
+                    return
+                }
+                
+                images[i] = image
+                
+                self.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
+            }
+        }
+    }
+    
+    private func storeRecipesIfNeeded(recipesInfos: [RecipeInfos], images: [Int: UIImage]) {
+        if images.count == recipesInfos.count {
+            recipesManager.fillRecipes(with: recipesManager.convertDataToRecipes(withData: recipesInfos, and: images))
+            
+            goToNextPage()
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // Pass data to next ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -102,8 +125,8 @@ class SearchViewController: UIViewController, RequestsManagement {
         
         clearTextView()
         activityIndicator.isHidden = true
-        resetRequestsQueue()
-        recipesManager.removeRecipes()
+//        resetRequestsQueue()
+//        recipesManager.removeRecipes()
     }
     
     private func clearTextView() {
