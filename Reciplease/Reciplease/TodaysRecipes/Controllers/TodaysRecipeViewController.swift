@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodaysRecipeViewController: UIViewController, RequestsManagement {
+class TodaysRecipeViewController: UIViewController {
     // -----------------------------------------------------------------
     //              MARK: - @IBOutlets
     // -----------------------------------------------------------------
@@ -22,7 +22,6 @@ class TodaysRecipeViewController: UIViewController, RequestsManagement {
     private let animationManager = AnimationManager()
     var recipesManager = RecipesManager()
     
-    var requestsQueue = [Request]()
     private var mealSelected = "Breakfast"
     
     // -----------------------------------------------------------------
@@ -53,33 +52,51 @@ class TodaysRecipeViewController: UIViewController, RequestsManagement {
     private func getRecipes() {
         self.activityIndicator.isHidden = false
         
-        RecipeService.shared.getRecipes(nil, mealSelected) { (success, recipesInfos)   in
-            guard let recipesInfos = recipesInfos, success else {
-                self.activityIndicator.isHidden = true
-                self.displayAlert(title: "No recipes found!", message: "Please retry.")
+        RecipeService.shared.getRecipes(nil, mealSelected) { [weak self] (success, recipesData)   in
+            guard let recipesData = recipesData, success else {
+                self?.activityIndicator.isHidden = true
+                self?.displayAlert(title: "No recipes found!", message: "Please retry.")
                 return
             }
             
-            self.fillRequestsQueue(withNumber: recipesInfos.count)
-            self.launchImagesRequests(withData: recipesInfos)
+            self?.getImagesAndStoreRecipes(for: recipesData)
         }
     }
     
-    // Pass data to next ViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is TodaysRecipeTableViewController {
-            let viewController = segue.destination as? TodaysRecipeTableViewController
+    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
+        var images = [Int: UIImage]()
+        
+        for (i, recipeData) in recipesData.enumerated() {
+            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { [weak self] (image) in
+                guard let image = image else {
+                    return
+                }
+                
+                images[i] = image
+                
+                self?.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
+            }
+        }
+    }
+    
+    private func storeRecipesIfNeeded(recipesInfos: [RecipeInfos], images: [Int: UIImage]) {
+        if images.count == recipesInfos.count {
+            recipesManager.fillRecipes(with: recipesManager.convertDataToRecipes(withData: recipesInfos, and: images))
             
-            viewController?.recipes = recipesManager.getRecipes()
+            goToNextPage()
         }
     }
     
     func goToNextPage() {
-        self.performSegue(withIdentifier: "toRecipesTableView2", sender: self)
+        guard let recipesTableView = UIStoryboard(name: "RecipesTableView", bundle: nil).instantiateInitialViewController() as? RecipesTableViewController else {
+            return
+        }
+        
+        recipesTableView.recipes = recipesManager.getRecipes()
+        recipesTableView.titleName = mealSelected
+        push(recipesTableView)
         
         activityIndicator.isHidden = true
-        resetRequestsQueue()
-        recipesManager.removeRecipes()
     }
     
     // -----------------------------------------------------------------

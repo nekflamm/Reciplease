@@ -18,18 +18,9 @@ class RecipesManager {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    
-    func fillRecipe(with recipe: Recipe) {
-        recipes.append(recipe)
-    }
-    
     func fillRecipes(with recipes: [Recipe]) {
         self.recipes.removeAll()
         self.recipes = recipes
-    }
-    
-    func convertDataToRecipe(withData recipeData: RecipeInfos, and image: UIImage) -> Recipe {
-        return Recipe(name: recipeData.recipeName, ingredients: recipeData.ingredients, image: image, rating: recipeData.rating, timeInSeconds: recipeData.totalTimeInSeconds ?? 00, id: recipeData.id, isFavorite: false)
     }
     
     func convertDataToRecipes(withData recipesData: [RecipeInfos], and images: [Int: UIImage]) -> [Recipe] {
@@ -38,9 +29,5 @@ class RecipesManager {
 
     func getRecipes() -> [Recipe]? {
         return recipes
-    }
-    
-    func removeRecipes() {
-        recipes.removeAll()
     }
 }

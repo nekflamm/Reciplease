@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search-->
+        <scene sceneID="twg-q2-bm6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Search" id="YP8-yW-KxA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="ckk-XG-vDa"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5gR-P1-YxN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1122" y="-511"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="UgF-VP-TdW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Favorites" id="nK5-G2-eSi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="WO1-Xt-Y2G"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fJu-nV-jYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1122" y="-299"/>
+        </scene>
+        <!--TodaysRecipes-->
+        <scene sceneID="YRW-db-OCY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TodaysRecipes" id="lcO-js-8kP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="BZM-VG-9d1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgk-RU-7lc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1122" y="-81"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="yl2-sM-qoP">
+            <objects>
+                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="W28-zg-YXA">
+                        <rect key="frame" x="0.0" y="975" width="768" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="barTintColor" red="0.062745098039215685" green="0.062745098039215685" blue="0.062745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="YP8-yW-KxA" kind="relationship" relationship="viewControllers" id="ks9-VP-DCc"/>
+                        <segue destination="nK5-G2-eSi" kind="relationship" relationship="viewControllers" id="myp-yY-PU2"/>
+                        <segue destination="lcO-js-8kP" kind="relationship" relationship="viewControllers" id="bSh-PP-0iD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="74" y="-298"/>
+        </scene>
+    </scenes>
+</document>

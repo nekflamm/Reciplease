@@ -13,23 +13,16 @@ class RecipesTableViewController: UITableViewController {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     var recipes: [Recipe]?
-    var selectedRecipe: Recipe?
+    var titleName: String?
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         tableView.reloadData()
-    }
-    
-    // Pass data to next ViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is RecipeDetailsViewController {
-            let viewController = segue.destination as? RecipeDetailsViewController
-            
-            viewController?.recipe = selectedRecipe
-        }
+        navigationController?.title = titleName
     }
     
     // -----------------------------------------------------------------
@@ -44,9 +37,9 @@ class RecipesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
+        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)  as? RecipeTableViewCell,
             let recipe = recipes?[indexPath.row] else {
             return UITableViewCell()
         }
@@ -57,13 +50,14 @@ class RecipesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let recipe = recipes?[indexPath.row] else {
+        guard let recipe = recipes?[indexPath.row],
+            let recipeDetailsVC = UIStoryboard(name: "RecipeDetails", bundle: nil).instantiateInitialViewController() as? RecipeDetailsViewController else {
             return
         }
+
+        recipeDetailsVC.recipe = recipe
         
-        selectedRecipe = recipe
-        
-        performSegue(withIdentifier: "toRecipeDetails", sender: self)
+        push(recipeDetailsVC)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

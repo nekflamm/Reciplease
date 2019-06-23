@@ -12,21 +12,21 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //             MARK: - @IBOutlets
     // -----------------------------------------------------------------
-    
     @IBOutlet weak var globalView: UIView!
     @IBOutlet weak var banner: UIImageView!
     @IBOutlet weak var ingredientsTextField: UITextField!
-    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var introductoryLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -----------------------------------------------------------------
     //             MARK: - Properties
     // -----------------------------------------------------------------
-    var recipesManager = RecipesManager()
-    private var ingredientsList = IngredientsList()
+    private var recipesManager = RecipesManager()
     private let animationManager = AnimationManager()
     private var secondBanner = UIImageView()
+    
+    private var userIngredients = [String]()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -50,57 +50,59 @@ class SearchViewController: UIViewController {
     }
     
     private func addIngredientToList() {
-        guard let ingredientName = ingredientsTextField.text?.lowercased(), ingredientName != "" else {
+        guard let ingredient = ingredientsTextField.text?.formatted() else {
             return
         }
         
-        ingredientsList.append(ingredientName)
-        
-        guard let newIngredient = ingredientsList.all.last else {
-            return
-        }
-        
-        ingredientsTextView.text += "• \(newIngredient.replacingOccurrences(of: "+", with: " "))\n\n"
-        ingredientsTextField.text = nil
+        ingredientsTextField.text?.removeAll()
         introductoryLabel.isHidden = true
+        
+        userIngredients.append(ingredient)
+        
+        ingredientsTableView.reloadData()
     }
     
     // Get recipe with inputed ingredients
     private func getRecipes() {
-        if !ingredientsList.all.isEmpty {
-            activityIndicator.isHidden = false
-            
-            RecipeService.shared.getRecipes(ingredientsList.getAllowedIngredients(), nil) { (success, recipesInfos)   in
-                guard let recipesInfos = recipesInfos, !recipesInfos.isEmpty, success else {
-                    self.activityIndicator.isHidden = true
-                    self.clearTextView()
-                    self.displayAlert(title: "No recipes found!", message: "Please retry.")
-                    return
-                }
-                
-                self.getImagesAndStoreRecipes(for: recipesInfos)
+        guard !userIngredients.isEmpty else {
+            return displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
+        }
+        
+        activityIndicator.isHidden = false
+        
+        RecipeService.shared.getRecipes(getAllowedIngredients(), nil) { [weak self] (success, recipesData)   in
+            guard let recipesData = recipesData, !recipesData.isEmpty, success else {
+                self?.activityIndicator.isHidden = true
+                self?.clearTextView()
+                self?.displayAlert(title: "No recipes found!", message: "Please retry.")
+                return
             }
-        } else {
-            displayAlert(title: "Ingredients missing!", message: "Please enter ingredients.")
+            
+            self?.getImagesAndStoreRecipes(for: recipesData)
         }
     }
     
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func getAllowedIngredients() -> String {
+        return userIngredients.map { "&allowedIngredient[]=\($0)" }.joined()
+    }
+    
     private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
         var images = [Int: UIImage]()
         
         for (i, recipeData) in recipesData.enumerated() {
-            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { (image) in
+            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { [weak self] (image) in
                 guard let image = image else {
                     return
                 }
                 
                 images[i] = image
                 
-                self.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
+                self?.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
             }
         }
     }
+    
+    //cell.receiptImage.kf.setImage(witURL: URL(string: reciept[]index.row.imageURL))
     
     private func storeRecipesIfNeeded(recipesInfos: [RecipeInfos], images: [Int: UIImage]) {
         if images.count == recipesInfos.count {
@@ -109,31 +111,25 @@ class SearchViewController: UIViewController {
             goToNextPage()
         }
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // Pass data to next ViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is RecipesTableViewController {
-            let viewController = segue.destination as? RecipesTableViewController
-            
-            viewController?.recipes = recipesManager.getRecipes()
-        }
-    }
     
     func goToNextPage() {
-        performSegue(withIdentifier: "toRecipesTableView", sender: self)
+        guard let recipesTableView = UIStoryboard(name: "RecipesTableView", bundle: nil).instantiateInitialViewController() as? RecipesTableViewController else {
+            return
+        }
+        
+        recipesTableView.recipes = recipesManager.getRecipes()
+        recipesTableView.title = "Recipes"
+        push(recipesTableView)
         
         clearTextView()
         activityIndicator.isHidden = true
-//        resetRequestsQueue()
-//        recipesManager.removeRecipes()
     }
     
     private func clearTextView() {
-        ingredientsList.all.removeAll()
+        userIngredients.removeAll()
         
         introductoryLabel.isHidden = false
-        ingredientsTextView.text = nil
+//        ingredientsTextView.text = nil
     }
     
     // -----------------------------------------------------------------
@@ -149,13 +145,42 @@ class SearchViewController: UIViewController {
     
     @IBAction func clearButton(_ sender: UIButton) {
         clearTextView()
-        ingredientsList.all.removeAll()
     }
 }
 
 // -----------------------------------------------------------------
 //              MARK: - Extensions
 // -----------------------------------------------------------------
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userIngredients.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.register(UINib(nibName: "IngredientsCell", bundle: nil), forCellReuseIdentifier: "IngredientsCell")
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientsCell", for: indexPath)  as? IngredientTableViewCell else {
+                return UITableViewCell()
+        }
+        
+        cell.configure(with: "• \(userIngredients[indexPath.row].replacingOccurrences(of: "+", with: " "))")
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .right)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
+}
+
 extension SearchViewController: UITextFieldDelegate {
     @IBAction func hideKeyboard(_ sender: UITapGestureRecognizer) {
         ingredientsTextField.resignFirstResponder()

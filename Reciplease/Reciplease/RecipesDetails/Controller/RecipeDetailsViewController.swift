@@ -32,7 +32,9 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func setupView() {
-        checkIfRecipeIsAlreadyFavorite()
+        if isRecipeAlreadyFavorite() {
+            favoriteButtonOutlet.tintColor = .orange
+        }
         
         if let recipe = recipe {
             titleLabel.text = recipe.name
@@ -44,20 +46,23 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     // Set FavoriteButton to orange if recipe is already favorite
-    private func checkIfRecipeIsAlreadyFavorite() {
+    private func isRecipeAlreadyFavorite() -> Bool {
         for savedRecipe in RecipeData.all {
             if recipe?.name == savedRecipe.name {
-                favoriteButtonOutlet.tintColor = .orange
+                
+                return true
             }
         }
+        return false
     }
     
     private func addRecipeToFavorites() {
-        if let recipeIsFavorite = recipe?.isFavorite, !recipeIsFavorite {
-            recipe?.isFavorite = true
+        if isRecipeAlreadyFavorite() == false {
             saveRecipe()
             
             favoriteButtonOutlet.tintColor = .orange
+        } else {
+            displayAlert(title: "Fail.", message: "Recipe is already favorite.")
         }
     }
     
@@ -78,15 +83,6 @@ class RecipeDetailsViewController: UIViewController {
         }
     }
     
-    // Pass data to next ViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is WebViewController {
-            let viewController = segue.destination as? WebViewController
-            
-            viewController?.recipeID = recipe?.id
-        }
-    }
-    
     // -----------------------------------------------------------------
     //              MARK: - @IBActions
     // -----------------------------------------------------------------
@@ -95,6 +91,12 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @IBAction func getDirectionsButton(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "goToWebView", sender: self)
+        guard let webViewController = UIStoryboard(name: "WebView", bundle: nil).instantiateInitialViewController() as? WebViewController else {
+                return
+        }
+        
+        webViewController.recipeID = recipe?.id
+        
+        push(webViewController)
     }
 }
