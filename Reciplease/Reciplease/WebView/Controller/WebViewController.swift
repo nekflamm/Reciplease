@@ -20,16 +20,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     // -----------------------------------------------------------------
     var recipeID: String?
     
-    private var url: URL? {
-        if let id = recipeID,
-            let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)") {
-            
-            return url
-        }
-        
-        return nil
-    }
-    
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
@@ -40,16 +30,16 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func loadRequest() {
-        guard let url = url else {
-            return
+        guard let recipeID = recipeID else {
+            return displayAlert(title: "Error.", message: "Recipe hasn't an ID.")
         }
         
-        RecipeService.shared.getWebPageUrl(for: url) { (success, url) in
-            guard let webPageURL = url else {
-                return
+        RecipeService.shared.getRecipeWebPageUrl(for: recipeID) { [weak self] (success, url) in
+            guard success, let webPageURL = url else {
+                return self?.displayAlert(title: "Error.", message: "Fail to get web page url.") ?? ()
             }
             
-            self.webView.load(URLRequest(url: webPageURL))
+            self?.webView.load(URLRequest(url: webPageURL))
         }
     }
 }

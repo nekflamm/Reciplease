@@ -38,7 +38,9 @@ class RecipeService {
     }
     
     // Get a webPageUrl from a recipeID
-    func getWebPageUrl(for url: URL, callback: @escaping(Bool, URL?) -> Void) {
+    func getRecipeWebPageUrl(for id: String, callback: @escaping(Bool, URL?) -> Void) {
+        let url = URL(string: "http://api.yummly.com/v1/api/recipe/\(id)?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)")!
+        
         Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data,
@@ -50,13 +52,4 @@ class RecipeService {
             callback(true, urlResponse.source.sourceRecipeUrl)
         }
     }
-}
-
-// Decodable structs to decode webPageUrlResponse
-fileprivate struct URLResponse: Decodable {
-    let source: Source
-}
-fileprivate struct Source: Decodable {
-    let sourceRecipeUrl: URL
-    let sourceDisplayName: String
 }

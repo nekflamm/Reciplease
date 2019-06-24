@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+// -----------------------------------------------------------------
+//              MARK: - Recipe
+// -----------------------------------------------------------------
 struct RecipeResponse: Decodable {
     var matches: [Recipe]
 }
@@ -32,3 +35,16 @@ struct Recipe: Decodable {
         return ingredients.map { "• \($0)\n\n" }.joined()
     }
 }
+
+// -----------------------------------------------------------------
+//              MARK: - RecipeWebPageURL
+// -----------------------------------------------------------------
+struct URLResponse: Decodable {
+    let source: Source
+}
+
+struct Source: Decodable {
+    let sourceRecipeUrl: URL
+    let sourceDisplayName: String
+}
+
