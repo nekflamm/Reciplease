@@ -25,10 +25,10 @@ extension UIViewController {
     // -----------------------------------------------------------------
     
     // Get image url if possible, else set default image
-    func getImageURL(for recipeData: RecipeInfos) -> URL {
+    func getImageURL(for recipe: Recipe) -> URL {
         var imageURL = URL(string: Constants.URL.defaultImageURL)!
 
-        if let firstImageURL = recipeData.smallImageUrls?.first {
+        if let firstImageURL = recipe.smallImageUrls?.first {
             imageURL = modifyImageSizeUrl(firstImageURL)
         }
         

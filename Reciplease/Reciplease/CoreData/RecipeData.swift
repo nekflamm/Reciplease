@@ -28,13 +28,12 @@ class RecipeData: NSManagedObject {
     static func dataToRecipe(for index: Int) -> Recipe? {
         guard let name = all[index].name,
             let ingredients = all[index].ingredients,
-            let imageData = all[index].image,
-            let image = UIImage(data: imageData),
+            let imageURL = all[index].imageURL,
             let id = all[index].id else {
                 
             return nil
         }
         
-        return Recipe(name: name, ingredients: ingredients, image: image, rating: Int(all[index].rating), timeInSeconds: Int(all[index].timeInSeconds), id: id, isFavorite: false)
+        return Recipe(recipeName: name, ingredients: ingredients, smallImageUrls: imageURL, rating: Int(all[index].rating), totalTimeInSeconds: Int(all[index].timeInSeconds), id: id)
     }
 }

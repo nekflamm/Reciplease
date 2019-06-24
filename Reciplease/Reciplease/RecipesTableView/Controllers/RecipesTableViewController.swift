@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
@@ -20,7 +21,7 @@ class RecipesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tableView.reloadData()
         navigationController?.title = titleName
     }
@@ -44,7 +45,10 @@ class RecipesTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.configure(with: recipe)
+        let imageView = UIImageView()
+        imageView.kf.setImage(with: getImageURL(for: recipe))
+        
+        cell.configure(with: recipe, and: imageView)
         
         return cell
     }

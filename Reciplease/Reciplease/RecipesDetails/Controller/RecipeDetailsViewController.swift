@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecipeDetailsViewController: UIViewController {
     // -----------------------------------------------------------------
@@ -36,19 +37,21 @@ class RecipeDetailsViewController: UIViewController {
             favoriteButtonOutlet.tintColor = .orange
         }
         
-        if let recipe = recipe {
-            titleLabel.text = recipe.name
+        if let recipe = recipe,
+            let time = recipe.totalTimeInSeconds {
+            
+            titleLabel.text = recipe.recipeName
             ingredientsTextView.text = recipe.ingredientsToList
-            imageView.image = recipe.image
+            imageView.kf.setImage(with: getImageURL(for: recipe))
             rateLabel.text = String(recipe.rating)
-            timeLabel.text = "\(String(recipe.timeInSeconds / 60))m"
+            timeLabel.text = "\(String(time / 60))m"
         }
     }
     
     // Set FavoriteButton to orange if recipe is already favorite
     private func isRecipeAlreadyFavorite() -> Bool {
         for savedRecipe in RecipeData.all {
-            if recipe?.name == savedRecipe.name {
+            if recipe?.recipeName == savedRecipe.name {
                 
                 return true
             }
@@ -70,14 +73,12 @@ class RecipeDetailsViewController: UIViewController {
         if let recipe = recipe {
             let recipeData = RecipeData(context: AppDelegate.viewContext)
             
-            recipeData.name = recipe.name
+            recipeData.name = recipe.recipeName
             recipeData.ingredients = recipe.ingredients
-            recipeData.ingredientsList = recipe.followingIngredients
-            recipeData.image = recipe.image.pngData()
+            recipeData.imageURL = recipe.smallImageUrls
             recipeData.rating = Int16(recipe.rating)
-            recipeData.timeInSeconds = Int16(recipe.timeInSeconds)
+            recipeData.timeInSeconds = Int16(recipe.totalTimeInSeconds ?? 0)
             recipeData.id = recipe.id
-            recipeData.isFavorite = recipe.isFavorite
             
             try? AppDelegate.viewContext.save()
         }

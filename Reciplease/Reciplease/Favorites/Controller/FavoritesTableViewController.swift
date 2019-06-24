@@ -20,6 +20,7 @@ class FavoritesTableViewController: UITableViewController {
     // -----------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         tableView.reloadData()
     }
     
@@ -41,14 +42,18 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "mainCell")
+        tableView.register(UINib(nibName: "RecipeCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "mainCell", for: indexPath)  as? RecipeTableViewCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)  as? RecipeTableViewCell,
             let recipe = RecipeData.dataToRecipe(for: indexPath.row) else {
+                print("Fail to create favorite cell")
             return UITableViewCell()
         }
         
-        cell.configure(with: recipe)
+        let imageView = UIImageView()
+        imageView.kf.setImage(with: getImageURL(for: recipe))
+        
+        cell.configure(with: recipe, and: imageView)
         
         return cell
     }

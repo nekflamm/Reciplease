@@ -22,8 +22,10 @@ class RecipeService {
     private init() {}
     
     // Get a list of recipes from a list of ingredients
-    func getRecipes(_ ingredients: String?, _ meal: String?, callback: @escaping(Bool, [RecipeInfos]?) -> Void) {
-        Alamofire.request(getIngredientsOrMealURL(ingredients, meal)).responseJSON { (response) in
+    func getRecipes(for searchParameters: String, callback: @escaping(Bool, [Recipe]?) -> Void) {
+        let url = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)&requirePictures=true&q=\(searchParameters)&maxResult=50")!
+        
+        Alamofire.request(url).responseJSON { (response) in
             guard response.result.isSuccess,
                 let data = response.data,
                 let recipesData = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
@@ -32,19 +34,6 @@ class RecipeService {
             }
             
             callback(true, recipesData.matches)
-        }
-    }
-    
-    // Get image from an url
-    func getImage(for url: URL, callback: @escaping ((UIImage?) -> Void)) {
-        Alamofire.request(url).responseImage { (response) in
-            guard response.result.isSuccess,
-                let image = response.result.value else {
-                    callback(nil)
-                    return
-            }
-            
-            callback(image)
         }
     }
     
@@ -60,23 +49,6 @@ class RecipeService {
             
             callback(true, urlResponse.source.sourceRecipeUrl)
         }
-    }
-    
-    // Check if getRecipes is called from Search or Todays ViewController and return good url
-    private func getIngredientsOrMealURL(_ ingredients: String?, _ meal: String?) -> URL {
-        var url = URL(string: "")
-        
-        if let ingredients = ingredients,
-            let ingredientsURL = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)&requirePictures=true\(ingredients)&maxResult=50") {
-            url = ingredientsURL
-        } else {
-            if let meal = meal,
-                let mealURL = URL(string: "https://api.yummly.com/v1/api/recipes?_app_id=\(Constants.APIKeys.appID)&_app_key=\(Constants.APIKeys.appKey)&requirePictures=true&q=\(meal)&maxResult=35") {
-                url = mealURL
-            }
-        }
-        
-        return url!
     }
 }
 

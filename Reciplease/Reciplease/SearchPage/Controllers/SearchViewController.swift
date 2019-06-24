@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
@@ -22,11 +23,11 @@ class SearchViewController: UIViewController {
     // -----------------------------------------------------------------
     //             MARK: - Properties
     // -----------------------------------------------------------------
-    private var recipesManager = RecipesManager()
     private let animationManager = AnimationManager()
     private var secondBanner = UIImageView()
     
     private var userIngredients = [String]()
+    private var recipes = [Recipe]()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -70,46 +71,25 @@ class SearchViewController: UIViewController {
         
         activityIndicator.isHidden = false
         
-        RecipeService.shared.getRecipes(getAllowedIngredients(), nil) { [weak self] (success, recipesData)   in
-            guard let recipesData = recipesData, !recipesData.isEmpty, success else {
-                self?.activityIndicator.isHidden = true
-                self?.clearTextView()
-                self?.displayAlert(title: "No recipes found!", message: "Please retry.")
+        RecipeService.shared.getRecipes(for: getAllowedIngredients()) { [weak self] (success, recipes)   in
+            guard let recipes = recipes, !recipes.isEmpty, success else {
+                self?.getRecipesHasFailed()
                 return
             }
             
-            self?.getImagesAndStoreRecipes(for: recipesData)
-        }
-    }
-    
-    func getAllowedIngredients() -> String {
-        return userIngredients.map { "&allowedIngredient[]=\($0)" }.joined()
-    }
-    
-    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
-        var images = [Int: UIImage]()
-        
-        for (i, recipeData) in recipesData.enumerated() {
-            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { [weak self] (image) in
-                guard let image = image else {
-                    return
-                }
-                
-                images[i] = image
-                
-                self?.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
-            }
-        }
-    }
-    
-    //cell.receiptImage.kf.setImage(witURL: URL(string: reciept[]index.row.imageURL))
-    
-    private func storeRecipesIfNeeded(recipesInfos: [RecipeInfos], images: [Int: UIImage]) {
-        if images.count == recipesInfos.count {
-            recipesManager.fillRecipes(with: recipesManager.convertDataToRecipes(withData: recipesInfos, and: images))
+            self?.recipes = recipes
             
-            goToNextPage()
+            self?.goToNextPage()
         }
+    }
+    
+    private func getAllowedIngredients() -> String {
+        return String(userIngredients.map { "\($0), " }.joined().dropLast(2))
+    }
+    
+    private func getRecipesHasFailed() {
+        activityIndicator.isHidden = true
+        displayAlert(title: "No recipes found!", message: "Please retry.")
     }
     
     func goToNextPage() {
@@ -117,19 +97,21 @@ class SearchViewController: UIViewController {
             return
         }
         
-        recipesTableView.recipes = recipesManager.getRecipes()
+        recipesTableView.recipes = recipes
         recipesTableView.title = "Recipes"
+        
         push(recipesTableView)
         
-        clearTextView()
-        activityIndicator.isHidden = true
+        clearPage()
     }
     
-    private func clearTextView() {
-        userIngredients.removeAll()
-        
+    private func clearPage() {
         introductoryLabel.isHidden = false
-//        ingredientsTextView.text = nil
+        activityIndicator.isHidden = true
+        
+        userIngredients.removeAll()
+        ingredientsTableView.reloadData()
+        
     }
     
     // -----------------------------------------------------------------
@@ -144,7 +126,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func clearButton(_ sender: UIButton) {
-        clearTextView()
+        clearPage()
     }
 }
 

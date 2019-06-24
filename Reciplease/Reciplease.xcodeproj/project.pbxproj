@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A0A324A21FA20D900D8CC32 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0A324921FA20D900D8CC32 /* SearchViewController.swift */; };
-		3A19CE8E22BA62F900580E90 /* RecipesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19CE8D22BA62F900580E90 /* RecipesManager.swift */; };
 		3A19CEA522BFB19E00580E90 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A19CEA422BFB19E00580E90 /* Search.storyboard */; };
 		3A19CEA822BFB34000580E90 /* Favorites.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A19CEA722BFB34000580E90 /* Favorites.storyboard */; };
 		3A19CEAB22BFB37700580E90 /* TodaysRecipes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A19CEAA22BFB37700580E90 /* TodaysRecipes.storyboard */; };
@@ -59,7 +58,6 @@
 
 /* Begin PBXFileReference section */
 		3A0A324921FA20D900D8CC32 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3A19CE8D22BA62F900580E90 /* RecipesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesManager.swift; sourceTree = "<group>"; };
 		3A19CEA422BFB19E00580E90 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		3A19CEA722BFB34000580E90 /* Favorites.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorites.storyboard; sourceTree = "<group>"; };
 		3A19CEAA22BFB37700580E90 /* TodaysRecipes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TodaysRecipes.storyboard; sourceTree = "<group>"; };
@@ -398,7 +396,6 @@
 			children = (
 				3AA228D22221A8DB0093AAB5 /* AnimationsManager.swift */,
 				3AE6DBDC22269B3A0053F741 /* BannerImagesManager.swift */,
-				3A19CE8D22BA62F900580E90 /* RecipesManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -616,7 +613,6 @@
 				3A854B9622B7C38F000BE71E /* Constants.swift in Sources */,
 				3AB6DBDB21FE461500F02C4E /* RecipeTableViewCell.swift in Sources */,
 				3A41DE1521FA017000501748 /* RecipesTableViewController.swift in Sources */,
-				3A19CE8E22BA62F900580E90 /* RecipesManager.swift in Sources */,
 				3A19CEBD22C0267100580E90 /* IngredientTableViewCell.swift in Sources */,
 				3A41DE1921FA03A500501748 /* FavoritesTableViewController.swift in Sources */,
 				3AE6DBDD22269B3A0053F741 /* BannerImagesManager.swift in Sources */,

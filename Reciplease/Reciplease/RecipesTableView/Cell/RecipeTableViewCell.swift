@@ -22,11 +22,14 @@ class RecipeTableViewCell: UITableViewCell {
     // -----------------------------------------------------------------
     //              MARK: - Methods
     // -----------------------------------------------------------------
-    func configure(with recipe:  Recipe) {
-        recipeNameLabel.text = recipe.name
+    func configure(with recipe:  Recipe, and imageView: UIImageView) {
+        if let time = recipe.totalTimeInSeconds {
+            timeLabel.text = "\(String(time / 60))m"
+        }
+        recipeNameLabel.text = recipe.recipeName
         ingredientsLabel.text = recipe.followingIngredients
-        cellImageView.image = recipe.image
+        cellImageView.image = imageView.image
         ratingLabel.text = String(recipe.rating)
-        timeLabel.text = "\(String(recipe.timeInSeconds / 60))m"
+//        timeLabel.text = "\(String(recipe.totalTimeInSeconds! / 60))m"
     }
 }

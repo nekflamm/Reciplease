@@ -20,9 +20,9 @@ class TodaysRecipeViewController: UIViewController {
     //              MARK: - Properties
     // -----------------------------------------------------------------
     private let animationManager = AnimationManager()
-    var recipesManager = RecipesManager()
     
     private var mealSelected = "Breakfast"
+    private var recipes = [Recipe]()
     
     // -----------------------------------------------------------------
     //              MARK: - Methods
@@ -52,50 +52,28 @@ class TodaysRecipeViewController: UIViewController {
     private func getRecipes() {
         self.activityIndicator.isHidden = false
         
-        RecipeService.shared.getRecipes(nil, mealSelected) { [weak self] (success, recipesData)   in
-            guard let recipesData = recipesData, success else {
+        RecipeService.shared.getRecipes(for: mealSelected) { [weak self] (success, recipes)   in
+            guard let recipes = recipes, success else {
                 self?.activityIndicator.isHidden = true
                 self?.displayAlert(title: "No recipes found!", message: "Please retry.")
                 return
             }
             
-            self?.getImagesAndStoreRecipes(for: recipesData)
-        }
-    }
-    
-    private func getImagesAndStoreRecipes(for recipesData: [RecipeInfos]) {
-        var images = [Int: UIImage]()
-        
-        for (i, recipeData) in recipesData.enumerated() {
-            RecipeService.shared.getImage(for: getImageURL(for: recipeData)) { [weak self] (image) in
-                guard let image = image else {
-                    return
-                }
-                
-                images[i] = image
-                
-                self?.storeRecipesIfNeeded(recipesInfos: recipesData, images: images)
-            }
-        }
-    }
-    
-    private func storeRecipesIfNeeded(recipesInfos: [RecipeInfos], images: [Int: UIImage]) {
-        if images.count == recipesInfos.count {
-            recipesManager.fillRecipes(with: recipesManager.convertDataToRecipes(withData: recipesInfos, and: images))
+            self?.recipes = recipes
             
-            goToNextPage()
+            self?.goToNextPage()
         }
     }
     
-    func goToNextPage() {
+    private func goToNextPage() {
         guard let recipesTableView = UIStoryboard(name: "RecipesTableView", bundle: nil).instantiateInitialViewController() as? RecipesTableViewController else {
             return
         }
-        
-        recipesTableView.recipes = recipesManager.getRecipes()
+
+        recipesTableView.recipes = recipes
         recipesTableView.titleName = mealSelected
         push(recipesTableView)
-        
+
         activityIndicator.isHidden = true
     }
     

@@ -9,17 +9,17 @@
 import Foundation
 import UIKit
 
-struct Recipe {
-    // -----------------------------------------------------------------
-    //              MARK: - Properties
-    // -----------------------------------------------------------------
-    var name: String
-    var ingredients: [String]
-    var image: UIImage
-    var rating: Int
-    var timeInSeconds: Int
-    var id: String
-    var isFavorite = false
+struct RecipeResponse: Decodable {
+    var matches: [Recipe]
+}
+
+struct Recipe: Decodable {
+    let recipeName: String
+    let ingredients: [String]
+    let smallImageUrls: [String]?
+    let rating: Int
+    let totalTimeInSeconds: Int?
+    let id: String
     
     var followingIngredients: String {
         var followingIngredients = ingredients.joined(separator: ", ")
@@ -31,18 +31,4 @@ struct Recipe {
     var ingredientsToList: String {
         return ingredients.map { "• \($0)\n\n" }.joined()
     }
-}
-
-// Decodable structs to decode recipes response
-struct RecipeResponse: Decodable {
-    var matches: [RecipeInfos]
-}
-
-struct RecipeInfos: Decodable {
-    let smallImageUrls: [String]?
-    let ingredients: [String]
-    let id: String
-    let recipeName: String
-    let totalTimeInSeconds: Int?
-    let rating: Int
 }
