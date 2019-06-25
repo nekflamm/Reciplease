@@ -23,6 +23,8 @@ class RecipeTableViewCell: UITableViewCell {
     //              MARK: - Methods
     // -----------------------------------------------------------------
     func configure(with recipe:  Recipe, and imageView: UIImageView) {
+        self.selectionStyle = .none
+        
         if let time = recipe.totalTimeInSeconds {
             timeLabel.text = "\(String(time / 60))m"
         }
@@ -30,6 +32,5 @@ class RecipeTableViewCell: UITableViewCell {
         ingredientsLabel.text = recipe.followingIngredients
         cellImageView.image = imageView.image
         ratingLabel.text = String(recipe.rating)
-//        timeLabel.text = "\(String(recipe.totalTimeInSeconds! / 60))m"
     }
 }

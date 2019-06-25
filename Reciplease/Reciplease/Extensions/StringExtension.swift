@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func formatted() -> String {
+    func formatted() -> String? {
         let trimedIngredient = self.trimmingCharacters(in: .whitespacesAndNewlines)
         let formattedIngredient = trimedIngredient.replacingOccurrences(of: " ", with: "+")
         
@@ -17,6 +17,6 @@ extension String {
             return formattedIngredient
         }
         
-        return "Error"
+        return nil
     }
 }

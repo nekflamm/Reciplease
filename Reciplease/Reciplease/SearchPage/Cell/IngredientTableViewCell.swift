@@ -13,6 +13,7 @@ class IngredientTableViewCell: UITableViewCell {
     
     func configure(with ingredient: String) {
         self.layer.backgroundColor = UIColor.clear.cgColor
+        self.selectionStyle = .none
         
         ingredientLabel.text = ingredient
     }

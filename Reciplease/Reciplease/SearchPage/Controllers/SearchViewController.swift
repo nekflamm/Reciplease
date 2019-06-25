@@ -52,12 +52,12 @@ class SearchViewController: UIViewController {
     
     private func addIngredientToList() {
         guard let ingredient = ingredientsTextField.text?.formatted() else {
-            return
+            ingredientsTextField.text?.removeAll()
+            return displayAlert(title: "Ingredient missing.", message: "Please enter an ingredient.")
         }
         
-        ingredientsTextField.text?.removeAll()
         introductoryLabel.isHidden = true
-        
+        ingredientsTextField.text?.removeAll()
         userIngredients.append(ingredient)
         
         ingredientsTableView.reloadData()
@@ -78,7 +78,6 @@ class SearchViewController: UIViewController {
             }
             
             self?.recipes = recipes
-            
             self?.goToNextPage()
         }
     }
@@ -92,7 +91,7 @@ class SearchViewController: UIViewController {
         displayAlert(title: "No recipes found!", message: "Please retry.")
     }
     
-    func goToNextPage() {
+    private func goToNextPage() {
         guard let recipesTableView = UIStoryboard(name: "RecipesTableView", bundle: nil).instantiateInitialViewController() as? RecipesTableViewController else {
             return
         }
@@ -108,8 +107,8 @@ class SearchViewController: UIViewController {
     private func clearPage() {
         introductoryLabel.isHidden = false
         activityIndicator.isHidden = true
-        
         userIngredients.removeAll()
+        
         ingredientsTableView.reloadData()
         
     }
@@ -155,6 +154,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        userIngredients.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .right)
     }
     
